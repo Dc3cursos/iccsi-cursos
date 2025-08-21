@@ -1,0 +1,407 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Previsualizar Certificado DC-3{% endblock %}
+
+{% block extra_css %}
+<style>
+    .preview-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
+    
+    .certificate-preview {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin: 0 auto;
+        max-width: 800px;
+        position: relative;
+    }
+    
+    .certificate-header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .certificate-header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 300;
+    }
+    
+    .certificate-content {
+        padding: 40px;
+        font-family: 'Times New Roman', serif;
+        line-height: 1.6;
+    }
+    
+    .certificate-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    .certificate-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #7f8c8d;
+        margin-bottom: 40px;
+        font-style: italic;
+    }
+    
+    .info-section {
+        margin-bottom: 30px;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+    
+    .info-row {
+        display: flex;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+    
+    .info-label {
+        font-weight: bold;
+        color: #34495e;
+        min-width: 200px;
+        margin-right: 20px;
+    }
+    
+    .info-value {
+        color: #2c3e50;
+        flex: 1;
+    }
+    
+    .signature-section {
+        margin-top: 50px;
+        text-align: center;
+    }
+    
+    .signature-placeholder {
+        border: 2px dashed #bdc3c7;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        background: #f8f9fa;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7f8c8d;
+        font-style: italic;
+    }
+    
+    .certificate-footer {
+        background: #ecf0f1;
+        padding: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #7f8c8d;
+    }
+    
+    .action-buttons {
+        text-align: center;
+        margin-top: 30px;
+        padding: 20px;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+    
+    .btn-secondary:hover {
+        background: #5a6268;
+        transform: translateY(-2px);
+    }
+    
+    .btn-success {
+        background: #28a745;
+        color: white;
+    }
+    
+    .btn-success:hover {
+        background: #218838;
+        transform: translateY(-2px);
+    }
+    
+    .certificate-border {
+        border: 3px solid #2c3e50;
+        border-radius: 10px;
+        margin: 20px;
+        position: relative;
+    }
+    
+    .certificate-border::before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border: 1px solid #3498db;
+        border-radius: 12px;
+        z-index: -1;
+    }
+    
+    .watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        font-size: 4rem;
+        color: rgba(52, 152, 219, 0.1);
+        font-weight: bold;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .certificate-number {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #3498db;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+    
+    @media print {
+        .action-buttons {
+            display: none;
+        }
+        
+        .preview-container {
+            background: white;
+            padding: 0;
+        }
+        
+        .certificate-preview {
+            box-shadow: none;
+            border-radius: 0;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="preview-container">
+    <div class="certificate-preview">
+        <div class="certificate-header">
+            <h1>👁️ Previsualización del Certificado DC-3</h1>
+        </div>
+        
+        <div class="certificate-border">
+            <div class="watermark">PREVIEW</div>
+            <div class="certificate-number">DC-3-{{ data.apellido_paterno|slice:":3" }}-{{ data.apellido_materno|slice:":3" }}-{{ data.nombres|slice:":3" }}</div>
+            
+            <div class="certificate-content">
+                <div class="certificate-title">
+                    Certificado de Competencias Laborales
+                </div>
+                <div class="certificate-subtitle">
+                    Constancia de Capacitación DC-3
+                </div>
+                
+                <!-- Información del Trabajador -->
+                <div class="info-section">
+                    <div class="section-title">📋 Información del Trabajador</div>
+                    <div class="info-row">
+                        <span class="info-label">Apellido Paterno:</span>
+                        <span class="info-value">{{ data.apellido_paterno }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Apellido Materno:</span>
+                        <span class="info-value">{{ data.apellido_materno }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Nombre(s):</span>
+                        <span class="info-value">{{ data.nombres }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">CURP:</span>
+                        <span class="info-value">{{ data.curp }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Puesto o Cargo:</span>
+                        <span class="info-value">{{ data.puesto }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ocupación:</span>
+                        <span class="info-value">{{ data.ocupacion }}</span>
+                    </div>
+                </div>
+                
+                <!-- Información del Curso -->
+                <div class="info-section">
+                    <div class="section-title">📚 Información del Curso</div>
+                    <div class="info-row">
+                        <span class="info-label">Nombre del Curso:</span>
+                        <span class="info-value">{{ data.nombre_curso }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Duración:</span>
+                        <span class="info-value">{{ data.horas_curso }} horas</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Área Temática:</span>
+                        <span class="info-value">{{ data.area_tematica }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Fecha de Inicio:</span>
+                        <span class="info-value">{{ data.fecha_inicio|date:"d/m/Y" }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Fecha de Finalización:</span>
+                        <span class="info-value">{{ data.fecha_fin|date:"d/m/Y" }}</span>
+                    </div>
+                </div>
+                
+                <!-- Información de la Empresa -->
+                <div class="info-section">
+                    <div class="section-title">🏢 Información de la Empresa</div>
+                    <div class="info-row">
+                        <span class="info-label">Razón Social:</span>
+                        <span class="info-value">{{ data.nombre_empresa }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">RFC:</span>
+                        <span class="info-value">{{ data.rfc_empresa }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Representante Legal:</span>
+                        <span class="info-value">{{ data.representante_legal }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Representante Trabajadores:</span>
+                        <span class="info-value">{{ data.representante_trabajadores }}</span>
+                    </div>
+                </div>
+                
+                <!-- Información del Instructor -->
+                <div class="info-section">
+                    <div class="section-title">👨‍🏫 Información del Instructor</div>
+                    <div class="info-row">
+                        <span class="info-label">Instructor:</span>
+                        <span class="info-value">{{ data.instructor_nombre }}</span>
+                    </div>
+                </div>
+                
+                <!-- Firma Electrónica -->
+                <div class="signature-section">
+                    <div class="section-title">✍️ Firma Electrónica</div>
+                    <div class="signature-placeholder">
+                        [Firma Electrónica del Representante Legal]
+                    </div>
+                    <p><strong>Fecha de Emisión:</strong> {% now "d/m/Y" %}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="certificate-footer">
+            <p><strong>ICCSI - Instituto de Capacitación y Certificación</strong></p>
+            <p>Agente Capacitador: Fraternidad Migratoria A.C. | Registro: Fmi111006-4q2-0013</p>
+            <p>Este documento es generado electrónicamente y es válido para trámites oficiales</p>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{% url 'llenar_plantilla_dc3_sistema' %}" class="btn btn-secondary">
+            🔄 Volver a Editar
+        </a>
+        <button onclick="window.print()" class="btn btn-success">
+            🖨️ Imprimir Vista Previa
+        </button>
+        <form method="post" action="{% url 'llenar_plantilla_dc3_sistema' %}" style="display: inline;">
+            {% csrf_token %}
+            {% for field in form %}
+                <input type="hidden" name="{{ field.name }}" value="{{ field.value|default:'' }}">
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">
+                📄 Generar PDF Final
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Función para imprimir
+function printCertificate() {
+    window.print();
+}
+
+// Función para generar PDF final
+function generateFinalPDF() {
+    // Mostrar loading
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => btn.disabled = true);
+    
+    // Enviar formulario
+    document.querySelector('form').submit();
+}
+
+// Validar que todos los campos estén completos
+document.addEventListener('DOMContentLoaded', function() {
+    const requiredFields = document.querySelectorAll('.info-value');
+    let allComplete = true;
+    
+    requiredFields.forEach(field => {
+        if (!field.textContent.trim()) {
+            allComplete = false;
+            field.style.color = '#e74c3c';
+        }
+    });
+    
+    if (!allComplete) {
+        alert('⚠️ Algunos campos están vacíos. Por favor, completa toda la información antes de generar el certificado.');
+    }
+});
+</script>
+{% endblock %}

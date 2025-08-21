@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Panel de Usuario{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm mt-4">
+      <div class="card-body text-center">
+        <h2 class="card-title mb-3">¡Bienvenido, {{ usuario.username }}!</h2>
+        <p class="lead">Tu rol es: <span class="badge bg-info text-dark">{{ usuario.get_rol_display }}</span></p>
+        <hr>
+        <div class="d-grid gap-2">
+          <a href="{% url 'lista_cursos' %}" class="btn btn-primary">Ver Cursos Disponibles</a>
+          {% if usuario.rol == 'profesor' %}
+            <a href="{% url 'crear_curso' %}" class="btn btn-success">Crear Nuevo Curso</a>
+          {% endif %}
+          {% if usuario.rol == 'alumno' %}
+            <a href="{% url 'mis_cursos' %}" class="btn btn-secondary">Mis Cursos</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

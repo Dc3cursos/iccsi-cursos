@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}Mapear Folio - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-map-marker-alt"></i> Mapear Posición del Folio
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle"></i> Instrucciones</h5>
+                        <p>Ajusta las coordenadas para posicionar el folio en el PDF del certificado DC-3.</p>
+                        <ul>
+                            <li><strong>Folio Superior:</strong> Se muestra en la esquina superior derecha del certificado</li>
+                            <li><strong>Folio Inferior:</strong> Se muestra en la parte inferior central del certificado</li>
+                            <li><strong>Tamaño de Fuente:</strong> Controla el tamaño del texto del folio</li>
+                        </ul>
+                    </div>
+
+                    <form method="post" action="{% url 'generar_con_mapeo_folio' %}">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-primary"><i class="fas fa-arrow-up"></i> Folio Superior (Esquina Superior Derecha)</h5>
+                                <div class="form-group mb-3">
+                                    <label for="x_superior" class="form-label">Coordenada X:</label>
+                                    <input type="number" class="form-control" id="x_superior" name="x_superior" 
+                                           value="470" min="0" max="800" step="1" required>
+                                    <div class="form-text">Posición horizontal (0-800)</div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="y_superior" class="form-label">Coordenada Y:</label>
+                                    <input type="number" class="form-control" id="y_superior" name="y_superior" 
+                                           value="770" min="0" max="800" step="1" required>
+                                    <div class="form-text">Posición vertical (0-800)</div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="tamano_fuente_superior" class="form-label">Tamaño de Fuente:</label>
+                                    <input type="number" class="form-control" id="tamano_fuente_superior" name="tamano_fuente_superior" 
+                                           value="10" min="8" max="24" step="1" required>
+                                    <div class="form-text">Tamaño del texto (8-24)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5 class="text-primary"><i class="fas fa-arrow-down"></i> Folio Inferior (Parte Inferior Central)</h5>
+                                <div class="form-group mb-3">
+                                    <label for="x_inferior" class="form-label">Coordenada X:</label>
+                                    <input type="number" class="form-control" id="x_inferior" name="x_inferior" 
+                                           value="10" min="0" max="800" step="1" required>
+                                    <div class="form-text">Posición horizontal (0-800)</div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="y_inferior" class="form-label">Coordenada Y:</label>
+                                    <input type="number" class="form-control" id="y_inferior" name="y_inferior" 
+                                           value="90" min="0" max="800" step="1" required>
+                                    <div class="form-text">Posición vertical (0-800)</div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="tamano_fuente_inferior" class="form-label">Tamaño de Fuente:</label>
+                                    <input type="number" class="form-control" id="tamano_fuente_inferior" name="tamano_fuente_inferior" 
+                                           value="8" min="8" max="24" step="1" required>
+                                    <div class="form-text">Tamaño del texto (8-24)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-exclamation-triangle"></i> Notas Importantes:</h6>
+                            <ul class="mb-0">
+                                <li>Las coordenadas se miden desde la esquina inferior izquierda del PDF</li>
+                                <li>X aumenta hacia la derecha, Y aumenta hacia arriba</li>
+                                <li>El folio se genera automáticamente en formato: <code>DC3-YYYY-XXXXX</code></li>
+                                <li>Prueba diferentes valores hasta encontrar la posición ideal</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'llenar_plantilla_dc3_sistema' %}" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-file-pdf"></i> Generar PDF de Prueba
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

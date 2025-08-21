@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Datos para Certificado DC-3{% endblock %}
+{% block content %}
+<h2>Datos para tu Certificado DC-3</h2>
+<form method="post" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-4">
+      <label class="form-label">Apellido paterno</label>
+      {{ form.apellido_paterno }}
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Apellido materno</label>
+      {{ form.apellido_materno }}
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Nombre(s)</label>
+      {{ form.nombres }}
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">CURP</label>
+      {{ form.curp }}
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Puesto</label>
+      {{ form.puesto }}
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Horas del curso</label>
+      {{ form.horas_curso }}
+    </div>
+    <div class="col-12"><hr/></div>
+    <div class="col-md-6">
+      <label class="form-label">Nombre de la empresa</label>
+      {{ form.nombre_empresa }}
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">RFC de la empresa</label>
+      {{ form.rfc_empresa }}
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Representante legal</label>
+      {{ form.representante_legal }}
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Representante de los trabajadores</label>
+      {{ form.representante_trabajadores }}
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Guardar Certificado</button>
+      <a class="btn btn-link" href="{% url 'mis_cursos' %}">Omitir y volver a mis cursos</a>
+    </div>
+</form>
+{% endblock %}

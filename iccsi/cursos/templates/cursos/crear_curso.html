@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Crear Curso{% endblock %}
+{% block content %}
+<h2>Crear Curso</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Crear Curso</button>
+</form>
+<a href="{% url 'panel_usuario' %}">Volver al panel</a>
+{% endblock %}

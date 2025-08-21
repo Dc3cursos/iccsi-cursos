@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Plantillas PDF - DC3{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">📄 Plantillas PDF para Certificados DC-3</h2>
+            
+            <div class="alert alert-info">
+                <h5>📋 Instrucciones:</h5>
+                <ol>
+                    <li>Descarga la plantilla PDF que necesites</li>
+                    <li>Llena el formulario manualmente</li>
+                    <li>Guarda el archivo llenado</li>
+                    <li>Sube el archivo llenado para procesarlo</li>
+                </ol>
+            </div>
+            
+            <div class="row">
+                <!-- Plantilla Fraternidad -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">🏢 Fraternidad Migratoria A.C.</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                Plantilla para certificados de Fraternidad Migratoria A.C.
+                            </p>
+                            <ul class="list-unstyled">
+                                <li>✅ Formato oficial</li>
+                                <li>✅ Campos predefinidos</li>
+                                <li>✅ Listo para llenar</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'descargar_plantilla_pdf' 'fraternidad' %}" 
+                               class="btn btn-primary btn-block">
+                                📥 Descargar Plantilla Fraternidad
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plantilla CPI -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">🏛️ CPI (Centro de Población)</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                Plantilla para certificados de CPI.
+                            </p>
+                            <ul class="list-unstyled">
+                                <li>✅ Formato oficial</li>
+                                <li>✅ Campos predefinidos</li>
+                                <li>✅ Listo para llenar</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'descargar_plantilla_pdf' 'cpi' %}" 
+                               class="btn btn-success btn-block">
+                                📥 Descargar Plantilla CPI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                                    <!-- Sección para llenar PDF en el sistema -->
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">🖥️ Llenar PDF en el Sistema</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <strong>Recomendado:</strong> Llena el certificado directamente en el sistema web con firma electrónica protegida.
+                                        </p>
+                                        <ul class="list-unstyled">
+                                            <li>✅ Firma electrónica integrada y protegida</li>
+                                            <li>✅ No se descarga el PDF hasta que esté completo</li>
+                                            <li>✅ Previsualización en tiempo real</li>
+                                            <li>✅ Certificado oficial y válido</li>
+                                        </ul>
+                                        <a href="{% url 'llenar_pdf_en_sistema' %}" 
+                                           class="btn btn-success btn-lg">
+                                            🖥️ Llenar en el Sistema
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección para subir PDF llenado -->
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header bg-warning text-dark">
+                                        <h5 class="mb-0">📤 Procesar PDF Llenado</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            ¿Ya tienes un PDF llenado? Sube el archivo para procesarlo automáticamente.
+                                        </p>
+                                        <a href="{% url 'procesar_pdf_llenado' %}" 
+                                           class="btn btn-warning btn-lg">
+                                            🔄 Procesar PDF Llenado
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+            <!-- Botón de regreso -->
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-secondary">
+                        ← Volver al Generador Automático
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

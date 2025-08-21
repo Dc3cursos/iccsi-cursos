@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Procesar PDF Llenado - DC3{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">📤 Procesar PDF Llenado</h2>
+            
+            <div class="alert alert-info">
+                <h5>📋 Instrucciones:</h5>
+                <ol>
+                    <li>Sube el archivo PDF que ya llenaste</li>
+                    <li>El sistema extraerá los datos automáticamente</li>
+                    <li>Revisa y confirma la información</li>
+                    <li>Genera el certificado final</li>
+                </ol>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">📄 Subir PDF Llenado</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="pdf_file">Seleccionar archivo PDF:</label>
+                            <input type="file" 
+                                   class="form-control-file" 
+                                   id="pdf_file" 
+                                   name="pdf_file" 
+                                   accept=".pdf"
+                                   required>
+                            <small class="form-text text-muted">
+                                Solo archivos PDF. Tamaño máximo: 10MB
+                            </small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tipo_plantilla">Tipo de plantilla:</label>
+                            <select class="form-control" id="tipo_plantilla" name="tipo_plantilla" required>
+                                <option value="">Selecciona el tipo de plantilla...</option>
+                                <option value="fraternidad">🏢 Fraternidad Migratoria A.C.</option>
+                                <option value="cpi">🏛️ CPI (Centro de Población)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="curso">Curso relacionado:</label>
+                            <select class="form-control" id="curso" name="curso" required>
+                                <option value="">Selecciona el curso...</option>
+                                {% for curso in cursos %}
+                                <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notas">Notas adicionales (opcional):</label>
+                            <textarea class="form-control" 
+                                      id="notas" 
+                                      name="notas" 
+                                      rows="3"
+                                      placeholder="Agrega cualquier nota o comentario adicional..."></textarea>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="confirmar" name="confirmar" required>
+                            <label class="form-check-label" for="confirmar">
+                                Confirmo que el archivo PDF está correctamente llenado y es legible
+                            </label>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-warning btn-lg">
+                                🔄 Procesar PDF
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Información adicional -->
+            <div class="card mt-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">ℹ️ Información Importante</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li>✅ El sistema extraerá automáticamente los datos del PDF</li>
+                        <li>✅ Podrás revisar y editar la información antes de generar el certificado</li>
+                        <li>✅ El archivo original se mantendrá como respaldo</li>
+                                                            <li>✅ El certificado final se generará en formato PDF (.pdf)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Botones de navegación -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <a href="{% url 'lista_cursos' %}" class="btn btn-secondary btn-block">
+                        ← Volver a Plantillas PDF
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-primary btn-block">
+                        🎯 Generador Automático
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

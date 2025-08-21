@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registro Requerido - {{ curso.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-plus"></i> Registro Requerido
+                    </h3>
+                </div>
+                <div class="card-body text-center p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+                        <h4 class="text-dark">Acceso Restringido</h4>
+                        <p class="lead text-muted">
+                            Para ver los detalles completos de este curso, necesitas crear una cuenta.
+                        </p>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h5 class="card-title text-info">
+                                        <i class="fas fa-graduation-cap"></i> Curso Seleccionado
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ curso.nombre }}</h6>
+                                    <p class="card-text">
+                                        <strong>Organización:</strong> {{ curso.organizacion.nombre|default:"No especificada" }}<br>
+                                        <strong>Duración:</strong> {{ curso.duracion_horas|default:"No especificada" }} horas<br>
+                                        <strong>Profesor:</strong> {{ curso.profesor.get_full_name|default:"No especificado" }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-success">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success">
+                                        <i class="fas fa-check-circle"></i> Beneficios del Registro
+                                    </h5>
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success"></i> Acceso completo a todos los cursos</li>
+                                        <li><i class="fas fa-check text-success"></i> Inscripción automática</li>
+                                        <li><i class="fas fa-check text-success"></i> Certificados DC-3 automáticos</li>
+                                        <li><i class="fas fa-check text-success"></i> Seguimiento de progreso</li>
+                                        <li><i class="fas fa-check text-success"></i> Historial de certificados</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>¿Por qué registrarse?</strong> Al crear una cuenta, tendrás acceso completo a todos nuestros cursos, 
+                        podrás inscribirte automáticamente y recibir certificados DC-3 oficiales al completar cada curso.
+                    </div>
+
+                    <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                        <a href="{% url 'registro_alumno' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-user-plus"></i> Crear Cuenta
+                        </a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
+                        <a href="{% url 'lista_cursos' %}" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-arrow-left"></i> Volver al Catálogo
+                        </a>
+                    </div>
+
+                    <div class="mt-4">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt"></i> Tu información está segura con nosotros. 
+                            Solo utilizamos tus datos para gestionar tu formación y certificados.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-2px);
+}
+.btn {
+    transition: all 0.3s;
+}
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}

@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Catálogo de Cursos - ICCSI{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title animate-fade-in-up">Catálogo de Cursos</h1>
+            <p class="hero-subtitle animate-slide-in-left">Descubre nuestra amplia gama de cursos profesionales y certificaciones DC-3</p>
+            <div class="hero-stats d-flex justify-content-center gap-4 mt-4">
+                <div class="stat-item">
+                    <div class="stat-number">{{ total }}</div>
+                    <div class="stat-label">Cursos Disponibles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">{{ organizaciones.count }}</div>
+                    <div class="stat-label">Organizaciones</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Certificados</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Welcome Alert -->
+{% if not user.is_authenticated %}
+<div class="container mb-4">
+    <div class="alert alert-info alert-dismissible fade show animate-fade-in-up" role="alert">
+        <div class="d-flex align-items-center">
+            <div class="alert-icon me-3">
+                <i class="fas fa-graduation-cap fa-2x"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="alert-heading mb-2">¡Bienvenido al catálogo de cursos ICCSI!</h5>
+                <p class="mb-2">Explora nuestra amplia gama de cursos profesionales y certificaciones DC-3. Para inscribirte y acceder a todos los beneficios, crea una cuenta o inicia sesión.</p>
+                <div class="d-flex gap-2">
+                    <a href="{% url 'registro_alumno' %}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-user-plus me-1"></i>Crear Cuenta
+                    </a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{% endif %}
+
+<!-- Filtros Mejorados -->
+<div class="container mb-5">
+    <div class="filters-card">
+        <div class="filters-header">
+            <h3 class="filters-title">
+                <i class="fas fa-filter me-2"></i>Filtros y Búsqueda
+            </h3>
+            <p class="filters-subtitle">Encuentra el curso perfecto para ti</p>
+        </div>
+        
+        <form method="get" class="filters-form">
+            <div class="row g-3">
+                <div class="col-12 col-md-3">
+                    <label class="form-label">
+                        <i class="fas fa-building me-1"></i>Organización
+                    </label>
+                    <select name="org" class="form-select">
+                        <option value="">Todas las organizaciones</option>
+                        {% for org in organizaciones %}
+                            <option value="{{ org.id }}" {% if selected_org|stringformat:'s' == org.id|stringformat:'s' %}selected{% endif %}>{{ org.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="col-6 col-md-2">
+                    <label class="form-label">
+                        <i class="fas fa-clock me-1"></i>Horas mín.
+                    </label>
+                    <input type="number" name="hmin" value="{{ hmin }}" class="form-control" min="0" step="1" placeholder="0" />
+                </div>
+                
+                <div class="col-6 col-md-2">
+                    <label class="form-label">
+                        <i class="fas fa-clock me-1"></i>Horas máx.
+                    </label>
+                    <input type="number" name="hmax" value="{{ hmax }}" class="form-control" min="0" step="1" placeholder="200" />
+                </div>
+                
+                <div class="col-12 col-md-3">
+                    <label class="form-label">
+                        <i class="fas fa-search me-1"></i>Buscar
+                    </label>
+                    <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Nombre, descripción u organización" />
+                </div>
+                
+                <div class="col-12 col-md-2">
+                    <label class="form-label">
+                        <i class="fas fa-sort me-1"></i>Ordenar
+                    </label>
+                    <select name="sort" class="form-select">
+                        <option value="-fecha" {% if sort == '-fecha' %}selected{% endif %}>Más recientes</option>
+                        <option value="fecha" {% if sort == 'fecha' %}selected{% endif %}>Más antiguos</option>
+                        <option value="-horas" {% if sort == '-horas' %}selected{% endif %}>Más horas</option>
+                        <option value="horas" {% if sort == 'horas' %}selected{% endif %}>Menos horas</option>
+                        <option value="nombre" {% if sort == 'nombre' %}selected{% endif %}>A-Z</option>
+                        <option value="-nombre" {% if sort == '-nombre' %}selected{% endif %}>Z-A</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filters-actions">
+                <div class="d-flex gap-2 align-items-center">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-1"></i>Aplicar Filtros
+                    </button>
+                    <a href="?" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-1"></i>Limpiar
+                    </a>
+                    <a class="btn btn-outline-success" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}format=csv" title="Exportar a CSV">
+                        <i class="fas fa-download me-1"></i>Exportar
+                    </a>
+                </div>
+                <div class="results-count">
+                    <span class="badge bg-primary">{{ total }} cursos encontrados</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Lista de Cursos -->
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for curso in cursos %}
+            <div class="col">
+                <div class="card h-100 curso-card animate-fade-in-up" style="animation-delay: {{ forloop.counter0|multiply:0.1 }}s;">
+                    <!-- Imagen del curso -->
+                    <div class="card-img-wrapper">
+                        {% if curso.imagen %}
+                            <img src="{{ curso.imagen.url }}" class="card-img-top" alt="Imagen del curso {{ curso.nombre }}" loading="lazy">
+                        {% else %}
+                            <div class="card-img-placeholder">
+                                <i class="fas fa-graduation-cap fa-3x"></i>
+                                <p>Sin imagen</p>
+                            </div>
+                        {% endif %}
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                {% if user.is_authenticated and user.rol == 'profesor' and curso.profesor == user %}
+                                    <a href="{% url 'editar_curso' curso.id %}" class="btn btn-light btn-sm">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
+                                {% elif user.is_authenticated and user.rol == 'alumno' %}
+                                    <form action="{% url 'inscribirse_curso' curso.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-user-plus"></i> Inscribirse
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye"></i> Ver Detalles
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenido de la tarjeta -->
+                    <div class="card-body">
+                        <div class="card-header-info">
+                            <span class="badge bg-primary">{{ curso.duracion_horas }} horas</span>
+                            {% if curso.organizacion %}
+                                <span class="badge bg-secondary">{{ curso.organizacion.nombre|truncatechars:20 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <h5 class="card-title">{{ curso.nombre|truncatechars:80 }}</h5>
+                        <p class="card-text">{{ curso.descripcion|truncatechars:120 }}</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>{{ curso.profesor.username }}</span>
+                            </div>
+                            {% if curso.organizacion %}
+                                <div class="meta-item">
+                                    <i class="fas fa-building"></i>
+                                    <span>{{ curso.organizacion.nombre }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Footer de la tarjeta -->
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="course-stats">
+                                <span class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    {{ curso.duracion_horas }}h
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-certificate"></i>
+                                    DC-3
+                                </span>
+                            </div>
+                            
+                            <div class="card-actions">
+                                {% if user.is_authenticated and user.rol == 'profesor' and curso.profesor == user %}
+                                    <a href="{% url 'editar_curso' curso.id %}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                {% elif user.is_authenticated and user.rol == 'alumno' %}
+                                    <form action="{% url 'inscribirse_curso' curso.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Inscribirse
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Ver Detalles
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-search fa-3x"></i>
+                    </div>
+                    <h3>No se encontraron cursos</h3>
+                    <p>Intenta ajustar los filtros de búsqueda o contacta con nosotros para más información.</p>
+                    <a href="?" class="btn btn-primary">
+                        <i class="fas fa-refresh me-1"></i>Limpiar Filtros
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if is_paginated %}
+  <div class="container mt-5">
+    <nav aria-label="Paginación" class="pagination-wrapper">
+      <div class="pagination-info">
+        <span class="pagination-text">
+          Mostrando página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+        <span class="pagination-total">
+          ({{ page_obj.paginator.count }} cursos totales)
+        </span>
+      </div>
+      
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}page={{ page_obj.previous_page_number }}" title="Página anterior">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link" title="Página anterior">
+              <i class="fas fa-chevron-left"></i>
+            </span>
+          </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if num == page_obj.number %}
+            <li class="page-item active">
+              <span class="page-link">{{ num }}</span>
+            </li>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item">
+              <a class="page-link" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}page={{ num }}">{{ num }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}page={{ page_obj.next_page_number }}" title="Página siguiente">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link" title="Página siguiente">
+              <i class="fas fa-chevron-right"></i>
+            </span>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+{% endif %}
+{% endblock %}

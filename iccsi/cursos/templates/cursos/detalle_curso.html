@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ curso.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ curso.nombre }}</h2>
+                    <p class="text-muted">Profesor: {{ curso.profesor.username }}</p>
+                    
+                    {% if curso.imagen %}
+                        <img src="{{ curso.imagen.url }}" class="img-fluid mb-3" alt="Imagen del curso">
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <h5>Descripción</h5>
+                        <p>{{ curso.descripcion|linebreaks }}</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Duración:</strong> {{ curso.duracion_horas }} horas
+                        </div>
+                        {% if curso.organizacion %}
+                        <div class="col-md-6">
+                            <strong>Organización:</strong> {{ curso.organizacion.nombre }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if curso.video %}
+                    <div class="mb-3">
+                        <h5>Video del curso</h5>
+                        <video controls class="w-100">
+                            <source src="{{ curso.video.url }}" type="video/mp4">
+                            Tu navegador no soporta el elemento video.
+                        </video>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Acciones</h5>
+                    <div class="d-grid gap-2">
+                        {% if inscripcion %}
+                                                    {% if certificado_existe %}
+                            <button class="btn btn-secondary" disabled>
+                                <i class="fas fa-check-circle me-2"></i>Certificado ya generado
+                            </button>
+                            {% if certificado_info %}
+                                <small class="text-muted">
+                                    Generado el {{ certificado_info.fecha_generacion }}<br>
+                                    Folio: {{ certificado_info.folio }}
+                                </small>
+                                <a href="{% url 'descargar_certificado' inscripcion.id %}" class="btn btn-primary mt-2">
+                                    <i class="fas fa-download me-2"></i>Descargar Certificado
+                                </a>
+                            {% else %}
+                                <small class="text-muted">Solo se permite un certificado por inscripción</small>
+                            {% endif %}
+                            {% else %}
+                                <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-success">
+                                    <i class="fas fa-certificate me-2"></i>Generar Certificado DC-3
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'inscribirse_curso' curso.id %}" class="btn btn-primary">
+                                <i class="fas fa-user-plus me-2"></i>Inscribirse al curso
+                            </a>
+                            <small class="text-muted d-block mt-2">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Debes inscribirte al curso para poder generar el certificado
+                            </small>
+                        {% endif %}
+                        
+                        <a href="{% url 'lista_cursos' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Volver a cursos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

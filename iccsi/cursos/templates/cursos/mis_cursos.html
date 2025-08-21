@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Mis Cursos{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-graduation-cap me-2"></i>Mis Cursos</h2>
+                <div class="text-end">
+                    <div class="badge bg-info fs-6">{{ certificados_generados }}/{{ total_inscripciones }} certificados generados</div>
+                </div>
+            </div>
+            
+            {% if inscripciones %}
+                <div class="row">
+                    {% for inscripcion in inscripciones %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ inscripcion.curso.nombre }}</h5>
+                                <p class="card-text text-muted">{{ inscripcion.curso.descripcion|truncatewords:20 }}</p>
+                                
+                                <div class="row text-center mb-3">
+                                    <div class="col-6">
+                                        <small class="text-muted">Duración</small>
+                                        <div class="fw-bold">{{ inscripcion.curso.duracion_horas }} horas</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Certificado</small>
+                                        <div class="fw-bold">
+                                            {% if inscripcion.certificado %}
+                                                <span class="badge bg-success">Certificado Generado</span>
+                                            {% else %}
+                                                <span class="badge bg-warning">Generar Certificado</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'detalle_curso' inscripcion.curso.id %}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Ver detalles
+                                    </a>
+                                    {% if not inscripcion.certificado %}
+                                        <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-success btn-sm">
+                                            <i class="fas fa-certificate me-1"></i>Generar Certificado
+                                        </a>
+                                    {% else %}
+                                        <button class="btn btn-secondary btn-sm" disabled>
+                                            <i class="fas fa-check-circle me-1"></i>Certificado Generado
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <small>Inscrito el {{ inscripcion.fecha_inscripcion|date:"d/m/Y" }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-book-open fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No tienes cursos inscritos</h4>
+                    <p class="text-muted">Explora nuestra oferta de cursos y comienza tu formación profesional.</p>
+                    <a href="{% url 'lista_cursos' %}" class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>Ver cursos disponibles
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s ease-in-out;
+    border: none;
+    border-radius: 0.75rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.badge {
+    font-size: 0.75rem;
+}
+
+.btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    border-radius: 0 0 0.75rem 0.75rem !important;
+}
+</style>
+{% endblock %}

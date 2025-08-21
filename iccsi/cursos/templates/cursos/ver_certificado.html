@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Certificado DC-3{% endblock %}
+{% block content %}
+<div class="d-print-none mb-3 d-flex gap-2">
+  <a href="{% url 'mis_cursos' %}" class="btn btn-secondary">Volver</a>
+  <button class="btn btn-primary" onclick="window.print()">Imprimir / Guardar PDF</button>
+  <a href="{% url 'ver_certificado_texto' cert.id %}" class="btn btn-outline-dark">Copiar DC-3 (texto)</a>
+  <a href="{% url 'descargar_certificado_pdf' cert.id %}" class="btn btn-success">Descargar PDF</a>
+  <a href="{% url 'descargar_certificado_docx' cert.id %}" class="btn btn-outline-primary">Descargar Word (.docx)</a>
+  <a href="{% url 'lista_cursos' %}" class="btn btn-outline-secondary ms-auto">Ver cursos</a>
+  </div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h3 class="mb-3">Constancia de habilidades laborales (DC-3)</h3>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div><strong>Alumno:</strong> {{ alumno.get_full_name|default:alumno.username }}</div>
+        <div><strong>CURP:</strong> {{ cert.curp }}</div>
+        <div><strong>Puesto:</strong> {{ cert.puesto }}</div>
+      </div>
+      <div class="col-md-6">
+        <div><strong>Empresa:</strong> {% if empresa %}{{ empresa.nombre }}{% else %}-{% endif %}</div>
+        <div><strong>RFC:</strong> {% if empresa %}{{ empresa.rfc }}{% else %}-{% endif %}</div>
+        <div><strong>Representante legal:</strong> {% if empresa %}{{ empresa.representante_legal }}{% else %}-{% endif %}</div>
+        <div><strong>Rep. de trabajadores:</strong> {% if empresa %}{{ empresa.representante_trabajadores }}{% else %}-{% endif %}</div>
+      </div>
+    </div>
+
+    <hr />
+    <div class="row g-3">
+      <div class="col-md-8">
+        <div><strong>Curso:</strong> {{ curso.nombre }}</div>
+        <div class="text-secondary small">{% if curso.organizacion %}{{ curso.organizacion.nombre }}{% endif %}</div>
+      </div>
+      <div class="col-md-4">
+        <div><strong>Horas:</strong> {{ cert.horas_curso }}</div>
+        <div><strong>Fecha emisión:</strong> {{ cert.fecha_emision|date:'Y-m-d' }}</div>
+      </div>
+    </div>
+
+    <div class="mt-4 text-muted small">
+      Fecha de impresión: {{ hoy|date:'Y-m-d' }}
+    </div>
+  </div>
+</div>
+
+<style>
+@media print {
+  .navbar, .footer, .d-print-none { display: none !important; }
+  body { background: #fff; }
+}
+</style>
+{% endblock %}
+
+
