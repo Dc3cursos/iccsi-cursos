@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapeo de Caracteres Individuales - DC-3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .section h3 {
+            color: #34495e;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .character-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background: white;
+        }
+        .character-input label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .coordinate-inputs {
+            display: flex;
+            gap: 5px;
+        }
+        .coordinate-inputs input {
+            width: 50px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 24px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .info-box {
+            background-color: #e8f4fd;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .info-box h4 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .example {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Mapeo de Caracteres Individuales - DC-3</h1>
+        
+        <div class="info-box">
+            <h4>📋 Instrucciones:</h4>
+            <p>Para cada carácter de CURP, RFC y fechas, define las coordenadas X e Y exactas donde debe aparecer en tu plantilla PDF.</p>
+            <p><strong>Ejemplo:</strong> Si quieres que el primer carácter del CURP aparezca en la posición X:100, Y:200, llena esos valores.</p>
+        </div>
+
+        <form action="/cursos/dc3/generar-con-caracteres-individuales/" method="POST">
+            {% csrf_token %}
+            
+            <!-- CURP -->
+            <div class="section">
+                <h3>🔤 CURP (18 caracteres)</h3>
+                <div class="example">
+                    <strong>Ejemplo:</strong> AUMF970410HDFGNR02
+                </div>
+                <div class="character-grid">
+                    <div class="character-input">
+                        <label>CURP[0]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_0_x" placeholder="X" value="43">
+                            <input type="number" name="curp_0_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[1]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_1_x" placeholder="X" value="49">
+                            <input type="number" name="curp_1_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[2]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_2_x" placeholder="X" value="55">
+                            <input type="number" name="curp_2_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[3]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_3_x" placeholder="X" value="61">
+                            <input type="number" name="curp_3_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[4]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_4_x" placeholder="X" value="67">
+                            <input type="number" name="curp_4_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[5]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_5_x" placeholder="X" value="73">
+                            <input type="number" name="curp_5_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[6]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_6_x" placeholder="X" value="79">
+                            <input type="number" name="curp_6_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[7]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_7_x" placeholder="X" value="85">
+                            <input type="number" name="curp_7_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[8]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_8_x" placeholder="X" value="91">
+                            <input type="number" name="curp_8_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[9]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_9_x" placeholder="X" value="97">
+                            <input type="number" name="curp_9_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[10]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_10_x" placeholder="X" value="103">
+                            <input type="number" name="curp_10_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[11]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_11_x" placeholder="X" value="109">
+                            <input type="number" name="curp_11_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[12]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_12_x" placeholder="X" value="115">
+                            <input type="number" name="curp_12_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[13]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_13_x" placeholder="X" value="121">
+                            <input type="number" name="curp_13_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[14]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_14_x" placeholder="X" value="127">
+                            <input type="number" name="curp_14_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[15]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_15_x" placeholder="X" value="133">
+                            <input type="number" name="curp_15_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[16]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_16_x" placeholder="X" value="139">
+                            <input type="number" name="curp_16_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>CURP[17]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="curp_17_x" placeholder="X" value="145">
+                            <input type="number" name="curp_17_y" placeholder="Y" value="593">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RFC -->
+            <div class="section">
+                <h3>🏢 RFC (13 caracteres)</h3>
+                <div class="example">
+                    <strong>Ejemplo:</strong> ADMINITRACION
+                </div>
+                <div class="character-grid">
+                    <div class="character-input">
+                        <label>RFC[0]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_0_x" placeholder="X" value="43">
+                            <input type="number" name="rfc_0_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[1]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_1_x" placeholder="X" value="49">
+                            <input type="number" name="rfc_1_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[2]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_2_x" placeholder="X" value="55">
+                            <input type="number" name="rfc_2_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[3]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_3_x" placeholder="X" value="61">
+                            <input type="number" name="rfc_3_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[4]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_4_x" placeholder="X" value="67">
+                            <input type="number" name="rfc_4_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[5]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_5_x" placeholder="X" value="73">
+                            <input type="number" name="rfc_5_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[6]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_6_x" placeholder="X" value="79">
+                            <input type="number" name="rfc_6_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[7]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_7_x" placeholder="X" value="85">
+                            <input type="number" name="rfc_7_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[8]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_8_x" placeholder="X" value="91">
+                            <input type="number" name="rfc_8_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[9]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_9_x" placeholder="X" value="97">
+                            <input type="number" name="rfc_9_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[10]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_10_x" placeholder="X" value="103">
+                            <input type="number" name="rfc_10_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[11]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_11_x" placeholder="X" value="109">
+                            <input type="number" name="rfc_11_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>RFC[12]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="rfc_12_x" placeholder="X" value="115">
+                            <input type="number" name="rfc_12_y" placeholder="Y" value="496">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fecha Inicio -->
+            <div class="section">
+                <h3>📅 Fecha Inicio (10 caracteres: YYYY/MM/DD)</h3>
+                <div class="example">
+                    <strong>Ejemplo:</strong> 2025/08/16
+                </div>
+                <div class="character-grid">
+                    <div class="character-input">
+                        <label>FECHA_INI[0]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_0_x" placeholder="X" value="257">
+                            <input type="number" name="fecha_ini_0_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[1]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_1_x" placeholder="X" value="263">
+                            <input type="number" name="fecha_ini_1_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[2]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_2_x" placeholder="X" value="269">
+                            <input type="number" name="fecha_ini_2_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[3]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_3_x" placeholder="X" value="275">
+                            <input type="number" name="fecha_ini_3_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[4]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_4_x" placeholder="X" value="281">
+                            <input type="number" name="fecha_ini_4_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[5]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_5_x" placeholder="X" value="287">
+                            <input type="number" name="fecha_ini_5_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[6]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_6_x" placeholder="X" value="293">
+                            <input type="number" name="fecha_ini_6_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[7]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_7_x" placeholder="X" value="299">
+                            <input type="number" name="fecha_ini_7_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[8]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_8_x" placeholder="X" value="305">
+                            <input type="number" name="fecha_ini_8_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_INI[9]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_ini_9_x" placeholder="X" value="311">
+                            <input type="number" name="fecha_ini_9_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fecha Fin -->
+            <div class="section">
+                <h3>📅 Fecha Fin (10 caracteres: YYYY/MM/DD)</h3>
+                <div class="example">
+                    <strong>Ejemplo:</strong> 2025/08/16
+                </div>
+                <div class="character-grid">
+                    <div class="character-input">
+                        <label>FECHA_FIN[0]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_0_x" placeholder="X" value="427">
+                            <input type="number" name="fecha_fin_0_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[1]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_1_x" placeholder="X" value="433">
+                            <input type="number" name="fecha_fin_1_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[2]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_2_x" placeholder="X" value="439">
+                            <input type="number" name="fecha_fin_2_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[3]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_3_x" placeholder="X" value="445">
+                            <input type="number" name="fecha_fin_3_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[4]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_4_x" placeholder="X" value="451">
+                            <input type="number" name="fecha_fin_4_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[5]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_5_x" placeholder="X" value="457">
+                            <input type="number" name="fecha_fin_5_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[6]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_6_x" placeholder="X" value="463">
+                            <input type="number" name="fecha_fin_6_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[7]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_7_x" placeholder="X" value="469">
+                            <input type="number" name="fecha_fin_7_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[8]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_8_x" placeholder="X" value="475">
+                            <input type="number" name="fecha_fin_8_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                    <div class="character-input">
+                        <label>FECHA_FIN[9]</label>
+                        <div class="coordinate-inputs">
+                            <input type="number" name="fecha_fin_9_x" placeholder="X" value="481">
+                            <input type="number" name="fecha_fin_9_y" placeholder="Y" value="416">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">🎯 Generar PDF con Caracteres Individuales</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='/cursos/dc3/llenar-en-sistema/'">🔙 Volver al Sistema Principal</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Auto-completar coordenadas secuenciales
+        function autoCompleteCoordinates() {
+            // CURP - 18 caracteres
+            for (let i = 0; i < 18; i++) {
+                const xInput = document.querySelector(`input[name="curp_${i}_x"]`);
+                const yInput = document.querySelector(`input[name="curp_${i}_y"]`);
+                if (xInput && yInput) {
+                    xInput.value = 43 + (i * 6);
+                    yInput.value = 593;
+                }
+            }
+            
+            // RFC - 13 caracteres
+            for (let i = 0; i < 13; i++) {
+                const xInput = document.querySelector(`input[name="rfc_${i}_x"]`);
+                const yInput = document.querySelector(`input[name="rfc_${i}_y"]`);
+                if (xInput && yInput) {
+                    xInput.value = 43 + (i * 6);
+                    yInput.value = 496;
+                }
+            }
+            
+            // Fecha Inicio - 10 caracteres
+            for (let i = 0; i < 10; i++) {
+                const xInput = document.querySelector(`input[name="fecha_ini_${i}_x"]`);
+                const yInput = document.querySelector(`input[name="fecha_ini_${i}_y"]`);
+                if (xInput && yInput) {
+                    xInput.value = 257 + (i * 6);
+                    yInput.value = 416;
+                }
+            }
+            
+            // Fecha Fin - 10 caracteres
+            for (let i = 0; i < 10; i++) {
+                const xInput = document.querySelector(`input[name="fecha_fin_${i}_x"]`);
+                const yInput = document.querySelector(`input[name="fecha_fin_${i}_y"]`);
+                if (xInput && yInput) {
+                    xInput.value = 427 + (i * 6);
+                    yInput.value = 416;
+                }
+            }
+        }
+        
+        // Auto-completar al cargar la página
+        window.onload = autoCompleteCoordinates;
+    </script>
+</body>
+</html>

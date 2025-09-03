@@ -1,0 +1,46 @@
+{
+  "name": "ICCSI - Plataforma de Cursos Avanzados",
+  "description": "Plataforma web para gestión de cursos de capacitación laboral con certificaciones DC-3",
+  "repository": "https://github.com/TU_USUARIO/iccsi-cursos",
+  "logo": "https://via.placeholder.com/150x150/007bff/ffffff?text=ICCSI",
+  "keywords": ["django", "python", "cursos", "capacitacion", "dc3"],
+  "website": "https://tu-proyecto-iccsi.railway.app",
+  "env": {
+    "SECRET_KEY": {
+      "description": "Clave secreta de Django",
+      "generator": "secret"
+    },
+    "DEBUG": {
+      "description": "Modo debug",
+      "value": "False"
+    },
+    "DATABASE_URL": {
+      "description": "URL de la base de datos PostgreSQL",
+      "value": "postgres://localhost/iccsi"
+    },
+    "STRIPE_PUBLISHABLE_KEY": {
+      "description": "Clave pública de Stripe",
+      "required": false
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Clave secreta de Stripe",
+      "required": false
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  }
+}

@@ -1,0 +1,1046 @@
+{
+  "Fraternidad Migratoria": [
+    {
+      "curso": "ELABORACION DE PROGRAMAS DE PROTECCION CIVIL",
+      "horas": 10
+    },
+    {
+      "curso": "INTEGRACION DE EQUIPOS EN EMERGENCIAS DE SISMOS",
+      "horas": 10
+    },
+    {
+      "curso": "EQUIPOS DE EMERGENCIAS EN EVACUACION ENNCENDIOS",
+      "horas": 10
+    },
+    {
+      "curso": "NOMA OFICIAL MEXICANA NOM-001-STPS- 2008, EDIFICIOS, LOCALES, INSTALACIONES Y AREAS EN LOS CENTROS DE TRABAJO CONDICIONES DE SEGURIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-002-STPS- 2010 CONDICIONES DE SEGURIDAD- PREVENCION Y PROTECCION CONTRA INCENDIOS EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-003-STPS- 1999, ACTIVIDADES AGRICOLAS-USO DE INSUMOS FITOSANITARIOS O PLAGUICIDAS E INSUMOS DE NUTRICION VEGETAL O FERTILIZANTES-CONDICIONES DE SEGURIDAD E HIGIENE. NORMA OFICIAL MEXICANA NOM-004-STPS- 1999 SISTEMAS DE PROTECCION Y DISPOSITIVOS DE SEGURIDAD EN LA MAQUINARIA Y EQUIPO QUE SE UTILICE EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-005-STPS-1998. RELATIVA A LAS CONDICIONES DE SEGURIDAD E HIGIENE EN LOS CENTROS DE TRABAJO PARA EL MANEJO, TRANSPORTE Y ALMACENAMIENTO DE SUSTANCIAS QUIMICAS PELIGROSAS",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-006-STPS- 2014 MANEJO Y ALMACENAMIENTO DE MATERIALES-CONDICIONES DE SEGURIDAD Y SALUD EN EL TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-007-STPS- 2000, ACTIVIDADES AGRÍCOLAS- INSTALACIONES, MAQUINARIA, EQUIPO Y HERRAMIENTAS-CONDICIONES DE SEGURIDAD. NORMA OFICIAL MEXICANA NOM-008-STPS- 2001, ACTIVIDADES DE APROVECHAMIENTO FORESTAL MADERABLE Y DE ASERRADEROS- CONDICIONES DE SEGURIDAD E HIGIENE NORMA OFICIAL MEXICANA NOM-009-STPS- 2011, CONDICIONES DE SEGURIDAD PARA REALIZAR TRABAJOS EN ALTURAS",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-010-STPS- 1999, CONDICIONES DE SEGURIDAD E HIGIENE EN LOS CENTROS DE TRABAJO DONDE SE MANEJEN, TRANSPORTEN, PROCESEN O ALMACENEN SUSTANCIAS QUIMICAS CAPACES DE GENERAR CONTAMINACION EN EL MEDIO AMBIENTE LABORAL",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-011-STPS-2001, CONDICIONES DE SEGURIDAD E HIGIENE EN LOS CENTROS DE TRABAJO DONDE SE GENERE RUIDO NORMA OFICIAL MEXICANA NOM-012-STPS- 2012, CONDICIONES DE SEGURIDAD Y SALUD EN LOS CENTROS DE TRABAJO DONDE SE MANEJEN FUENTES DE RADIACION IONIZANTE",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-013-STPS- 1993 RELATIVA A LAS CONDICIONES DE SEGURIDAD E HIGIENE EN LOS CENTROS DE TRABAJO DONDE SE GENEREN RADIACIONES ELECTROMAGNETICAS NO IONIZANTES",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-014-STPS- 2000 EXPOSICION LABORAL A PRESIONES AMBIENTALES ANORMALES.CONDICIONES DE SEGURIDAD E HIGIENE",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-015-STPS- 2001, CONDICIONES TERMICAS ELEVADAS O ABATIDAS-CONDICIONES DE SEGURIDAD E HIGIENE",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-016-STPS- 2001, OPERACION Y MANTENIMIENTO DE FERROCARRILES.CONDICIONES DE SEGURIDAD E HIGIENE",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-017-STPS- 2008, EQUIPO DE PROTECCION PERSONAL- SELECCION, USO Y MANEJO EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-018-STPS- 2015, SISTEMA ARMONIZADO PARA LA IDENTIFICACION Y COMUNICACION DE PELIGROS Y RIESGOS POR SUSTANCIAS QUIMICAS PELIGROSAS EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-019-STPS- 2011, CONSTITUCION, INTEGRACION, ORGANIZACION Y FUNCIONAMIENTO DE LAS COMISIONES DE SEGURIDAD E HIGIENE",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-020-STPS- 2011, RECIPIENTES SUJETOS A PRESION, RECIPIENTES CRIOGENICOS Y GENERADORES DE VAPOR O CALDERAS-FUNCIONAMIENTO- CONDICIONES DE SEGURIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-021-STPS- 1994, RELATIVA A LOS REQUERIMIENTOS Y CARACTERISTICAS DE LOS INFORMES DE LOS RIESGOS DE TRABAJO QUE OCURRAN, PARA INTEGRAR LAS ESTADISTICAS",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-022-STPS- 2008, ELECTRICIDAD ESTATICA EN LOS CENTROS DE TRABAJO-CONDICIONES DE SEGURIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-023-STPS- 2012, MINAS SUBTERRANEAS Y MINAS A CIELO ABIERTO-CONDICIONES DE SEGURIDAD Y SALUD EN EL TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-024-STPS- 2001, VIBRACIONES-CONDICIONES DE SEGURIDAD E HIGIENE EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-025-STPS- 2008, CONDICIONES DE ILUMINACION EN LOS CENTROS DE TRABAJO NORMA OFICIAL MEXICANA NOM-026-STPS- 2008, COLORES Y SEÑALES DE SEGURIDAD E HIGIENE E IDENTIFICACION DE RIESGOS POR FLUIDOS CONDUCIDOS EN TUBERIAS",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-027-STPS- 2008, ACTIVIDADES DE SOLDADURA Y CORTE-CONDICIONES DE SEGURIDAD E HIGIENE",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-028-STPS- 2012, SISTEMA PARA LA ADMINISTRACION DEL TRABAJO-SEGURIDAD EN LOS PROCESOS Y EQUIPOS CRITICOS QUE MANEJEN SUSTANCIAS QUIMICAS PELIGROSAS",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-029-STPS- 2011, MANTENIMIENTO DE LAS INSTALACIONES ELECTRICAS EN LOS CENTROS DE TRABAJO-CONDICIONES DE SEGURIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-030-STPS- 2009, SERVICIOS PREVENTIVOS DE SEGURIDAD Y SALUD EN EL TRABAJO FUNCIONES Y ACTIVIDADES",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-031-STPS- 2011, CONSTRUCCION-CONDICIONES DE SEGURIDAD Y SALUD EN EL TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "FUEGO Y SOLDADURA",
+      "horas": 5
+    },
+    {
+      "curso": "PRIMEROS AUXILIOS",
+      "horas": 5
+    },
+    {
+      "curso": "CATA O LOTO",
+      "horas": 5
+    },
+    {
+      "curso": "IZAR O LEVANTAR Y MOVER CARGAS",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-033-STPS-2014. CONDICIONES DE SEGURIDAD PARA REALIZAR TRABAJOS EN ESPACIOS CONFINADOS",
+      "horas": 5
+    },
+    {
+      "curso": "USO RACIONAL DEL EQUIPO DE QUE DISPONE EL PERSONAL DE SEGURIDAD PRIVADA",
+      "horas": 5
+    },
+    {
+      "curso": "INFRAESTRUCTURA DE EMERGENCIA Y CONTROL DE SITUACIONES DE EMERGENCIA",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO Y USO DE ARMAS Y EQUIPO COMPLEMENTARIO ASI COMO PRACTICAS DE TIRO, EN SU CASO",
+      "horas": 5
+    },
+    {
+      "curso": "AUXILIO A AUTORIDADES E INSTITUCIONES DE SEGURIDAD PUBLICA",
+      "horas": 5
+    },
+    {
+      "curso": "UTILIZACION DE LA FUERZA CORPORAL",
+      "horas": 5
+    },
+    {
+      "curso": "UTILIZACION DE INSTRUMENTOS NO LETALES",
+      "horas": 5
+    },
+    {
+      "curso": "BLOQUEO Y ETIQUETADO",
+      "horas": 5
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "USO CON ELECTRICIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "PREVENCION DE EXPLOSIONES",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO DE HERRAMIENTAS MANUALES Y DE PODER",
+      "horas": 5
+    },
+    {
+      "curso": "DIPLOMADO EN TECNICO CONSTRUCTOR",
+      "horas": 120
+    },
+    {
+      "curso": "RETROEXCAVADORAS",
+      "horas": 5
+    },
+    {
+      "curso": "TRABAJOS ELECTRICOS DE ALTO RIESGO",
+      "horas": 5
+    },
+    {
+      "curso": "INFRAESTRUCTURA DE EMERGENCIA Y CONTROL DE SITUACIONES DE EMERGENCIA",
+      "horas": 5
+    },
+    {
+      "curso": "MONTACARGAS DE HOMBRE A PIE",
+      "horas": 5
+    },
+    {
+      "curso": "MONTACARGAS",
+      "horas": 5
+    },
+    {
+      "curso": "GRUAS MOVILES",
+      "horas": 5
+    },
+    {
+      "curso": "DISPOSITIVOS DE ELEVACION",
+      "horas": 5
+    },
+    {
+      "curso": "MATERIALES PELIGROSOS",
+      "horas": 5
+    },
+    {
+      "curso": "TRABAJOS CALIENTES",
+      "horas": 5
+    },
+    {
+      "curso": "BLOQUEO CANDADEO ETIQUETADO",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE MAQUINARIA PESADA",
+      "horas": 5
+    },
+    {
+      "curso": "PLATAFORMAS AEREAS",
+      "horas": 5
+    },
+    {
+      "curso": "SEGURIDAD ELECTRICA",
+      "horas": 5
+    },
+    {
+      "curso": "INTERPRETACION DE LA NORMA ISO 9001 2015",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE MAQUINA DOBLADORA",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE RETROEXCAVADORA",
+      "horas": 5
+    },
+    {
+      "curso": "CORTADOR DE FIERRO",
+      "horas": 5
+    },
+    {
+      "curso": "MONTAJE DE ESTUCTURAS METALICAS Y CONCRETO",
+      "horas": 5
+    },
+    {
+      "curso": "RESIDENTE DE OBRA",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE MOTOCONFORMADORA",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE TRACTOR",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE VIBROCOMPACTADOR",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE EXCAVADORA",
+      "horas": 5
+    },
+    {
+      "curso": "MANTENIMIENTO Y COMBUSTIBLE",
+      "horas": 5
+    },
+    {
+      "curso": "USO Y MANEJO DE EXTINTORES",
+      "horas": 5
+    },
+    {
+      "curso": "CADENERO AYUDANTE DE TOPOGRAFO",
+      "horas": 5
+    },
+    {
+      "curso": "MANIOBRISTA",
+      "horas": 5
+    },
+    {
+      "curso": "REFRIGERACION Y AIRE ACONDICIONADO",
+      "horas": 5
+    },
+    {
+      "curso": "EQUIPOS DE ELEVACION",
+      "horas": 5
+    },
+    {
+      "curso": "SUBESTACIONES",
+      "horas": 5
+    },
+    {
+      "curso": "ACTIVIDADES DE DEMOLICION",
+      "horas": 5
+    },
+    {
+      "curso": "TALLER DE PRIMEROS AUXILIOS, ENFOCADOS A TRABAJOS DE ALTO RIESGO",
+      "horas": 8
+    },
+    {
+      "curso": "ENTRENAMIENTO EN EL MANEJO DE RIESGO ELECTRICO",
+      "horas": 16
+    },
+    {
+      "curso": "LOTO BLOQUEO DE ENERGIAS PELIGROSAS",
+      "horas": 5
+    },
+    {
+      "curso": "FORMACION DE BRIGADAS",
+      "horas": 5
+    },
+    {
+      "curso": "TRABAJO EN ALTURAS, MANEJO DE ESCALERAS. CUERDAS Y NUDOS",
+      "horas": 16
+    },
+    {
+      "curso": "USO DE HERRAMIENTAS",
+      "horas": 5
+    },
+    {
+      "curso": "ENERGIAS PELIGROSAS",
+      "horas": 5
+    },
+    {
+      "curso": "BLOQUEO Y CANDADEO DE ENERGIA ELECTRICA",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-016-CRE- 2016, ESPECIFICACIONES DE CALIDAD DE LOS PETROLIFEROS",
+      "horas": 5
+    },
+    {
+      "curso": "MATA CHISPA Y TRABAJOS EN CALIENTE CON RIESGO DE INCENDIO",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE MONTACARGAS",
+      "horas": 8
+    },
+    {
+      "curso": "RESIDUOS PELIGROSOS",
+      "horas": 5
+    },
+    {
+      "curso": "ARMADO DE ANDAMIOS",
+      "horas": 5
+    },
+    {
+      "curso": "FUSION Y PRUEBAS DE FIBRA OPTICA",
+      "horas": 5
+    },
+    {
+      "curso": "TRABAJOS ELECTRICOS EN TABLEROS",
+      "horas": 5
+    },
+    {
+      "curso": "SEGURIDAD Y ETIQUETADO",
+      "horas": 5
+    },
+    {
+      "curso": "AISLAMIENTO DE ENERGIA",
+      "horas": 5
+    },
+    {
+      "curso": "OPERACION SEGURA DE HERRAMIENTAS MANUALES",
+      "horas": 5
+    },
+    {
+      "curso": "TRABAJOS EN ALTURA: CON ANDAMIOS, ESCALERAS, GRUA ARTICULADA, MONTACARGAS",
+      "horas": 4
+    },
+    {
+      "curso": "TRABAJOS CON ENERGIA ELECTRICA",
+      "horas": 4
+    },
+    {
+      "curso": "TRABAJOS CON EQUIPOS QUE GENEREN FUEGO, CHISPA O CALOR",
+      "horas": 4
+    },
+    {
+      "curso": "MAQUINAS Y HERRAMIENTAS",
+      "horas": 4
+    },
+    {
+      "curso": "PROTECCION ANTICAIDAS EN OBRA DE CONSTRUCCION",
+      "horas": 5
+    },
+    {
+      "curso": "RESTREGADORAS, HIDROLAVADORAS DE PISO Y BARREDORAS",
+      "horas": 5
+    },
+    {
+      "curso": "SERVICIO DE LIMPIEZA DE OFICINAS Y ALMACENES",
+      "horas": 5
+    },
+    {
+      "curso": "VENTA., REPARACION, MANTENIMIENTO E INSTALACION DE SUBESTACIONES",
+      "horas": 5
+    },
+    {
+      "curso": "MANTENIMIENTO Y LIMPIEZA",
+      "horas": 5
+    },
+    {
+      "curso": "CARGAS MANUALES",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE PLATAFORMAS DE ELEVACION, GENIE, TIJERA, ELEVACION, ARTICULADAS",
+      "horas": 5
+    },
+    {
+      "curso": "ESPACIOS CONFINADOS. EXCAVACIONES PROFUNDAS",
+      "horas": 5
+    },
+    {
+      "curso": "CORTE Y SOLDADURA EN TUBERIA DE ACERO",
+      "horas": 5
+    },
+    {
+      "curso": "APLICACION DE PINTURA",
+      "horas": 5
+    },
+    {
+      "curso": "INSTALACION DE AISLAMIENTO TERMICO. INDUSTRIAL. TUBERIAS. AIRE ACONDICIONADO. MUROS.",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO DE CARGAS MANUALES",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO DE EXTINTORES Y PREVENCION DE INCENDIOS",
+      "horas": 5
+    },
+    {
+      "curso": "BRIGADA DE RESCATE",
+      "horas": 5
+    },
+    {
+      "curso": "BRIGADA CONTRA INCENDIOS",
+      "horas": 5
+    },
+    {
+      "curso": "BRIGADA EN CASO DE SISMOS",
+      "horas": 5
+    },
+    {
+      "curso": "BRIGADA DE PRIMEROS AUXILIOS",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO DE SUSTANCIAS QUIMICAS PELIGROSAS",
+      "horas": 5
+    },
+    {
+      "curso": "MEDICION DE SISTEMAS DE TIERRA",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO DE HERRAMIENTAS Y EQUIPO. CONDICIONES DE TRABAJO DE SEGURIDAD. NOM. 31. IDENTIFICACION DE RIESGOS Y DE PELIGRO",
+      "horas": 5
+    },
+    {
+      "curso": "INTERVENCION DE LINEAS CON FLUIDOS PELIGROSOS",
+      "horas": 5
+    },
+    {
+      "curso": "EXCAVACIONES Y DEMOLICIONES",
+      "horas": 5
+    },
+    {
+      "curso": "SEGURIDAD E HIGIENE EN CONSTRUCCION",
+      "horas": 5
+    },
+    {
+      "curso": "ANALISIS DE ASPECTOS AMBIENTALES",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-017-STPS- 2008 EQUIPO DE PROTECCION PERSONAL- SELECCION, USO Y MANEJO EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-018-STPS- 2015 SISTEMA ARMONIZADO PARA LA IDENTIFICACION Y COMUNICACION DE PELIGROS Y RIESGOS POR SUSTANCIAS QUIMICAS PELIGROSAS EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-022-STPS- 2015 ELECTRICIDAD ESTATICA EN LOS CENTROS DE TRABAJO-CONDICIONES DE SEGURIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE TOMOGRAFOS",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE ACELERADOR LINEAL",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE RESONANCIA MAGNETICA",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE GAMACAMARA",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE ESTERILIZADORES",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE EQUIPO DE RX O IMAGENOLOGIA",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE EQUIPO ELECTROMEDICO",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE ULTRASONIDOS",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE MONITORES DE SIGNOS VITALES",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE MAQUINAS DE ANESTESIA",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE VAPORIZADORES",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE VENTILADORES VOLUMETRICOS O DE PRESION",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE CUNAS",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE INCUBADORAS",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO DE EQUIPO DE LABORATORIO",
+      "horas": 4
+    },
+    {
+      "curso": "NOM-035-STPS-2018,FACTORES DE RIESGO PSICOSOCIAL EN EL TRABAJO- IDENTIFICACION,ANALISIS Y PREVENCION",
+      "horas": 8
+    },
+    {
+      "curso": "NOM-008-ASEA-2019,ESTACIONES DE SERVICIO CON FIN ESPECIFICO PARA EL EXPENDIO AL PUBLICO DE GAS LICUADO DE PETROLEO,POR MEDIO DEL LLENADO PARCIAL O TOTAL DE RECIPIENTES PORTATILES",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-006-SESH-2010,TALLERES DE EQUIPOS DE CARBURACION DE GAS LP.- DISEÑO,CONSTRUCCION,OPERACION Y CONDICIONES DE SEGURIDAD",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-005-SESH-2010,EQUIPOS DE CARBURACION DE GAS LP.EN MOTORES DE COMBUSTION INTERNA,INSTALACION Y MANTENIMIENTO",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-004-SEDG-2004,INSTALACIONES DE APROVECHAMIENTO DE GAS LP.DISEÑO Y CONSTRUCCION",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-001-SESH-2014:PLANTAS DE DISTRIBUCION DE GAS LP,DISEÑO,CONSTRUCCION Y CONDICIONES SEGURAS EN SU OPERACION",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-001-CONAGUA-2011,SISTEMAS DE AGUA POTABLE,TOMA DOMICILIARIA ALCANTARILLADO-SANITARIO- HERMETICIDAD ESPECIFICACIONES Y METODOS DE PRUEBA",
+      "horas": 4
+    },
+    {
+      "curso": "NOM-154-SCFI-2005,EQUIPOS CONTRA INCENDIO-EXTINTORES-SERVICIO DE MANTENIMIENTO Y RECARGA",
+      "horas": 8
+    },
+    {
+      "curso": "NOM-053-SCFI-2000,ELEVADORES ELECTRICOS DE TRACCION PARA PASAJEROS Y CARGA ESPECIFICACIONES DE SEGURIDAD Y METODOS DE PRUEBA",
+      "horas": 8
+    },
+    {
+      "curso": "NOM-036-STPS-2018,FACTORES DE RIESGO ERGONOMICO EN EL TRABAJO- IDENTIFICACION-ANALISIS-PREVENCION Y CONTROL,MANEJO MANUAL DE CARGAS",
+      "horas": 8
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD EN INSTALACIONES ELECTRICAS",
+      "horas": 8
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD EN MANTENIMIENTO DE EDIFICIOS",
+      "horas": 8
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD EN CONSTRUCCION",
+      "horas": 8
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD EN ESPACIOS CONFINADOS",
+      "horas": 8
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD EN MANTENIMIENTO INDUSTRIAL",
+      "horas": 8
+    },
+    {
+      "curso": "AVANZADO DE EVACUACION",
+      "horas": 20
+    },
+    {
+      "curso": "AVANZADO DE PREVENCION,COMBATE Y EXTINCION DE INCENDIOS",
+      "horas": 20
+    },
+    {
+      "curso": "AVANZADO DE COMUNICACION",
+      "horas": 20
+    },
+    {
+      "curso": "COMITES INTERNOS DE PROTECCION CIVIL",
+      "horas": 20
+    },
+    {
+      "curso": "GRUPO DE APOYO ESPECIAL",
+      "horas": 20
+    },
+    {
+      "curso": "TECNICAS Y MANIOBRAS EN AREA DE RIGGIN ENFOCADO EN AREA DE TELECOMUNICACIONES",
+      "horas": 24
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-002-STPS-2010,CONDICIONES DE SEGURIDAD,PREVENCION Y PROTECCION CONTRA INCENDIOS EN LOS CENTROS DE TRABAJO BLOQUEO CANDADEO Y ETIQUETADO (LOTO)",
+      "horas": 8
+    },
+    {
+      "curso": "MANEJO DE HERRAMIENTAS MANUALES Y DE PODER",
+      "horas": 8
+    },
+    {
+      "curso": "NORMA MEXICANA NOM-005-STPS- 1998,RELATIVAS A LAS CONDICIONES DE SEGURIDAD E HIGIENE EN LOS CENTROS DE TTRABAJO PARA EL MANEJO,TRANSPORTE Y ALAMACENAMIENTO DE SUSTANCIAS QUIMICAS PELIGROSAS",
+      "horas": 8
+    }
+  ],
+  "Colocación de Proyectos Industriales": [
+    {
+      "curso": "NOM-009-STPS-2011, CONDICIONES DE SEGURIDAD PARA REALIZAR TRABAJOS EN ALTURA",
+      "horas": 8
+    },
+    {
+      "curso": "NOM-027-STPS-2008, ACTIVIDADES DE SOLDADURA Y CORTE - CONDICIONES DE SEGURIDAD E HIGIENE",
+      "horas": 8
+    },
+    {
+      "curso": "NOM-029-STPS-2011, MANTENIMIENTO DE LAS INSTALACIONES ELECTRICAS EN LOS CENTROS DE TRABAJO - CONDICIONES DE SEGURIDAD MECANICA EN CONSTRUCCION",
+      "horas": 8
+    },
+    {
+      "curso": "ANALISIS DE RIESGOS",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO DE QUIMICOS",
+      "horas": 5
+    },
+    {
+      "curso": "BLOQUEO Y ETIQUETADO",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO, MANTENIMIENTO, REPARACION, INSTALACION. VENTA DE PLANTAS DE EMERGENCIA",
+      "horas": 5
+    },
+    {
+      "curso": "PRUEBAS ELECTRICAS A INTERRUPTORES Y UNIDADES DE DISPARO",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE PLATAFORMAS DE ELEVACION, GENIE, TIJERA, ELEVACION, ARTICULADAS",
+      "horas": 8
+    },
+    {
+      "curso": "TRABAJOS CALIENTES",
+      "horas": 8
+    },
+    {
+      "curso": "EQUIPOS DE EMERGENCIAS EN EVALUACION EN INCENDIOS",
+      "horas": 5
+    },
+    {
+      "curso": "PRIMEROS AUXILIOS",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-005-STPS-1998, RELATIVA A LAS CONDICIONES DE SEGURIDAD E HIGIENE EN LOS CENTROS DE TRABAJO PARA EL MANEJO, TRANSPORTE Y ALMACENAMIENTO DE SUSTANCIAS QUIMICAS PELIGROSAS",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-002-STPS-2010, CONDICIONES DE SEGURIDAD- PREVENCION Y CONTRA INCENDIOS EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "OPERADOR DE FINISHER",
+      "horas": 4
+    },
+    {
+      "curso": "OPERADOR DE COMPACTADORA",
+      "horas": 4
+    },
+    {
+      "curso": "SHOCK ELECTRICO",
+      "horas": 4
+    },
+    {
+      "curso": "SEGURIDAD EN TRABAJOS DE ELECTRICIDAD Y ELECTRONICA",
+      "horas": 5
+    },
+    {
+      "curso": "CONOCIMIENTO ELECTRICO",
+      "horas": 4
+    },
+    {
+      "curso": "TRABAJOS EN ALTURAS",
+      "horas": 16
+    },
+    {
+      "curso": "MANEJO Y USO DE NUDOS Y ESCALERAS",
+      "horas": 16
+    },
+    {
+      "curso": "ADMINISTRACION DE PROYECTOS",
+      "horas": 4
+    },
+    {
+      "curso": "APLICACION DE IMPERMEABILIZANTE",
+      "horas": 4
+    },
+    {
+      "curso": "BUSQUEDA Y RESCATE",
+      "horas": 4
+    },
+    {
+      "curso": "BRIGADA DE RESPUESTA INMEDIATA",
+      "horas": 4
+    },
+    {
+      "curso": "PLAN DE CONTINGENCIA EN MATERIA DE PROTECCION CIVIL, BRIGADA",
+      "horas": 4
+    },
+    {
+      "curso": "PLAN DE CONTINGENCIA EN MATERIA DE PROTECCION CIVIL, BRIGADA",
+      "horas": 4
+    },
+    {
+      "curso": "BRIGADA DE RESPUESTA INMEDIATA",
+      "horas": 4
+    },
+    {
+      "curso": "BRIGADA CONTRA INCENDIOS",
+      "horas": 4
+    },
+    {
+      "curso": "ASPECTO E IMPACTO AMBIENTALES",
+      "horas": 4
+    },
+    {
+      "curso": "BASICO DE PROTECCION CIVIL",
+      "horas": 4
+    },
+    {
+      "curso": "BUENAS PRACTICAS DE MANUFACTURA PARA ALIMENTOS",
+      "horas": 4
+    },
+    {
+      "curso": "CUIDADO AMBIENTAL",
+      "horas": 4
+    },
+    {
+      "curso": "CONTROL DE CALIDAD",
+      "horas": 4
+    },
+    {
+      "curso": "NOM-017-STPS-2008, EQUIPO DE PROTECCION PERSONAL-SELECCION, USO Y MANEJO EN LOS CENTROS DE TRABAJO",
+      "horas": 8
+    },
+    {
+      "curso": "PREVENCION Y CUIDADO DEL MEDIO AMBIENTE",
+      "horas": 4
+    },
+    {
+      "curso": "USO Y MANEJO DE HERRAMIENTAS MANUALES",
+      "horas": 4
+    },
+    {
+      "curso": "NOM-033-STPS-2015, CONDICIONES DE SEGURIDAD PARA REALIZAR TRABAJOS EN ESPACIOS CONFINADOS",
+      "horas": 8
+    },
+    {
+      "curso": "MANEJO SEGURO DE CARGAS",
+      "horas": 4
+    },
+    {
+      "curso": "MANEJO DE ENERGIAS PELIGROSAS",
+      "horas": 4
+    },
+    {
+      "curso": "INSTALACION DE CABLEADO ELECTRICO",
+      "horas": 4
+    },
+    {
+      "curso": "SUPERVISOR INDUSTRIAL",
+      "horas": 4
+    },
+    {
+      "curso": "NOM-031-STPS-2011, CONSTRUCCION-CONDICIONES DE SEGURIDAD Y SALUD EN EL TRABAJO",
+      "horas": 8
+    },
+    {
+      "curso": "INSTALACION HIDROSANITARIA, PLOMERIA",
+      "horas": 4
+    },
+    {
+      "curso": "OPERADOR DE TERMOFUSOR",
+      "horas": 4
+    },
+    {
+      "curso": "OPERADOR DE GRUA MOVIL",
+      "horas": 4
+    },
+    {
+      "curso": "OPERADOR DE GRUA ARTICULADA",
+      "horas": 4
+    },
+    {
+      "curso": "OPERADOR DE GRUA CON PLUMA",
+      "horas": 4
+    },
+    {
+      "curso": "SERVICIOS PREVENTIVOS DE SEGURIDAD Y SALUD EN LOS CENTROS DE TRABAJO PREVENTIVO",
+      "horas": 4
+    },
+    {
+      "curso": "COMO ACTUAR EN LAS EMERGENCIAS EN LOS CENTROS DE TRABAJO",
+      "horas": 4
+    },
+    {
+      "curso": "PREVENCION, PROTECCION Y COMBATE DE INCENDIOS",
+      "horas": 4
+    },
+    {
+      "curso": "EVACUACION Y COMUNICACION EN LA CONTINGENCIA",
+      "horas": 4
+    },
+    {
+      "curso": "APLICACION Y COLOCACION DE PINTURAS, PASTAS, TABLAROCA, YESO",
+      "horas": 4
+    },
+    {
+      "curso": "SEGURIDAD EN TRABAJOS EN ALTURA",
+      "horas": 4
+    },
+    {
+      "curso": "PREVENCION DE ACCIDENTES EN EL TRABAJO",
+      "horas": 4
+    },
+    {
+      "curso": "SEGURIDAD EN TRABAJOS ELECTRICOS EN BAJA Y MEDIA TENSION E INDUSTRIAL",
+      "horas": 4
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-019-STPS-2011, CONSTITUCION, INTEGRACION, ORGANIZACION Y FUNCIONAMIENTO DE LAS COMISIONES DE SEGURIDAD E HIGIENE",
+      "horas": 8
+    },
+    {
+      "curso": "CAPACITACION Y BUENAS PRACTICAS DE AMONIACO EN EQUIPOS DE REFRIGERACION",
+      "horas": 4
+    },
+    {
+      "curso": "LEY DE HIDROCARBUROS 17020",
+      "horas": 5
+    },
+    {
+      "curso": "LEY FEDERAL SOBRE METROLOGIA Y NORMALIZACION",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-005-ASEA-2016. DISEÑO, CONSTRUCCION, OPERACION Y MANTENIMIENTO DE ESTACIONES DE SERVICIO PARA ALMACENAMIENTO Y EXPENDIO DE DIESEL Y GASOLINAS",
+      "horas": 5
+    },
+    {
+      "curso": "NOM-014-CRE-2016, ESPECIFICACIONES DE CALIDAD DE LOS PETROQUIMICOS",
+      "horas": 5
+    },
+    {
+      "curso": "LEY DE LA ASEA",
+      "horas": 5
+    },
+    {
+      "curso": "NORMA OFICIAL MEXICANA NOM-018-STPS-2015, SISTEMA ARMONIZADO PARA LA IDENTIFICACION Y COMUNICACION DE PELIGROS Y RIESGOS POR SUSTANCIAS QUIMICAS PELIGROSAS EN LOS CENTROS DE TRABAJO",
+      "horas": 5
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD",
+      "horas": 10
+    },
+    {
+      "curso": "NOM-022-STPS-2015, ELECTRICIDAD ESTATICA EN LOS CENTROS DE TRABAJO-CONDICIONES DE SEGURIDAD",
+      "horas": 10
+    },
+    {
+      "curso": "TRABAJOS EN TRANSFORMADORES",
+      "horas": 5
+    },
+    {
+      "curso": "MANEJO Y TRABAJOS EN COMPRESORES",
+      "horas": 5
+    },
+    {
+      "curso": "MONTAJE DE ESTRUCTURAS METALICAS Y DE CONCRETO",
+      "horas": 5
+    },
+    {
+      "curso": "MECANICA INDUSTRIAL",
+      "horas": 5
+    },
+    {
+      "curso": "NMX-EC-17020-IMNC-2014 REQUISITOS PARA EL FUNCIONAMIENTO DE DIFERENTES TIPOS DE UNIDADES",
+      "horas": 5
+    },
+    {
+      "curso": "DE VERIFICACION NOM-014-CRE-2016, ESPECIFICACIONES DE CALIDAD DE LOS PETROQUIMICOS",
+      "horas": 5
+    },
+    {
+      "curso": "TALLER WEDO 2.0 INDUSTRIAL",
+      "horas": 40
+    },
+    {
+      "curso": "TECNICO EN ELECTRICIDAD Y ELECTRONICA",
+      "horas": 100
+    },
+    {
+      "curso": "TECNICO EN AUTOMATIZACION Y CONTROL",
+      "horas": 160
+    },
+    {
+      "curso": "TECNICO EN NEUMATICA, HIDRAULICA Y ELECTRONEUMATICA",
+      "horas": 100
+    },
+    {
+      "curso": "TECNICO EN REDES Y PROTOCOLOS DE COMUNICACION",
+      "horas": 120
+    },
+    {
+      "curso": "TALLER \"ROBOT CAR\" DIRIGIDO A LA INDUSTRIA",
+      "horas": 60
+    },
+    {
+      "curso": "TALLER PROGRAMACION CON EV3 LEGO PARA AUTOMATIZACION Y ROBOTICA",
+      "horas": 140
+    },
+    {
+      "curso": "PARA TECNICO EN CELDAS INDUSTRIALES",
+      "horas": 120
+    },
+    {
+      "curso": "PARA TECNICO EN ENERGIAS SUSTENTABLES 1502",
+      "horas": 140
+    },
+    {
+      "curso": "PARA TECNICO EN PROGRAMACION DE ROBOTS INDUSTRIALES",
+      "horas": 200
+    },
+    {
+      "curso": "PARA TECNICO EN SOLDADURA POR RESISTENCIA",
+      "horas": 200
+    },
+    {
+      "curso": "PARA TECNICO EN CONTROLES DE SOLDADURA POR RESISTENCIA",
+      "horas": 200
+    },
+    {
+      "curso": "PARA TECNICO EN MANTENIMIENTO DE EQUIPOS DE SOLDADURA POR RESISTENCIA",
+      "horas": 120
+    },
+    {
+      "curso": "CURSO DE SOLDADURA POR RESISTENCIA",
+      "horas": 32
+    },
+    {
+      "curso": "SUPERVISOR DE SEGURIDAD",
+      "horas": 40
+    },
+    {
+      "curso": "USO Y MANEJO DE MAQUINA COMPACTADORA",
+      "horas": 2
+    },
+    {
+      "curso": "FORMACION DE INSTRUCTORES",
+      "horas": 40
+    },
+    {
+      "curso": "VERIFICADOR INTERNO DE LA NOM- 035 STPS 2018",
+      "horas": 60
+    },
+    {
+      "curso": "TRANSPORTES DE CARGA CON CAMION,TORTON,RABON,TRAILER,CAMIONETA,REMOLQUE Y EN GENERAL",
+      "horas": 8
+    },
+    {
+      "curso": "CONTROL DE PLAGAS,FUMIGACION Y SANITIZACION",
+      "horas": 8
+    },
+    {
+      "curso": "MANEJO A LA DEFENCIVA Y PREVENCION DE ACCIDENTES",
+      "horas": 8
+    },
+    {
+      "curso": "GESTION INTEGRAL DE RIESGOS,PROTECCION CIVIL",
+      "horas": 60
+    },
+    {
+      "curso": "GRUA VIAJERA Y MANIOBRAS",
+      "horas": 8
+    }
+  ]
+}
