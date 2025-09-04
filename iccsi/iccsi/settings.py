@@ -28,13 +28,13 @@ SECRET_KEY = 'p#=x3w0u31ivx62&v*n@8*8r4*oh%n@$!9jsv4l)0jjyldi$qi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.railway.app', '.herokuapp.com', '.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.railway.app', '.herokuapp.com', '.vercel.app', '*.vercel.app']
 
 # Configuración de CSRF
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.railway.app', 'https://*.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.railway.app', 'https://*.herokuapp.com', 'https://*.vercel.app']
 
 # Configuración de Sesiones
 SESSION_COOKIE_SECURE = True
