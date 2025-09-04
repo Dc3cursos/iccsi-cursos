@@ -1,3 +1,5 @@
+
+
 """
 Django settings for iccsi project.
 
@@ -11,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +23,32 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w!^gkr)%@a^(ta%f#10up8e4k-x=&g13s5+1q414o7x(yv2lqj'
+SECRET_KEY = 'p#=x3w0u31ivx62&v*n@8*8r4*oh%n@$!9jsv4l)0jjyldi$qi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.railway.app', '.herokuapp.com', '.vercel.app']
+
+# Configuración de CSRF
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.railway.app', 'https://*.herokuapp.com']
+
+# Configuración de Sesiones
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# Configuraciones de Seguridad Adicionales
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000  # 1 año
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 
 
 # Application definition
@@ -37,26 +60,46 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
+    
+    # Django Allauth (temporalmente deshabilitado)
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.microsoft',
+    # 'allauth.socialaccount.providers.apple',
+    
+    # Apps locales
+    'iccsi.core',
     'iccsi.usuarios',
     'iccsi.cursos',
+    
+    # Apps de API
+    'rest_framework',
+    'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Para archivos estáticos
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # CORS para API
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'allauth.account.middleware.AccountMiddleware',
 ]
 
-ROOT_URLCONF = 'iccsi.urls'
+ROOT_URLCONF = 'iccsi.iccsi.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +111,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'iccsi.wsgi.application'
+WSGI_APPLICATION = 'iccsi.iccsi.wsgi.application'
 
 
 # Database
@@ -116,7 +159,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Configuración de archivos estáticos para producción
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -133,3 +180,128 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/usuarios/login/'
 LOGIN_REDIRECT_URL = '/usuarios/panel/'
 LOGOUT_REDIRECT_URL = '/usuarios/login/'
+
+# Django Allauth Configuration (temporalmente deshabilitado)
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+# Allauth Settings (temporalmente deshabilitado)
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = 'none'  # Cambiar a 'mandatory' en producción
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = '[ICCSI] '
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+
+# Social Account Settings (temporalmente deshabilitado)
+# SOCIALACCOUNT_AUTO_SIGNUP = True
+# SOCIALACCOUNT_EMAIL_REQUIRED = True
+# SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         }
+#     },
+#     'microsoft': {
+#         'SCOPE': [
+#             'openid',
+#             'profile',
+#             'email',
+#         ],
+#     },
+#     'apple': {
+#         'SCOPE': [
+#             'name',
+#             'email',
+#         ],
+#     }
+# }
+
+# Configuración de Stripe
+STRIPE_PUBLISHABLE_KEY = 'pk_test_tu_clave_publica_aqui'
+STRIPE_SECRET_KEY = 'sk_test_tu_clave_secreta_aqui'
+STRIPE_WEBHOOK_SECRET = 'whsec_tu_webhook_secret_aqui'
+
+# Configuración de pagos
+STRIPE_CURRENCY = 'mxn'
+STRIPE_PAYMENT_METHOD_TYPES = ['card']
+
+# Configuración de la API REST
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100,  # Aumentar a 100 cursos por página
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+}
+
+# Configuración de Logging para Producción
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
+
+# Configuración de JWT
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'JTI_CLAIM': 'jti',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+# Configuración de CORS para desarrollo
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Para desarrollo React
+    "http://127.0.0.1:3000",
+    "http://localhost:8080",  # Para desarrollo Vue
+    "http://127.0.0.1:8080",
+]
+
+CORS_ALLOW_CREDENTIALS = True

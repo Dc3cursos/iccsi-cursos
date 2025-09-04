@@ -1,0 +1,570 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - ICCSI{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="dashboard-header bg-white border-bottom">
+    <div class="container-fluid">
+        <div class="row align-items-center py-3">
+            <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                    <div class="user-avatar me-3">
+                        <div class="avatar-circle">
+                            {% if usuario.first_name and usuario.last_name %}
+                                {{ usuario.first_name|first }}{{ usuario.last_name|first }}
+                            {% else %}
+                                {{ usuario.username|first|upper }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <h4 class="mb-1">Hola de nuevo, {{ usuario.get_full_name|default:usuario.username|upper }}</h4>
+                        <p class="text-muted mb-0">
+                            {% if usuario.rol == 'alumno' %}
+                                Estudiante, Capacitación Profesional
+                            {% elif usuario.rol == 'profesor' %}
+                                Instructor, Desarrollo de Contenido
+                            {% else %}
+                                Usuario, ICCSI
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="#" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-edit me-1"></i>
+                    Editar profesión e intereses
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Dashboard Content -->
+<div class="dashboard-content">
+    <div class="container-fluid py-4">
+        
+        <!-- Start a New Streak Section -->
+        <div class="streak-section mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="card-title mb-2">Empieza una nueva racha</h5>
+                            <p class="text-muted mb-0">
+                                ¡Has completado el anillo de visita! Ahora cierra tu anillo de visualización.
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="streak-stats text-center me-4">
+                                    <div class="streak-circle mb-2">
+                                        <span class="streak-number">{{ racha_semanas }}</span>
+                                    </div>
+                                    <small class="text-muted">Racha actual</small>
+                                </div>
+                                <div class="progress-stats">
+                                    <div class="progress-ring mb-2">
+                                        <div class="progress-circle" data-progress="75">
+                                            <span class="progress-text">{{ minutos_curso }}/30</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info">
+                                        <small class="d-block text-muted">{{ minutos_curso }}/30 minutos del curso</small>
+                                        <small class="d-block text-muted">{{ visitas }}/1 visita</small>
+                                        <small class="d-block text-muted">17 ago - 23</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue Where You Left Off Section -->
+        <div class="continue-section mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="section-title">Sigue por donde lo dejaste</h4>
+                <a href="{% url 'lista_cursos' %}" class="btn btn-link text-primary p-0">
+                    Mi aprendizaje <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+            
+            <!-- Tabs -->
+            <ul class="nav nav-tabs border-0 mb-3" id="learningTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="cursos-tab" data-bs-toggle="tab" data-bs-target="#cursos" type="button" role="tab">
+                        Cursos
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="asignados-tab" data-bs-toggle="tab" data-bs-target="#asignados" type="button" role="tab">
+                        Cursos asignados
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="certificacion-tab" data-bs-toggle="tab" data-bs-target="#certificacion" type="button" role="tab">
+                        Preparación para una certificación
+                    </button>
+                </li>
+            </ul>
+            
+            <!-- Tab Content -->
+            <div class="tab-content" id="learningTabsContent">
+                <div class="tab-pane fade show active" id="cursos" role="tabpanel">
+                    <div class="course-progress-scroll">
+                        {% if cursos_en_progreso %}
+                            {% for curso in cursos_en_progreso %}
+                            <div class="course-progress-card">
+                                <div class="course-thumbnail">
+                                    {% if curso.imagen %}
+                                        <img src="{{ curso.imagen.url }}" alt="{{ curso.nombre }}" class="img-fluid">
+                                    {% else %}
+                                        <div class="placeholder-image">
+                                            <i class="fas fa-play-circle"></i>
+                                        </div>
+                                    {% endif %}
+                                    <div class="play-overlay">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                                <div class="course-info">
+                                    <h6 class="course-title">{{ curso.nombre }}</h6>
+                                    <p class="course-subtitle">Clase • Quedan {{ curso.duracion_horas }} horas</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-state text-center py-5">
+                                <i class="fas fa-book-open fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">No tienes cursos en progreso</h5>
+                                <p class="text-muted">¡Comienza tu primer curso para ver tu progreso aquí!</p>
+                                <a href="{% url 'lista_cursos' %}" class="btn btn-primary">
+                                    Explorar cursos
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="asignados" role="tabpanel">
+                    <div class="empty-state text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No tienes cursos asignados</h5>
+                        <p class="text-muted">Los cursos que te asignen aparecerán aquí.</p>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="certificacion" role="tabpanel">
+                    <div class="empty-state text-center py-5">
+                        <i class="fas fa-certificate fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Preparación para certificación</h5>
+                        <p class="text-muted">Aquí encontrarás cursos específicos para preparar certificaciones.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explore Collection Section -->
+        <div class="explore-section mb-4">
+            <h4 class="section-title mb-3">Explora la colección</h4>
+            <p class="text-muted mb-3">Recomendaciones para ti</p>
+            
+            <div class="course-recommendations-scroll">
+                {% for curso in cursos_recomendados %}
+                <div class="course-recommendation-card">
+                    <div class="course-image">
+                        {% if curso.imagen %}
+                            <img src="{{ curso.imagen.url }}" alt="{{ curso.nombre }}" class="img-fluid">
+                        {% else %}
+                            <div class="placeholder-image">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="course-details">
+                        <h6 class="course-title">{{ curso.nombre }}</h6>
+                        <p class="course-instructor">
+                            {% if curso.organizacion %}
+                                {{ curso.organizacion.nombre }}
+                            {% else %}
+                                ICCSI
+                            {% endif %}
+                        </p>
+                        <div class="course-rating">
+                            <div class="stars">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                            </div>
+                            <span class="rating-text">4.8 ({{ curso.duracion_horas }})</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Because You Watched Section -->
+        {% if ultimo_curso_visto %}
+        <div class="because-watched-section mb-4">
+            <h4 class="section-title mb-3">
+                Porque viste '{{ ultimo_curso_visto.nombre }}'
+            </h4>
+            
+            <div class="course-related-scroll">
+                {% for curso in cursos_relacionados %}
+                <div class="course-related-card">
+                    <div class="course-image">
+                        {% if curso.imagen %}
+                            <img src="{{ curso.imagen.url }}" alt="{{ curso.nombre }}" class="img-fluid">
+                        {% else %}
+                            <div class="placeholder-image">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="course-details">
+                        <h6 class="course-title">{{ curso.nombre }}</h6>
+                        <p class="course-instructor">
+                            {% if curso.organizacion %}
+                                {{ curso.organizacion.nombre }}
+                            {% else %}
+                                ICCSI
+                            {% endif %}
+                        </p>
+                        <div class="course-rating">
+                            <div class="stars">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                            </div>
+                            <span class="rating-text">4.7 ({{ curso.duracion_horas }})</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- User Stats Section -->
+        <div class="user-stats-section">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-icon mb-2">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="stat-number">{{ total_cursos }}</h3>
+                        <p class="stat-label">Cursos inscritos</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-icon mb-2">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="stat-number">{{ cursos_completados_count }}</h3>
+                        <p class="stat-label">Cursos completados</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-icon mb-2">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 class="stat-number">{{ certificados_obtenidos }}</h3>
+                        <p class="stat-label">Certificados obtenidos</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-icon mb-2">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h3 class="stat-number">{{ racha_semanas }}</h3>
+                        <p class="stat-label">Semanas de racha</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Dashboard Styles */
+.dashboard-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.dashboard-header .user-avatar .avatar-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.dashboard-content {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 200px);
+}
+
+.section-title {
+    font-weight: 600;
+    color: #1c1d1f;
+}
+
+/* Streak Section */
+.streak-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.progress-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: conic-gradient(#28a745 0deg 270deg, #e9ecef 270deg 360deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.progress-circle::before {
+    content: '';
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    position: absolute;
+}
+
+.progress-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    z-index: 1;
+}
+
+/* Course Progress Cards */
+.course-progress-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.course-progress-card {
+    min-width: 280px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.course-progress-card:hover {
+    transform: translateY(-2px);
+}
+
+.course-thumbnail {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+}
+
+.course-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 48px;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.course-info {
+    padding: 15px;
+}
+
+.course-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #1c1d1f;
+}
+
+.course-subtitle {
+    color: #6a6f73;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Course Recommendation Cards */
+.course-recommendations-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.course-recommendation-card {
+    min-width: 240px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.course-recommendation-card:hover {
+    transform: translateY(-2px);
+}
+
+.course-image {
+    height: 135px;
+    overflow: hidden;
+}
+
+.course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.course-details {
+    padding: 12px;
+}
+
+.course-instructor {
+    color: #6a6f73;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.course-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stars {
+    display: flex;
+    gap: 1px;
+}
+
+.rating-text {
+    font-size: 12px;
+    color: #6a6f73;
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+    border: none;
+    color: #6a6f73;
+    font-weight: 500;
+    padding: 12px 20px;
+}
+
+.nav-tabs .nav-link.active {
+    color: #1c1d1f;
+    border-bottom: 2px solid #1c1d1f;
+    background: none;
+}
+
+/* Empty State */
+.empty-state {
+    color: #6a6f73;
+}
+
+/* User Stats */
+.stat-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.stat-icon {
+    font-size: 32px;
+    color: #667eea;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #1c1d1f;
+    margin: 10px 0;
+}
+
+.stat-label {
+    color: #6a6f73;
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .course-progress-scroll,
+    .course-recommendations-scroll {
+        gap: 15px;
+    }
+    
+    .course-progress-card {
+        min-width: 250px;
+    }
+    
+    .course-recommendation-card {
+        min-width: 200px;
+    }
+}
+</style>
+{% endblock %}

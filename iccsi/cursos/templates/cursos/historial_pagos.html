@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mi Historial de Pagos - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="text-center mb-4">
+                <i class="fas fa-credit-card text-primary me-3"></i>
+                Mi Historial de Pagos
+            </h1>
+            <p class="text-center text-muted lead">
+                Revisa todos tus pagos y transacciones realizadas en ICCSI.
+            </p>
+        </div>
+    </div>
+
+    {% if pagos %}
+    <div class="row">
+        {% for pago in pagos %}
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">
+                        <i class="fas fa-receipt me-2"></i>
+                        Pago #{{ pago.id }}
+                    </h6>
+                    <span class="badge {% if pago.estado == 'completado' %}bg-success{% elif pago.estado == 'pendiente' %}bg-warning{% elif pago.estado == 'cancelado' %}bg-danger{% else %}bg-secondary{% endif %}">
+                        {{ pago.get_estado_display }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-8">
+                            <h6 class="fw-bold">{{ pago.inscripcion.curso.nombre }}</h6>
+                            <p class="text-muted mb-1">
+                                <i class="fas fa-user me-1"></i>
+                                {{ pago.inscripcion.curso.profesor.get_full_name|default:pago.inscripcion.curso.profesor.username }}
+                            </p>
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-calendar me-1"></i>
+                                {{ pago.creado|date:"d/m/Y H:i" }}
+                            </p>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="h5 text-success mb-0">${{ pago.monto }}</div>
+                            <small class="text-muted">{{ pago.inscripcion.curso.costo.moneda }}</small>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <small class="text-muted">Método de pago:</small><br>
+                            <strong>
+                                {% if pago.metodo_pago == 'tarjeta' %}
+                                    <i class="fab fa-cc-visa me-1"></i>Tarjeta
+                                {% elif pago.metodo_pago == 'paypal' %}
+                                    <i class="fab fa-paypal me-1"></i>PayPal
+                                {% elif pago.metodo_pago == 'transferencia' %}
+                                    <i class="fas fa-university me-1"></i>Transferencia
+                                {% elif pago.metodo_pago == 'efectivo' %}
+                                    <i class="fas fa-money-bill me-1"></i>Efectivo
+                                {% elif pago.metodo_pago == 'oxxo' %}
+                                    <i class="fas fa-store me-1"></i>OXXO
+                                {% endif %}
+                            </strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted">Referencia:</small><br>
+                            <strong>{{ pago.referencia_pago|default:"Pendiente" }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        {% if pago.estado == 'completado' %}
+                            <a href="{% url 'acceder_curso_pagado' pago.inscripcion.curso.id %}" class="btn btn-success btn-sm flex-fill">
+                                <i class="fas fa-play me-1"></i>Acceder al Curso
+                            </a>
+                        {% elif pago.estado == 'pendiente' %}
+                            <a href="{% url 'procesar_pago' pago.id %}" class="btn btn-warning btn-sm flex-fill">
+                                <i class="fas fa-credit-card me-1"></i>Completar Pago
+                            </a>
+                            <a href="{% url 'cancelar_pago' pago.id %}" class="btn btn-outline-danger btn-sm" 
+                               onclick="return confirm('¿Estás seguro de que quieres cancelar este pago?')">
+                                <i class="fas fa-times me-1"></i>Cancelar
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Resumen de pagos -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Resumen de Pagos
+                    </h6>
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="h4 text-primary mb-1">{{ pagos.count }}</div>
+                            <small class="text-muted">Total de Pagos</small>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="h4 text-success mb-1">
+                                {{ pagos|dictsort:"estado"|length }}
+                            </div>
+                            <small class="text-muted">Pagos Completados</small>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="h4 text-warning mb-1">
+                                {{ pagos|dictsort:"estado"|length }}
+                            </div>
+                            <small class="text-muted">Pagos Pendientes</small>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="h4 text-info mb-1">
+                                ${{ pagos|dictsort:"monto"|length }}
+                            </div>
+                            <small class="text-muted">Total Invertido</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center py-5">
+                <i class="fas fa-credit-card fa-4x text-muted mb-4"></i>
+                <h4 class="text-muted mb-3">No tienes pagos registrados</h4>
+                <p class="text-muted mb-4">
+                    Aún no has realizado ningún pago. Explora nuestros cursos y comienza tu aprendizaje.
+                </p>
+                <a href="{% url 'lista_cursos_con_precio' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-book me-2"></i>
+                    Explorar Cursos
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Información adicional -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Información Importante
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Estados de Pago</h6>
+                            <ul class="list-unstyled">
+                                <li><span class="badge bg-success me-2">Completado</span> Pago procesado exitosamente</li>
+                                <li><span class="badge bg-warning me-2">Pendiente</span> Pago en proceso</li>
+                                <li><span class="badge bg-danger me-2">Cancelado</span> Pago cancelado</li>
+                                <li><span class="badge bg-secondary me-2">Reembolsado</span> Pago reembolsado</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>¿Necesitas ayuda?</h6>
+                            <p class="mb-1"><i class="fas fa-envelope me-2"></i>soporte@iccsi.com</p>
+                            <p class="mb-1"><i class="fas fa-phone me-2"></i>+52 55 1234 5678</p>
+                            <p class="mb-0"><i class="fas fa-clock me-2"></i>Lun-Vie 9:00-18:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+}
+
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inscribirse y Pagar - {{ curso.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        Inscribirse y Pagar
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- Información del curso -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            {% if curso.imagen %}
+                            <img src="{{ curso.imagen.url }}" class="img-fluid rounded" alt="{{ curso.nombre }}">
+                            {% else %}
+                            <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 150px;">
+                                <i class="fas fa-book fa-3x text-muted"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="fw-bold">{{ curso.nombre }}</h5>
+                            <p class="text-muted">{{ curso.descripcion|truncatewords:30 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-clock me-1"></i>
+                                    {% if curso.duracion_horas %}
+                                        {{ curso.duracion_horas }} horas
+                                    {% else %}
+                                        Duración variable
+                                    {% endif %}
+                                </span>
+                                <div class="text-end">
+                                    <div class="h4 text-success mb-0">${{ costo.precio }}</div>
+                                    <small class="text-muted">{{ costo.moneda }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Formulario de pago -->
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.metodo_pago.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-credit-card me-2"></i>
+                                Método de Pago
+                            </label>
+                            {{ form.metodo_pago }}
+                            {% if form.metodo_pago.help_text %}
+                            <div class="form-text">{{ form.metodo_pago.help_text }}</div>
+                            {% endif %}
+                            {% if form.metodo_pago.errors %}
+                            <div class="text-danger">
+                                {% for error in form.metodo_pago.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Información del pago -->
+                        <div class="alert alert-info">
+                            <h6 class="fw-bold mb-2">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Resumen del Pago
+                            </h6>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="text-muted">Curso:</small><br>
+                                    <strong>{{ curso.nombre }}</strong>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <small class="text-muted">Total a pagar:</small><br>
+                                    <strong class="text-success">${{ costo.precio }} {{ costo.moneda }}</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Métodos de pago disponibles -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                Métodos de Pago Disponibles
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <div class="border rounded p-3 text-center">
+                                        <i class="fab fa-cc-visa fa-2x text-primary mb-2"></i>
+                                        <div><small>Tarjeta de Crédito/Débito</small></div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="border rounded p-3 text-center">
+                                        <i class="fab fa-paypal fa-2x text-primary mb-2"></i>
+                                        <div><small>PayPal</small></div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="border rounded p-3 text-center">
+                                        <i class="fas fa-university fa-2x text-primary mb-2"></i>
+                                        <div><small>Transferencia Bancaria</small></div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="border rounded p-3 text-center">
+                                        <i class="fas fa-money-bill fa-2x text-primary mb-2"></i>
+                                        <div><small>Efectivo</small></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Términos y condiciones -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="aceptar_terminos" required>
+                                <label class="form-check-label" for="aceptar_terminos">
+                                    Acepto los <a href="#" class="text-decoration-none">términos y condiciones</a> y la 
+                                    <a href="#" class="text-decoration-none">política de privacidad</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-lock me-2"></i>
+                                Proceder al Pago Seguro
+                            </button>
+                            <a href="{% url 'detalle_curso_con_precio' curso.id %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>
+                                Volver al Curso
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Información adicional -->
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <i class="fas fa-shield-alt fa-2x text-success mb-2"></i>
+                        <h6>Pago Seguro</h6>
+                        <small class="text-muted">Tus datos están protegidos con encriptación SSL</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                        <h6>Acceso Inmediato</h6>
+                        <small class="text-muted">Accede al curso inmediatamente después del pago</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <i class="fas fa-headset fa-2x text-warning mb-2"></i>
+                        <h6>Soporte 24/7</h6>
+                        <small class="text-muted">Estamos aquí para ayudarte en cualquier momento</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 500;
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.border {
+    border-radius: 10px !important;
+}
+
+.form-select {
+    border-radius: 10px;
+    padding: 12px 15px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Validar que se acepten los términos antes de enviar
+    const form = document.querySelector('form');
+    const aceptarTerminos = document.getElementById('aceptar_terminos');
+    
+    form.addEventListener('submit', function(e) {
+        if (!aceptarTerminos.checked) {
+            e.preventDefault();
+            alert('Debes aceptar los términos y condiciones para continuar.');
+            return false;
+        }
+    });
+});
+</script>
+{% endblock %}

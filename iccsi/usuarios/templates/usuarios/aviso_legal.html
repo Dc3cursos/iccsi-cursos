@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Aviso Legal - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h1 class="h2 mb-0">
+                        <i class="fas fa-gavel me-3"></i>
+                        Aviso Legal
+                    </h1>
+                    <p class="mb-0 mt-2 opacity-75">Última actualización: {{ now|date:"d/m/Y" }}</p>
+                </div>
+                
+                <div class="card-body p-5">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Información Legal:</strong> Este aviso legal establece las condiciones de uso y la información legal de la plataforma ICCSI.
+                    </div>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-building me-2"></i>
+                            1. Información de la Empresa
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-info me-2"></i>
+                                            Datos de Identificación
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><strong>Razón Social:</strong> Instituto de Capacitación ICCSI, S.A. de C.V.</li>
+                                            <li><strong>RFC:</strong> ICC-250821-XXX</li>
+                                            <li><strong>Domicilio:</strong> Av. Reforma 123, Col. Centro, CDMX</li>
+                                            <li><strong>Teléfono:</strong> +52 (55) 1234-5678</li>
+                                            <li><strong>Email:</strong> legal@iccsi.edu.mx</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-certificate me-2"></i>
+                                            Autorizaciones
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><strong>SEP:</strong> Autorizado para impartir capacitación</li>
+                                            <li><strong>STPS:</strong> Registro como centro de capacitación</li>
+                                            <li><strong>ISO 9001:</strong> Sistema de gestión de calidad</li>
+                                            <li><strong>ISO 27001:</strong> Seguridad de la información</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-globe me-2"></i>
+                            2. Condiciones de Uso del Sitio Web
+                        </h2>
+                        
+                        <div class="alert alert-warning">
+                            <h5 class="alert-heading">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Aceptación de Condiciones
+                            </h5>
+                            <p class="mb-0">El acceso y uso de este sitio web implica la aceptación expresa y sin reservas de todas las condiciones y términos de uso incluidos en este Aviso Legal.</p>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-success">Uso Permitido:</h5>
+                                <ul class="small">
+                                    <li><i class="fas fa-check text-success me-2"></i>Navegación y consulta de información</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Registro de usuarios</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Inscripción a cursos</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Descarga de certificados</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-danger">Uso Prohibido:</h5>
+                                <ul class="small">
+                                    <li><i class="fas fa-times text-danger me-2"></i>Uso comercial no autorizado</li>
+                                    <li><i class="fas fa-times text-danger me-2"></i>Reproducción de contenido</li>
+                                    <li><i class="fas fa-times text-danger me-2"></i>Acceso no autorizado</li>
+                                    <li><i class="fas fa-times text-danger me-2"></i>Interferencia con el servicio</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-copyright me-2"></i>
+                            3. Propiedad Intelectual
+                        </h2>
+                        
+                        <div class="card border-warning">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-shield-alt me-2"></i>
+                                    Derechos de Autor
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Todos los contenidos de este sitio web, incluyendo textos, fotografías, gráficos, imágenes, iconos, tecnología, enlaces, contenidos audiovisuales o sonoros, así como su diseño gráfico y códigos fuente, son propiedad intelectual de ICCSI o de terceros, sin que puedan entenderse cedidos al usuario ninguno de los derechos de explotación reconocidos por la normativa vigente en materia de propiedad intelectual.</p>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary">Contenido Protegido:</h6>
+                                        <ul class="small">
+                                            <li>Materiales educativos</li>
+                                            <li>Diseño y estructura del sitio</li>
+                                            <li>Logotipos y marcas</li>
+                                            <li>Software y aplicaciones</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">Uso Autorizado:</h6>
+                                        <ul class="small">
+                                            <li>Acceso personal para aprendizaje</li>
+                                            <li>Descarga de certificados propios</li>
+                                            <li>Uso educativo no comercial</li>
+                                            <li>Referencias con atribución</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                                         <section class="mb-5">
+                         <h2 class="h4 text-primary mb-3">
+                             <i class="fas fa-exclamation-triangle me-2"></i>
+                             4. Exención de Responsabilidad
+                         </h2>
+                         
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="card border-info">
+                                     <div class="card-header bg-info text-white">
+                                         <h5 class="mb-0">
+                                             <i class="fas fa-shield-alt me-2"></i>
+                                             Limitaciones de Responsabilidad
+                                         </h5>
+                                     </div>
+                                     <div class="card-body">
+                                         <ul class="small">
+                                             <li>No garantizamos disponibilidad continua</li>
+                                             <li>No nos hacemos responsables de errores técnicos</li>
+                                             <li>No garantizamos resultados específicos</li>
+                                             <li>No asumimos responsabilidad por uso indebido</li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div class="card border-warning">
+                                     <div class="card-header bg-warning text-dark">
+                                         <h5 class="mb-0">
+                                             <i class="fas fa-user-shield me-2"></i>
+                                             Responsabilidad del Usuario
+                                         </h5>
+                                     </div>
+                                     <div class="card-body">
+                                         <ul class="small">
+                                             <li>Uso correcto de la plataforma</li>
+                                             <li>Protección de credenciales</li>
+                                             <li>Cumplimiento de términos</li>
+                                             <li>Respeto a derechos de autor</li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </section>
+
+                     <section class="mb-5">
+                         <h2 class="h4 text-primary mb-3">
+                             <i class="fas fa-shield-alt me-2"></i>
+                             5. Protección contra Falsificación de Certificados
+                         </h2>
+                         
+                         <div class="alert alert-danger">
+                             <h5 class="alert-heading">
+                                 <i class="fas fa-exclamation-triangle me-2"></i>
+                                 ADVERTENCIA LEGAL CRÍTICA
+                             </h5>
+                             <p class="mb-3"><strong>ICCSI mantiene un sistema de verificación y denuncia activo contra la falsificación de certificados DC-3.</strong></p>
+                         </div>
+                         
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="card border-danger">
+                                     <div class="card-header bg-danger text-white">
+                                         <h5 class="mb-0">
+                                             <i class="fas fa-gavel me-2"></i>
+                                             Medidas Legales
+                                         </h5>
+                                     </div>
+                                     <div class="card-body">
+                                         <ul class="small">
+                                             <li><strong>Denuncia inmediata:</strong> A autoridades federales</li>
+                                             <li><strong>Proceso penal:</strong> Contra falsificadores</li>
+                                             <li><strong>Demanda civil:</strong> Por daños y perjuicios</li>
+                                             <li><strong>Acciones administrativas:</strong> Ante STPS y SEP</li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div class="card border-success">
+                                     <div class="card-header bg-success text-white">
+                                         <h5 class="mb-0">
+                                             <i class="fas fa-check-circle me-2"></i>
+                                             Sistema de Verificación
+                                         </h5>
+                                     </div>
+                                     <div class="card-body">
+                                         <ul class="small">
+                                             <li><strong>Códigos únicos:</strong> Verificación en línea</li>
+                                             <li><strong>Marcas de agua:</strong> Digitales y físicas</li>
+                                             <li><strong>Base de datos:</strong> Centralizada y segura</li>
+                                             <li><strong>Auditoría:</strong> Trazabilidad completa</li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         
+                         <div class="alert alert-info mt-4">
+                             <h5 class="alert-heading">
+                                 <i class="fas fa-info-circle me-2"></i>
+                                 Reporte de Falsificaciones
+                             </h5>
+                             <p class="mb-2">Para reportar certificados falsos o sospechosos:</p>
+                             <ul class="mb-0">
+                                 <li><strong>Email:</strong> legal@iccsi.edu.mx</li>
+                                 <li><strong>Teléfono:</strong> +52 (55) 1234-5678</li>
+                                 <li><strong>Línea directa:</strong> 24/7 para denuncias urgentes</li>
+                                 <li><strong>Recompensa:</strong> Hasta $50,000 MXN por información válida</li>
+                             </ul>
+                             
+                             <div class="text-center mt-3">
+                                 <a href="{% url 'reportar_falsificacion' %}" class="btn btn-danger">
+                                     <i class="fas fa-exclamation-triangle me-2"></i>
+                                     Reportar Falsificación
+                                 </a>
+                             </div>
+                         </div>
+                     </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-link me-2"></i>
+                            5. Enlaces Externos
+                        </h2>
+                        
+                        <div class="alert alert-info">
+                            <h5 class="alert-heading">
+                                <i class="fas fa-external-link-alt me-2"></i>
+                                Política de Enlaces
+                            </h5>
+                            <p class="mb-0">Este sitio web puede contener enlaces a sitios web de terceros. ICCSI no se hace responsable del contenido, políticas de privacidad o prácticas de estos sitios externos. Se recomienda revisar las políticas de estos sitios antes de proporcionar información personal.</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-balance-scale me-2"></i>
+                            6. Legislación Aplicable y Jurisdicción
+                        </h2>
+                        
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-gavel me-2"></i>
+                                    Marco Legal
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary">Legislación Aplicable:</h6>
+                                        <ul class="small">
+                                            <li>Leyes de México</li>
+                                            <li>Reglamento de la LFPDPPP</li>
+                                            <li>Ley de Propiedad Industrial</li>
+                                            <li>Normativa educativa vigente</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">Jurisdicción:</h6>
+                                        <ul class="small">
+                                            <li>Ciudad de México, México</li>
+                                            <li>Tribunales competentes</li>
+                                            <li>Resolución de conflictos</li>
+                                            <li>Mediación previa</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-edit me-2"></i>
+                            7. Modificaciones
+                        </h2>
+                        
+                        <div class="alert alert-warning">
+                            <h5 class="alert-heading">
+                                <i class="fas fa-bell me-2"></i>
+                                Cambios en el Aviso Legal
+                            </h5>
+                            <p class="mb-0">ICCSI se reserva el derecho de modificar este aviso legal en cualquier momento. Los cambios entrarán en vigor desde su publicación en el sitio web. Se recomienda revisar periódicamente esta página para estar al tanto de las modificaciones.</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-envelope me-2"></i>
+                            8. Contacto Legal
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-user-tie me-2"></i>
+                                            Departamento Legal
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-envelope me-2 text-primary"></i>legal@iccsi.edu.mx</li>
+                                            <li><i class="fas fa-phone me-2 text-primary"></i>+52 (55) 1234-5678</li>
+                                            <li><i class="fas fa-map-marker-alt me-2 text-primary"></i>Av. Reforma 123, CDMX</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-clock me-2"></i>
+                                            Horarios de Atención
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-calendar-day me-2 text-success"></i>Lunes a Viernes: 9:00 - 18:00</li>
+                                            <li><i class="fas fa-calendar-day me-2 text-success"></i>Sábados: 9:00 - 14:00</li>
+                                            <li><i class="fas fa-calendar-times me-2 text-success"></i>Domingos: Cerrado</li>
+                                            <li><i class="fas fa-clock me-2 text-success"></i>Respuesta: 48-72 horas</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="text-center mt-5">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Este aviso legal está actualizado y cumple con la normativa vigente en México.</strong>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'home' %}" class="btn btn-primary">
+                                <i class="fas fa-home me-2"></i>
+                                Volver al Inicio
+                            </a>
+                            <a href="{% url 'terminos' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-file-contract me-2"></i>
+                                Términos y Condiciones
+                            </a>
+                            <a href="{% url 'privacidad' %}" class="btn btn-outline-info">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                Política de Privacidad
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

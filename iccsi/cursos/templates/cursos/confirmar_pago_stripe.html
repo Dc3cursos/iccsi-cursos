@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Confirmar Pago - {{ curso.nombre }}{% endblock %}
+
+{% block extra_head %}
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+.payment-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.stripe-element {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 0;
+    background: white;
+}
+
+.stripe-element--focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.stripe-element--invalid {
+    border-color: #dc3545;
+}
+
+.payment-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.payment-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.payment-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #dc3545;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    display: none;
+}
+
+.success-message {
+    color: #155724;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    display: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-credit-card me-2"></i>
+                        Confirmar Pago - {{ curso.nombre }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- Información del curso -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            {% if curso.imagen %}
+                                <img src="{{ curso.imagen.url }}" class="img-fluid rounded" alt="{{ curso.nombre }}">
+                            {% else %}
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 150px;">
+                                    <i class="fas fa-book fa-3x text-muted"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{ curso.nombre }}</h5>
+                            <p class="text-muted">{{ curso.descripcion|truncatewords:20 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-clock me-1"></i>
+                                    {% if curso.duracion_horas %}
+                                        {{ curso.duracion_horas }} horas
+                                    {% else %}
+                                        Duración variable
+                                    {% endif %}
+                                </span>
+                                <span class="badge bg-success">
+                                    <i class="fas fa-user me-1"></i>
+                                    {{ curso.profesor.get_full_name|default:curso.profesor.username }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resumen del pago -->
+                    <div class="alert alert-info">
+                        <h6 class="alert-heading">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Resumen del Pago
+                        </h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Curso:</strong> {{ curso.nombre }}
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <strong>Precio:</strong> ${{ pago.monto }} MXN
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Método de pago:</strong> Tarjeta de Crédito/Débito
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <strong>Total:</strong> <span class="h5 text-primary">${{ pago.monto }} MXN</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de pago -->
+                    <form id="payment-form" class="payment-form">
+                        <div id="card-element" class="stripe-element">
+                            <!-- Stripe Elements se insertará aquí -->
+                        </div>
+                        <div id="card-errors" class="error-message" role="alert"></div>
+                        
+                        <div class="loading" id="loading">
+                            <div class="spinner"></div>
+                            <p class="mt-2">Procesando pago...</p>
+                        </div>
+                        
+                        <div class="success-message" id="success-message">
+                            <i class="fas fa-check-circle me-2"></i>
+                            ¡Pago procesado exitosamente! Redirigiendo...
+                        </div>
+                        
+                        <button type="submit" class="payment-button" id="submit-button">
+                            <i class="fas fa-lock me-2"></i>
+                            Pagar ${{ pago.monto }} MXN
+                        </button>
+                    </form>
+
+                    <!-- Información de seguridad -->
+                    <div class="mt-4">
+                        <div class="alert alert-light">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                Pago Seguro
+                            </h6>
+                            <p class="mb-0 small">
+                                Tu información de pago está protegida con encriptación SSL de 256 bits. 
+                                Utilizamos Stripe, una plataforma de pagos certificada y segura.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Configurar Stripe
+const stripe = Stripe('{{ stripe_publishable_key }}');
+const elements = stripe.elements();
+
+// Crear elemento de tarjeta
+const card = elements.create('card', {
+    style: {
+        base: {
+            fontSize: '16px',
+            color: '#424770',
+            '::placeholder': {
+                color: '#aab7c4',
+            },
+        },
+        invalid: {
+            color: '#9e2146',
+        },
+    },
+});
+
+// Montar elemento de tarjeta
+card.mount('#card-element');
+
+// Manejar errores de validación en tiempo real
+card.addEventListener('change', function(event) {
+    const displayError = document.getElementById('card-errors');
+    if (event.error) {
+        displayError.textContent = event.error.message;
+        displayError.style.display = 'block';
+    } else {
+        displayError.textContent = '';
+        displayError.style.display = 'none';
+    }
+});
+
+// Manejar envío del formulario
+const form = document.getElementById('payment-form');
+const submitButton = document.getElementById('submit-button');
+const loading = document.getElementById('loading');
+const successMessage = document.getElementById('success-message');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Deshabilitar botón y mostrar loading
+    submitButton.disabled = true;
+    loading.style.display = 'block';
+    
+    // Confirmar pago con Stripe
+    stripe.confirmCardPayment('{{ pago.stripe_client_secret }}', {
+        payment_method: {
+            card: card,
+            billing_details: {
+                name: '{{ user.get_full_name|default:user.username }}',
+                email: '{{ user.email }}',
+            },
+        }
+    }).then(function(result) {
+        if (result.error) {
+            // Mostrar error
+            const errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+            errorElement.style.display = 'block';
+            
+            // Habilitar botón y ocultar loading
+            submitButton.disabled = false;
+            loading.style.display = 'none';
+        } else {
+            // Pago exitoso
+            if (result.paymentIntent.status === 'succeeded') {
+                successMessage.style.display = 'block';
+                loading.style.display = 'none';
+                
+                // Redirigir a página de éxito
+                setTimeout(function() {
+                    window.location.href = '{% url "exito_pago_stripe" pago.id %}';
+                }, 2000);
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

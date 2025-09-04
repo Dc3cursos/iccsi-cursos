@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ curso.nombre }} - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Información del curso -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                {% if curso.imagen %}
+                <img src="{{ curso.imagen.url }}" class="card-img-top" alt="{{ curso.nombre }}" style="height: 300px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                    <i class="fas fa-book fa-4x text-muted"></i>
+                </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <h1 class="card-title fw-bold mb-3">{{ curso.nombre }}</h1>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-user text-primary me-2"></i>
+                                <span><strong>Instructor:</strong> {{ curso.profesor.get_full_name|default:curso.profesor.username }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-clock text-primary me-2"></i>
+                                <span><strong>Duración:</strong> 
+                                    {% if curso.duracion_horas %}
+                                        {{ curso.duracion_horas }} horas
+                                    {% else %}
+                                        Duración variable
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-building text-primary me-2"></i>
+                                <span><strong>Organización:</strong> {{ curso.organizacion.nombre|default:"No especificada" }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-calendar text-primary me-2"></i>
+                                <span><strong>Creado:</strong> {{ curso.fecha_creacion|date:"d/m/Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5 class="fw-bold mb-3">Descripción del Curso</h5>
+                    <p class="card-text">{{ curso.descripcion|linebreaks }}</p>
+                    
+                    {% if curso.video %}
+                    <div class="mt-4">
+                        <h5 class="fw-bold mb-3">Video del Curso</h5>
+                        <video controls class="w-100" style="max-height: 400px;">
+                            <source src="{{ curso.video.url }}" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Panel de pago -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-credit-card me-2"></i>
+                        Información de Pago
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <div class="display-6 fw-bold text-success">${{ costo.precio }}</div>
+                        <div class="text-muted">{{ costo.moneda }}</div>
+                    </div>
+                    
+                    {% if inscripcion_existente %}
+                        {% if pago_completado %}
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>¡Ya tienes acceso a este curso!</strong>
+                            </div>
+                            <a href="{% url 'acceder_curso_pagado' curso.id %}" class="btn btn-success w-100 mb-2">
+                                <i class="fas fa-play me-2"></i>Acceder al Curso
+                            </a>
+                        {% else %}
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Inscripción pendiente de pago</strong>
+                            </div>
+                            <a href="{% url 'procesar_pago' inscripcion_existente.pago.id %}" class="btn btn-warning w-100 mb-2">
+                                <i class="fas fa-credit-card me-2"></i>Completar Pago
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Acceso completo al curso</strong><br>
+                            <small>Incluye material, videos y certificado</small>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'inscribirse_y_pagar' curso.id %}" class="btn btn-outline-primary w-100 mb-2">
+                                <i class="fas fa-shopping-cart me-2"></i>Pago Simulado
+                            </a>
+                            <button onclick="iniciarPagoStripe({{ curso.id }})" class="btn btn-primary w-100 mb-2">
+                                <i class="fas fa-lock me-2"></i>Pagar con Tarjeta
+                            </button>
+                        </div>
+                    {% endif %}
+                    
+                    <hr>
+                    
+                    <h6 class="fw-bold mb-3">Métodos de Pago Disponibles</h6>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-2 border rounded">
+                                <i class="fab fa-cc-visa text-primary me-2"></i>
+                                <small>Tarjeta</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-2 border rounded">
+                                <i class="fab fa-paypal text-primary me-2"></i>
+                                <small>PayPal</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-2 border rounded">
+                                <i class="fas fa-university text-primary me-2"></i>
+                                <small>Transferencia</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-2 border rounded">
+                                <i class="fas fa-money-bill text-primary me-2"></i>
+                                <small>Efectivo</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Pago seguro y encriptado
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.sticky-top {
+    z-index: 1020;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    border-radius: 15px 15px 0 0;
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 500;
+}
+</style>
+
+<script>
+function iniciarPagoStripe(cursoId) {
+    // Mostrar loading
+    const button = event.target;
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Procesando...';
+    button.disabled = true;
+    
+    // Crear pago en Stripe
+    fetch(`/cursos/stripe/crear-pago/${cursoId}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Error: ' + data.error);
+                button.innerHTML = originalText;
+                button.disabled = false;
+            } else {
+                // Redirigir a página de confirmación
+                window.location.href = `/cursos/stripe/confirmar-pago/${data.pago_id}/`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al procesar el pago. Por favor, intenta de nuevo.');
+            button.innerHTML = originalText;
+            button.disabled = false;
+        });
+}
+</script>
+{% endblock %}

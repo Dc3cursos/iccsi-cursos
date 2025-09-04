@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ curso.nombre }}{% endblock %}
 
@@ -6,38 +7,93 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-lg-8">
-            <div class="card">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-book me-2"></i>{{ curso.nombre }}
+                    </h2>
+                </div>
                 <div class="card-body">
-                    <h2 class="card-title">{{ curso.nombre }}</h2>
-                    <p class="text-muted">Profesor: {{ curso.profesor.username }}</p>
-                    
-                    {% if curso.imagen %}
-                        <img src="{{ curso.imagen.url }}" class="img-fluid mb-3" alt="Imagen del curso">
-                    {% endif %}
-                    
-                    <div class="mb-3">
-                        <h5>Descripción</h5>
-                        <p>{{ curso.descripcion|linebreaks }}</p>
-                    </div>
-                    
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <strong>Duración:</strong> {{ curso.duracion_horas }} horas
+                            <p class="text-muted mb-1">
+                                <i class="fas fa-user-tie me-1"></i>
+                                <strong>Profesor:</strong> {{ curso.profesor.username }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted mb-1">
+                                <i class="fas fa-calendar me-1"></i>
+                                <strong>Creado:</strong> {{ curso.fecha_creacion|date:"d/m/Y" }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    {% if curso.imagen %}
+                        <div class="text-center mb-4">
+                            <img src="{{ curso.imagen.url }}" class="img-fluid rounded" style="max-height: 300px;" alt="Imagen del curso">
+                        </div>
+                    {% else %}
+                        <div class="text-center mb-4">
+                            <div class="bg-light rounded p-4">
+                                <i class="fas fa-image fa-3x text-muted"></i>
+                                <p class="text-muted mt-2">Sin imagen</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="mb-4">
+                        <h5><i class="fas fa-align-left me-2"></i>Descripción</h5>
+                        <div class="bg-light p-3 rounded">
+                            <p class="mb-0">{{ curso.descripcion|linebreaks }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="text-center p-3 bg-info text-white rounded">
+                                <i class="fas fa-clock fa-2x mb-2"></i>
+                                <h5 class="mb-0">{{ curso.duracion_horas }} horas</h5>
+                                <small>Duración</small>
+                            </div>
                         </div>
                         {% if curso.organizacion %}
-                        <div class="col-md-6">
-                            <strong>Organización:</strong> {{ curso.organizacion.nombre }}
+                        <div class="col-md-4">
+                            <div class="text-center p-3 bg-success text-white rounded">
+                                <i class="fas fa-building fa-2x mb-2"></i>
+                                <h6 class="mb-0">{{ curso.organizacion.nombre|truncatechars:20 }}</h6>
+                                <small>Organización</small>
+                            </div>
                         </div>
                         {% endif %}
+                        <div class="col-md-4">
+                            <div class="text-center p-3 bg-warning text-dark rounded">
+                                <i class="fas fa-users fa-2x mb-2"></i>
+                                <h5 class="mb-0">{{ curso.inscripciones.count }}</h5>
+                                <small>Inscritos</small>
+                            </div>
+                        </div>
                     </div>
                     
                     {% if curso.video %}
-                    <div class="mb-3">
-                        <h5>Video del curso</h5>
-                        <video controls class="w-100">
-                            <source src="{{ curso.video.url }}" type="video/mp4">
-                            Tu navegador no soporta el elemento video.
-                        </video>
+                    <div class="mb-4">
+                        <h5><i class="fas fa-video me-2"></i>Video del curso</h5>
+                        <div class="ratio ratio-16x9">
+                            <video controls class="rounded">
+                                <source src="{{ curso.video.url }}" type="video/mp4">
+                                Tu navegador no soporta el elemento video.
+                            </video>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="mb-4">
+                        <div class="bg-light p-4 rounded text-center">
+                            <i class="fas fa-video fa-3x text-muted mb-3"></i>
+                            <h6 class="text-muted">Sin video</h6>
+                            {% if es_profesor %}
+                                <p class="text-muted">Sube un video para mejorar el contenido del curso</p>
+                            {% endif %}
+                        </div>
                     </div>
                     {% endif %}
                 </div>
@@ -45,42 +101,85 @@
         </div>
         
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-cogs me-2"></i>Acciones
+                    </h5>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Acciones</h5>
-                    <div class="d-grid gap-2">
-                        {% if inscripcion %}
-                                                    {% if certificado_existe %}
-                            <button class="btn btn-secondary" disabled>
-                                <i class="fas fa-check-circle me-2"></i>Certificado ya generado
-                            </button>
-                            {% if certificado_info %}
-                                <small class="text-muted">
-                                    Generado el {{ certificado_info.fecha_generacion }}<br>
-                                    Folio: {{ certificado_info.folio }}
-                                </small>
-                                <a href="{% url 'descargar_certificado' inscripcion.id %}" class="btn btn-primary mt-2">
-                                    <i class="fas fa-download me-2"></i>Descargar Certificado
-                                </a>
+                    <!-- Debug info (temporal) -->
+                    {% if user.is_authenticated %}
+                        <div class="alert alert-info small">
+                            <strong>Debug:</strong> Usuario: {{ user.username }} | 
+                            Profesor del curso: {{ curso.profesor.username }} | 
+                            Es profesor: {{ es_profesor|yesno:"Sí,No" }}
+                        </div>
+                    {% endif %}
+                    <div class="d-grid gap-3">
+                        {% if es_profesor %}
+                            <!-- Botones para el profesor del curso -->
+                            <div class="text-center mb-3">
+                                <i class="fas fa-user-tie fa-2x text-primary mb-2"></i>
+                                <h6 class="text-primary">Panel del Profesor</h6>
+                            </div>
+                            <a href="{% url 'editar_curso' curso.id %}" class="btn btn-warning btn-lg">
+                                <i class="fas fa-edit me-2"></i>Editar Curso
+                            </a>
+                            <small class="text-muted d-block mt-2 text-center">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Sube material, videos e imágenes del curso
+                            </small>
+                            <hr>
+                            <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-outline-danger" 
+                               onclick="return confirm('¿Estás seguro de que quieres eliminar este curso?')">
+                                <i class="fas fa-trash me-2"></i>Eliminar Curso
+                            </a>
+                        {% elif inscripcion %}
+                            <!-- Botones para estudiantes inscritos -->
+                            <div class="text-center mb-3">
+                                <i class="fas fa-user-graduate fa-2x text-success mb-2"></i>
+                                <h6 class="text-success">Estudiante Inscrito</h6>
+                            </div>
+                            {% if certificado_existe %}
+                                <button class="btn btn-secondary btn-lg" disabled>
+                                    <i class="fas fa-check-circle me-2"></i>Certificado ya generado
+                                </button>
+                                {% if certificado_info %}
+                                    <div class="bg-light p-3 rounded mt-3">
+                                        <small class="text-muted">
+                                            <strong>Generado:</strong> {{ certificado_info.fecha_generacion }}<br>
+                                            <strong>Folio:</strong> {{ certificado_info.folio }}
+                                        </small>
+                                    </div>
+                                    <a href="{% url 'descargar_certificado' inscripcion.id %}" class="btn btn-primary mt-3">
+                                        <i class="fas fa-download me-2"></i>Descargar Certificado
+                                    </a>
+                                {% else %}
+                                    <small class="text-muted">Solo se permite un certificado por inscripción</small>
+                                {% endif %}
                             {% else %}
-                                <small class="text-muted">Solo se permite un certificado por inscripción</small>
-                            {% endif %}
-                            {% else %}
-                                <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-success">
+                                <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-success btn-lg">
                                     <i class="fas fa-certificate me-2"></i>Generar Certificado DC-3
                                 </a>
                             {% endif %}
                         {% else %}
-                            <a href="{% url 'inscribirse_curso' curso.id %}" class="btn btn-primary">
+                            <!-- Botones para estudiantes no inscritos -->
+                            <div class="text-center mb-3">
+                                <i class="fas fa-user fa-2x text-info mb-2"></i>
+                                <h6 class="text-info">Acceso Libre</h6>
+                            </div>
+                            <a href="{% url 'inscribirse_curso' curso.id %}" class="btn btn-primary btn-lg">
                                 <i class="fas fa-user-plus me-2"></i>Inscribirse al curso
                             </a>
-                            <small class="text-muted d-block mt-2">
+                            <small class="text-muted d-block mt-2 text-center">
                                 <i class="fas fa-info-circle me-1"></i>
-                                Debes inscribirte al curso para poder generar el certificado
+                                Inscríbete para generar tu certificado DC-3
                             </small>
                         {% endif %}
                         
-                        <a href="{% url 'lista_cursos' %}" class="btn btn-secondary">
+                        <hr>
+                        <a href="{% url 'lista_cursos' %}" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-2"></i>Volver a cursos
                         </a>
                     </div>
@@ -89,4 +188,40 @@
         </div>
     </div>
 </div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+        border-bottom: none;
+    }
+    
+    .btn-lg {
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+    }
+    
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+    
+    .text-center .fa-2x {
+        display: block;
+        margin: 0 auto;
+    }
+    
+    .ratio-16x9 {
+        aspect-ratio: 16/9;
+    }
+    
+    .rounded {
+        border-radius: 10px !important;
+    }
+</style>
 {% endblock %}

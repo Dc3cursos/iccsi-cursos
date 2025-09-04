@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}¡Pago Exitoso! - {{ curso.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-success">
+                <div class="card-header bg-success text-white text-center">
+                    <i class="fas fa-check-circle fa-3x mb-3"></i>
+                    <h3 class="mb-0">¡Pago Completado Exitosamente!</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="alert alert-success">
+                        <h5 class="alert-heading">
+                            <i class="fas fa-graduation-cap me-2"></i>
+                            ¡Bienvenido al curso!
+                        </h5>
+                        <p class="mb-0">
+                            Tu pago ha sido procesado correctamente. Ya tienes acceso completo al curso.
+                        </p>
+                    </div>
+
+                    <!-- Información del curso -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            {% if curso.imagen %}
+                                <img src="{{ curso.imagen.url }}" class="img-fluid rounded" alt="{{ curso.nombre }}">
+                            {% else %}
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 150px;">
+                                    <i class="fas fa-book fa-3x text-muted"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8 text-start">
+                            <h4 class="card-title">{{ curso.nombre }}</h4>
+                            <p class="text-muted">{{ curso.descripcion }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-clock me-1"></i>
+                                    {% if curso.duracion_horas %}
+                                        {{ curso.duracion_horas }} horas
+                                    {% else %}
+                                        Duración variable
+                                    {% endif %}
+                                </span>
+                                <span class="badge bg-success">
+                                    <i class="fas fa-user me-1"></i>
+                                    {{ curso.profesor.get_full_name|default:curso.profesor.username }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detalles del pago -->
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <i class="fas fa-receipt me-2"></i>
+                                Detalles del Pago
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Monto pagado:</strong></p>
+                                    <p class="mb-1"><strong>Método de pago:</strong></p>
+                                    <p class="mb-1"><strong>Fecha de pago:</strong></p>
+                                    <p class="mb-1"><strong>Referencia:</strong></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1 text-success">${{ pago.monto }} MXN</p>
+                                    <p class="mb-1">Tarjeta de Crédito/Débito</p>
+                                    <p class="mb-1">{{ pago.fecha_pago|date:"d/m/Y H:i" }}</p>
+                                    <p class="mb-1">{{ pago.stripe_payment_intent_id|truncatechars:20 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                        <a href="{% url 'acceder_curso_pagado' curso.id %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play me-2"></i>
+                            Comenzar Curso
+                        </a>
+                        <a href="{% url 'mis_cursos_pagados' %}" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-list me-2"></i>
+                            Ver Mis Cursos
+                        </a>
+                        <a href="{% url 'llenar_plantilla_dc3_sistema' %}" class="btn btn-outline-success btn-lg">
+                            <i class="fas fa-certificate me-2"></i>
+                            Generar Certificado
+                        </a>
+                    </div>
+
+                    <!-- Información adicional -->
+                    <div class="mt-4">
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Próximos Pasos
+                            </h6>
+                            <ul class="mb-0 text-start">
+                                <li>Revisa el contenido del curso y los materiales disponibles</li>
+                                <li>Completa las actividades y evaluaciones</li>
+                                <li>Genera tu certificado DC-3 al finalizar</li>
+                                <li>¡Aplica lo aprendido en tu desarrollo profesional!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recibo por email -->
+                    <div class="mt-3">
+                        <p class="text-muted small">
+                            <i class="fas fa-envelope me-1"></i>
+                            Se ha enviado un recibo de pago a tu correo electrónico.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+    padding: 12px 24px;
+}
+
+.btn-lg {
+    padding: 15px 30px;
+    font-size: 16px;
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.badge {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+.card.bg-light {
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+</style>
+{% endblock %}

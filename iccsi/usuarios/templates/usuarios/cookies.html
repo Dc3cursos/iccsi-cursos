@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Política de Cookies - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h1 class="h2 mb-0">
+                        <i class="fas fa-cookie-bite me-3"></i>
+                        Política de Cookies
+                    </h1>
+                    <p class="mb-0 mt-2 opacity-75">Última actualización: {{ now|date:"d/m/Y" }}</p>
+                </div>
+                
+                <div class="card-body p-5">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>¿Qué son las cookies?</strong> Las cookies son pequeños archivos de texto que se almacenan en su dispositivo para mejorar su experiencia en nuestra plataforma.
+                    </div>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-list me-2"></i>
+                            Tipos de Cookies que Utilizamos
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-success h-100">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-cog me-2"></i>
+                                            Cookies Técnicas (Necesarias)
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="small">Estas cookies son esenciales para el funcionamiento de la plataforma.</p>
+                                        <ul class="small">
+                                            <li>Autenticación de usuarios</li>
+                                            <li>Preferencias de sesión</li>
+                                            <li>Seguridad y protección</li>
+                                            <li>Funcionalidades básicas</li>
+                                        </ul>
+                                        <div class="alert alert-success small">
+                                            <strong>Duración:</strong> Sesión / 1 año
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning text-dark">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-chart-line me-2"></i>
+                                            Cookies Analíticas
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="small">Nos ayudan a entender cómo utiliza nuestra plataforma.</p>
+                                        <ul class="small">
+                                            <li>Estadísticas de uso</li>
+                                            <li>Rendimiento del sitio</li>
+                                            <li>Análisis de comportamiento</li>
+                                            <li>Mejoras de funcionalidad</li>
+                                        </ul>
+                                        <div class="alert alert-warning small">
+                                            <strong>Duración:</strong> 2 años
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-info h-100">
+                                    <div class="card-header bg-info text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-user-cog me-2"></i>
+                                            Cookies de Preferencias
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="small">Personalizan su experiencia según sus preferencias.</p>
+                                        <ul class="small">
+                                            <li>Idioma preferido</li>
+                                            <li>Tema visual (claro/oscuro)</li>
+                                            <li>Configuraciones de accesibilidad</li>
+                                            <li>Preferencias de notificaciones</li>
+                                        </ul>
+                                        <div class="alert alert-info small">
+                                            <strong>Duración:</strong> 1 año
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-danger h-100">
+                                    <div class="card-header bg-danger text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-ad me-2"></i>
+                                            Cookies de Marketing
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="small">Utilizadas para mostrar contenido relevante.</p>
+                                        <ul class="small">
+                                            <li>Publicidad personalizada</li>
+                                            <li>Redes sociales</li>
+                                            <li>Análisis de marketing</li>
+                                            <li>Segmentación de audiencia</li>
+                                        </ul>
+                                        <div class="alert alert-danger small">
+                                            <strong>Duración:</strong> 6 meses
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-cogs me-2"></i>
+                            Gestión de Cookies
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-success">Configuración del Navegador:</h5>
+                                <ul class="small">
+                                    <li><strong>Chrome:</strong> Configuración > Privacidad y seguridad > Cookies</li>
+                                    <li><strong>Firefox:</strong> Opciones > Privacidad y seguridad > Cookies</li>
+                                    <li><strong>Safari:</strong> Preferencias > Privacidad > Cookies</li>
+                                    <li><strong>Edge:</strong> Configuración > Cookies y permisos del sitio</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-info">Nuestro Panel de Control:</h5>
+                                <ul class="small">
+                                    <li>Selector de cookies en tiempo real</li>
+                                    <li>Configuración granular por categoría</li>
+                                    <li>Guardado automático de preferencias</li>
+                                    <li>Revocación de consentimiento</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-3">
+                            <h5 class="alert-heading">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Importante
+                            </h5>
+                            <p class="mb-0">Deshabilitar ciertas cookies puede afectar la funcionalidad de la plataforma. Las cookies técnicas son necesarias para el funcionamiento básico.</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-shield-alt me-2"></i>
+                            Seguridad y Privacidad
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-lock me-2"></i>
+                                            Medidas de Seguridad
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small">
+                                            <li>Cookies con bandera HttpOnly</li>
+                                            <li>Encriptación SSL/TLS</li>
+                                            <li>Configuración Secure</li>
+                                            <li>SameSite attribute</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-eye-slash me-2"></i>
+                                            Protección de Datos
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small">
+                                            <li>No almacenamos datos personales</li>
+                                            <li>Anonimización de datos</li>
+                                            <li>Consentimiento explícito</li>
+                                            <li>Derecho de revocación</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-question-circle me-2"></i>
+                            Preguntas Frecuentes
+                        </h2>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        ¿Puedo deshabilitar todas las cookies?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Puede deshabilitar las cookies no esenciales, pero las cookies técnicas son necesarias para el funcionamiento básico de la plataforma.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        ¿Las cookies almacenan información personal?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        No almacenamos información personal en las cookies. Solo utilizamos identificadores anónimos para mejorar su experiencia.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        ¿Cómo puedo cambiar mis preferencias?
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Puede cambiar sus preferencias en cualquier momento usando nuestro panel de control de cookies o configurando su navegador.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="text-center mt-5">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Respetamos su privacidad y le damos control total sobre las cookies que utiliza nuestra plataforma.</strong>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'home' %}" class="btn btn-primary">
+                                <i class="fas fa-home me-2"></i>
+                                Volver al Inicio
+                            </a>
+                            <a href="{% url 'privacidad' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                Política de Privacidad
+                            </a>
+                            <a href="{% url 'terminos' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-file-contract me-2"></i>
+                                Términos y Condiciones
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

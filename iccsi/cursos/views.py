@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CursoForm, DC3GenerateForm
 from .models import Curso, Inscripcion, Organizacion, Empresa, PlantillaDC3, CertificadoDC3
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.core.paginator import Paginator
 import csv
 from django.utils import timezone
@@ -127,101 +127,84 @@ def eliminar_curso(request, curso_id):
     return render(request, 'cursos/eliminar_curso.html', {'curso': curso})
 
 def lista_cursos(request):
-    queryset = Curso.objects.all().select_related('organizacion', 'profesor')
-
-    # Filtros
-    org_id = request.GET.get('org')
-    horas_min = request.GET.get('hmin')
-    horas_max = request.GET.get('hmax')
-    query_text = request.GET.get('q', '')
-    sort = request.GET.get('sort', '-fecha')
-
-    if org_id:
-        try:
-            queryset = queryset.filter(organizacion_id=int(org_id))
-        except ValueError:
-            pass
-    if horas_min:
-        try:
-            queryset = queryset.filter(duracion_horas__gte=int(horas_min))
-        except ValueError:
-            pass
-    if horas_max:
-        try:
-            queryset = queryset.filter(duracion_horas__lte=int(horas_max))
-        except ValueError:
-            pass
-
-    if query_text:
-        texto = query_text.strip()
-        if texto:
-            queryset = queryset.filter(
-                Q(nombre__icontains=texto)
-                | Q(descripcion__icontains=texto)
-                | Q(organizacion__nombre__icontains=texto)
-            )
-
-    # Ordenamiento
-    sort_map = {
-        'nombre': 'nombre',
-        '-nombre': '-nombre',
-        'horas': 'duracion_horas',
-        '-horas': '-duracion_horas',
-        'fecha': 'fecha_creacion',
-        '-fecha': '-fecha_creacion',
-        'organizacion': 'organizacion__nombre',
-        '-organizacion': '-organizacion__nombre',
-    }
-    order_field = sort_map.get(sort, '-fecha_creacion')
-    queryset = queryset.order_by(order_field)
-
-    # Exportación CSV manteniendo filtros y orden actual
-    export_format = request.GET.get('format')
-    if export_format == 'csv':
-        response = HttpResponse(content_type='text/csv; charset=utf-8')
-        response['Content-Disposition'] = 'attachment; filename="cursos_filtrados.csv"'
-        writer = csv.writer(response)
-        writer.writerow(['Nombre', 'Organización', 'Horas', 'Profesor', 'Fecha creación'])
-        for c in queryset:
-            writer.writerow([
-                c.nombre,
-                c.organizacion.nombre if c.organizacion else '',
-                c.duracion_horas or '',
-                getattr(c.profesor, 'username', ''),
-                c.fecha_creacion.strftime('%Y-%m-%d %H:%M'),
-            ])
-        return response
-
-    organizaciones = Organizacion.objects.all().order_by('nombre')
+    """Vista para listar todos los cursos disponibles con filtros avanzados"""
+    # Obtener parámetros de filtrado
+    organizacion_id = request.GET.get('organizacion', '')
+    duracion = request.GET.get('duracion', '')
+    orden = request.GET.get('orden', '-fecha_creacion')
+    busqueda = request.GET.get('q', '')
+    
+    # Query base
+    cursos = Curso.objects.select_related('profesor', 'organizacion').prefetch_related('inscripciones')
+    
+    # Aplicar filtros
+    if organizacion_id:
+        cursos = cursos.filter(organizacion_id=organizacion_id)
+    
+    if duracion:
+        if duracion == '1-10':
+            cursos = cursos.filter(duracion_horas__gte=1, duracion_horas__lte=10)
+        elif duracion == '11-20':
+            cursos = cursos.filter(duracion_horas__gte=11, duracion_horas__lte=20)
+        elif duracion == '21-40':
+            cursos = cursos.filter(duracion_horas__gte=21, duracion_horas__lte=40)
+        elif duracion == '40+':
+            cursos = cursos.filter(duracion_horas__gt=40)
+    
+    if busqueda:
+        cursos = cursos.filter(
+            Q(nombre__icontains=busqueda) |
+            Q(descripcion__icontains=busqueda) |
+            Q(organizacion__nombre__icontains=busqueda)
+        )
+    
+    # Aplicar ordenamiento
+    if orden == 'nombre':
+        cursos = cursos.order_by('nombre')
+    elif orden == '-nombre':
+        cursos = cursos.order_by('-nombre')
+    elif orden == 'duracion_horas':
+        cursos = cursos.order_by('duracion_horas')
+    elif orden == '-duracion_horas':
+        cursos = cursos.order_by('-duracion_horas')
+    elif orden == 'fecha_creacion':
+        cursos = cursos.order_by('fecha_creacion')
+    elif orden == '-fecha_creacion':
+        cursos = cursos.order_by('-fecha_creacion')
+    else:
+        cursos = cursos.order_by('-fecha_creacion')
+    
+    # Obtener datos para filtros
+    organizaciones = Organizacion.objects.all()
+    
+    # Estadísticas detalladas
+    total_cursos = Curso.objects.count()
+    total_estudiantes = Inscripcion.objects.values('alumno').distinct().count()
+    total_certificados = CertificadoDC3.objects.count()
+    total_horas = Curso.objects.aggregate(total=Sum('duracion_horas'))['total'] or 0
+    total_inscripciones = Inscripcion.objects.count()
+    
     # Paginación
-    per_page_raw = request.GET.get('per_page') or '12'
-    try:
-        per_page = max(1, min(60, int(per_page_raw)))
-    except ValueError:
-        per_page = 12
-    paginator = Paginator(queryset, per_page)
-    page_number = request.GET.get('page') or 1
+    paginator = Paginator(cursos, 12)  # 12 cursos por página
+    page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
-    # Querystring sin el parámetro de página, para reutilizar en enlaces
-    params = request.GET.copy()
-    params.pop('page', None)
-    querystring_no_page = params.urlencode()
-
+    
     context = {
-        'cursos': page_obj.object_list,
-        'page_obj': page_obj,
-        'is_paginated': page_obj.has_other_pages(),
+        'cursos': page_obj,
         'organizaciones': organizaciones,
-        'selected_org': org_id or '',
-        'hmin': horas_min or '',
-        'hmax': horas_max or '',
-        'q': query_text or '',
-        'sort': sort,
-        'per_page': per_page,
-        'querystring_no_page': querystring_no_page,
-        'total': paginator.count,
+        'total_cursos': total_cursos,
+        'total_estudiantes': total_estudiantes,
+        'total_certificados': total_certificados,
+        'total_horas': total_horas,
+        'total_inscripciones': total_inscripciones,
+        'filtros_activos': {
+            'organizacion': organizacion_id,
+            'duracion': duracion,
+            'orden': orden,
+            'q': busqueda,
+        }
     }
+    
     return render(request, 'cursos/lista_cursos.html', context)
 
 def detalle_curso(request, curso_id):
@@ -235,8 +218,12 @@ def detalle_curso(request, curso_id):
     inscripcion = None
     certificado_existe = False
     certificado_info = None
+    es_profesor = False
     
     if request.user.is_authenticated:
+        # Verificar si el usuario es el profesor del curso
+        es_profesor = (request.user == curso.profesor)
+        
         inscripcion = Inscripcion.objects.filter(
             alumno=request.user, 
             curso=curso
@@ -255,7 +242,8 @@ def detalle_curso(request, curso_id):
         'curso': curso,
         'inscripcion': inscripcion,
         'certificado_existe': certificado_existe,
-        'certificado_info': certificado_info
+        'certificado_info': certificado_info,
+        'es_profesor': es_profesor
     }
     
     return render(request, 'cursos/detalle_curso.html', context)

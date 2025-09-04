@@ -1,0 +1,443 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Política de Privacidad - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h1 class="h2 mb-0">
+                        <i class="fas fa-shield-alt me-3"></i>
+                        Política de Privacidad
+                    </h1>
+                    <p class="mb-0 mt-2 opacity-75">Última actualización: {{ now|date:"d/m/Y" }}</p>
+                </div>
+                
+                <div class="card-body p-5">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Compromiso con su Privacidad:</strong> En ICCSI, protegemos y respetamos su privacidad. Esta política explica cómo recopilamos, usamos y protegemos su información personal.
+                    </div>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-user-shield me-2"></i>
+                            1. Información que Recopilamos
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-success h-100">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-user me-2"></i>
+                                            Información Personal
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success me-2"></i>Nombre completo</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Correo electrónico</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Número de teléfono</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Dirección postal</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Fecha de nacimiento</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Información profesional</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-info h-100">
+                                    <div class="card-header bg-info text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-chart-line me-2"></i>
+                                            Información de Uso
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-info me-2"></i>Datos de navegación</li>
+                                            <li><i class="fas fa-check text-info me-2"></i>Progreso en cursos</li>
+                                            <li><i class="fas fa-check text-info me-2"></i>Evaluaciones realizadas</li>
+                                            <li><i class="fas fa-check text-info me-2"></i>Certificados obtenidos</li>
+                                            <li><i class="fas fa-check text-info me-2"></i>Preferencias de aprendizaje</li>
+                                            <li><i class="fas fa-check text-info me-2"></i>Interacciones con la plataforma</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-cogs me-2"></i>
+                            2. Cómo Usamos su Información
+                        </h2>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th>Propósito</th>
+                                        <th>Información Utilizada</th>
+                                        <th>Base Legal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Gestión de Cuenta</strong></td>
+                                        <td>Datos personales básicos</td>
+                                        <td>Ejecución del contrato</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Provisión de Cursos</strong></td>
+                                        <td>Información de inscripción</td>
+                                        <td>Ejecución del contrato</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Emisión de Certificados</strong></td>
+                                        <td>Datos personales y académicos</td>
+                                        <td>Obligación legal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mejora del Servicio</strong></td>
+                                        <td>Datos de uso anonimizados</td>
+                                        <td>Interés legítimo</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Comunicaciones</strong></td>
+                                        <td>Correo electrónico</td>
+                                        <td>Consentimiento</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-share-alt me-2"></i>
+                            3. Compartir Información
+                        </h2>
+                        
+                        <div class="alert alert-warning">
+                            <h5 class="alert-heading">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Principio de Confidencialidad
+                            </h5>
+                            <p class="mb-0">No vendemos, alquilamos ni compartimos su información personal con terceros, excepto en las siguientes circunstancias específicas:</p>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-success">Compartir Autorizado:</h5>
+                                <ul class="small">
+                                    <li><i class="fas fa-check text-success me-2"></i>Autoridades educativas (certificaciones)</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Proveedores de servicios técnicos</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Procesadores de pagos seguros</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Obligaciones legales</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-danger">Nunca Compartimos:</h5>
+                                <ul class="small">
+                                    <li><i class="fas fa-times text-danger me-2"></i>Información con fines comerciales</li>
+                                    <li><i class="fas fa-times text-danger me-2"></i>Datos con empresas de marketing</li>
+                                    <li><i class="fas fa-times text-danger me-2"></i>Información personal con otros usuarios</li>
+                                    <li><i class="fas fa-times text-danger me-2"></i>Datos sin su consentimiento explícito</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-lock me-2"></i>
+                            4. Protección de Datos
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-shield-alt me-2"></i>
+                                            Medidas de Seguridad
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small">
+                                            <li><i class="fas fa-lock text-primary me-2"></i>Encriptación SSL/TLS 256-bit</li>
+                                            <li><i class="fas fa-database text-primary me-2"></i>Bases de datos seguras</li>
+                                            <li><i class="fas fa-user-lock text-primary me-2"></i>Autenticación multifactor</li>
+                                            <li><i class="fas fa-eye-slash text-primary me-2"></i>Acceso restringido a datos</li>
+                                            <li><i class="fas fa-history text-primary me-2"></i>Copias de seguridad regulares</li>
+                                            <li><i class="fas fa-virus-slash text-primary me-2"></i>Protección contra malware</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-clock me-2"></i>
+                                            Retención de Datos
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small">
+                                            <li><i class="fas fa-calendar-check text-success me-2"></i>Datos activos: Durante la cuenta activa</li>
+                                            <li><i class="fas fa-calendar-times text-success me-2"></i>Después de cancelación: 5 años</li>
+                                            <li><i class="fas fa-certificate text-success me-2"></i>Certificados: Permanente</li>
+                                            <li><i class="fas fa-chart-bar text-success me-2"></i>Estadísticas: Anonimizadas</li>
+                                            <li><i class="fas fa-trash text-success me-2"></i>Eliminación: Automática</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-user-check me-2"></i>
+                            5. Sus Derechos ARCO
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-eye fa-2x"></i>
+                                    </div>
+                                    <h6 class="text-primary">Acceso</h6>
+                                    <p class="small">Solicitar información sobre sus datos personales</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-edit fa-2x"></i>
+                                    </div>
+                                    <h6 class="text-warning">Rectificación</h6>
+                                    <p class="small">Corregir datos inexactos o incompletos</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-ban fa-2x"></i>
+                                    </div>
+                                    <h6 class="text-danger">Cancelación</h6>
+                                    <p class="small">Eliminar sus datos de nuestros registros</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-download fa-2x"></i>
+                                    </div>
+                                    <h6 class="text-success">Oposición</h6>
+                                    <p class="small">Oponerse al uso de sus datos personales</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4">
+                            <h5 class="alert-heading">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Cómo Ejercer sus Derechos
+                            </h5>
+                            <p class="mb-2">Para ejercer cualquiera de estos derechos, puede:</p>
+                            <ul class="mb-0">
+                                <li>Contactarnos por correo electrónico: <strong>privacidad@iccsi.edu.mx</strong></li>
+                                <li>Llamar al: <strong>+52 (55) 1234-5678</strong></li>
+                                <li>Enviar carta certificada a nuestra dirección física</li>
+                                <li>Usar el formulario en línea en su panel de usuario</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-cookie-bite me-2"></i>
+                            6. Cookies y Tecnologías Similares
+                        </h2>
+                        
+                        <p>Utilizamos cookies y tecnologías similares para mejorar su experiencia. Para más detalles, consulte nuestra <a href="{% url 'cookies' %}" class="text-primary">Política de Cookies</a>.</p>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card border-info">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-cog text-info fa-3x mb-3"></i>
+                                        <h6>Cookies Técnicas</h6>
+                                        <p class="small">Necesarias para el funcionamiento</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-warning">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-chart-line text-warning fa-3x mb-3"></i>
+                                        <h6>Cookies Analíticas</h6>
+                                        <p class="small">Para mejorar nuestros servicios</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-success">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-user-cog text-success fa-3x mb-3"></i>
+                                        <h6>Cookies de Preferencias</h6>
+                                        <p class="small">Para personalizar su experiencia</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-globe me-2"></i>
+                            7. Transferencias Internacionales
+                        </h2>
+                        
+                        <div class="alert alert-warning">
+                            <h5 class="alert-heading">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Información Importante
+                            </h5>
+                            <p class="mb-0">Sus datos se procesan principalmente en México. En caso de transferencias internacionales, garantizamos que se cumplan los estándares de protección adecuados según la normativa aplicable.</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-baby me-2"></i>
+                            8. Protección de Menores
+                        </h2>
+                        
+                        <div class="card border-warning">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-shield-alt me-2"></i>
+                                    Política para Menores de Edad
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="mb-0">
+                                    <li>No recopilamos intencionalmente datos de menores de 13 años</li>
+                                    <li>Los usuarios entre 13-18 años requieren consentimiento parental</li>
+                                    <li>Implementamos medidas adicionales de protección</li>
+                                    <li>Los padres pueden solicitar la eliminación de datos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-bell me-2"></i>
+                            9. Notificaciones de Cambios
+                        </h2>
+                        
+                        <p>Nos reservamos el derecho de actualizar esta política de privacidad. Los cambios significativos serán notificados por:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-primary">Notificaciones:</h5>
+                                <ul class="small">
+                                    <li><i class="fas fa-envelope text-primary me-2"></i>Correo electrónico</li>
+                                    <li><i class="fas fa-bell text-primary me-2"></i>Aviso en la plataforma</li>
+                                    <li><i class="fas fa-calendar text-primary me-2"></i>Actualización de fecha</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-success">Anticipación:</h5>
+                                <ul class="small">
+                                    <li><i class="fas fa-clock text-success me-2"></i>30 días de anticipación</li>
+                                    <li><i class="fas fa-eye text-success me-2"></i>Revisión de cambios</li>
+                                    <li><i class="fas fa-question text-success me-2"></i>Oportunidad de consultas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">
+                            <i class="fas fa-envelope me-2"></i>
+                            10. Contacto y Consultas
+                        </h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-user-shield me-2"></i>
+                                            Oficial de Privacidad
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-envelope me-2 text-primary"></i>privacidad@iccsi.edu.mx</li>
+                                            <li><i class="fas fa-phone me-2 text-primary"></i>+52 (55) 1234-5678</li>
+                                            <li><i class="fas fa-map-marker-alt me-2 text-primary"></i>Ciudad de México, México</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-clock me-2"></i>
+                                            Horarios de Atención
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-calendar-day me-2 text-success"></i>Lunes a Viernes: 9:00 - 18:00</li>
+                                            <li><i class="fas fa-calendar-day me-2 text-success"></i>Sábados: 9:00 - 14:00</li>
+                                            <li><i class="fas fa-calendar-times me-2 text-success"></i>Domingos: Cerrado</li>
+                                            <li><i class="fas fa-clock me-2 text-success"></i>Respuesta: 24-48 horas</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="text-center mt-5">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Su privacidad es nuestra prioridad. Estamos comprometidos a proteger sus datos personales y respetar sus derechos.</strong>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'home' %}" class="btn btn-primary">
+                                <i class="fas fa-home me-2"></i>
+                                Volver al Inicio
+                            </a>
+                            <a href="{% url 'terminos' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-file-contract me-2"></i>
+                                Ver Términos
+                            </a>
+                            <a href="{% url 'cookies' %}" class="btn btn-outline-info">
+                                <i class="fas fa-cookie-bite me-2"></i>
+                                Política de Cookies
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

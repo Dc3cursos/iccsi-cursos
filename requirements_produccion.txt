@@ -1,0 +1,44 @@
+# Dependencias para producción ICCSI
+# Sitio Web + API + App Móvil + App Escritorio
+
+# Django y dependencias principales
+Django==5.2.4
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-filter==23.5
+
+# Base de datos
+psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+
+# Servidor web
+gunicorn==21.2.0
+whitenoise==6.6.0
+
+# API y autenticación
+djangorestframework-simplejwt==5.3.0
+django-allauth==0.57.0
+
+# Generación de PDFs
+reportlab==4.0.7
+PyPDF2==3.0.1
+python-docx==1.1.0
+
+# Procesamiento de imágenes
+Pillow==10.1.0
+
+# Utilidades
+python-decouple==3.8
+dj-static==0.0.6
+
+# Para app de escritorio (opcional)
+PyQt6==6.6.1
+PySide6==6.6.1
+
+# Para desarrollo móvil (opcional)
+django-rest-auth==0.9.5
+django-rest-framework-jwt==1.11.0
+
+# Seguridad
+django-secure==1.0.2
+django-sslify==0.2.7

@@ -1,0 +1,335 @@
+/* ===== MEJORAS DE VISIBILIDAD DE TEXTO ===== */
+
+/* Asegurar que todo el texto sea visible */
+body {
+  color: var(--text-primary) !important;
+  background: var(--bg-primary) !important;
+}
+
+/* Mejorar contraste del texto en todos los elementos */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+p, span, div, a, li {
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en cards y contenedores */
+.card {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+.card-body {
+  color: var(--text-primary) !important;
+}
+
+.card-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+.card-text {
+  color: var(--text-secondary) !important;
+}
+
+/* Mejorar visibilidad en formularios */
+.form-control {
+  background: var(--input-bg) !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+.form-control:focus {
+  background: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25) !important;
+}
+
+.form-label {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+/* Mejorar visibilidad en botones */
+.btn {
+  color: inherit !important;
+  font-weight: 500 !important;
+}
+
+.btn-primary {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.btn-secondary {
+  background: var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
+  color: white !important;
+}
+
+/* Mejorar visibilidad en navegación */
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+.navbar-nav .nav-link:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Mejorar visibilidad en dropdowns */
+.dropdown-menu {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.dropdown-item {
+  color: var(--text-primary) !important;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en tablas */
+.table {
+  color: var(--text-primary) !important;
+}
+
+.table th {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+.table td {
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en listas */
+.list-group-item {
+  background: var(--card-bg) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en badges */
+.badge {
+  font-weight: 500 !important;
+}
+
+/* Mejorar visibilidad en alertas */
+.alert {
+  color: var(--text-primary) !important;
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.1) !important;
+  border-color: var(--success-color) !important;
+  color: var(--success-color) !important;
+}
+
+.alert-danger {
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-color: var(--danger-color) !important;
+  color: var(--danger-color) !important;
+}
+
+.alert-warning {
+  background: rgba(245, 158, 11, 0.1) !important;
+  border-color: var(--warning-color) !important;
+  color: var(--warning-color) !important;
+}
+
+.alert-info {
+  background: rgba(59, 130, 246, 0.1) !important;
+  border-color: var(--info-color) !important;
+  color: var(--info-color) !important;
+}
+
+/* Mejorar visibilidad en modales */
+.modal-content {
+  background: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+.modal-header {
+  border-bottom-color: var(--border-light) !important;
+}
+
+.modal-footer {
+  border-top-color: var(--border-light) !important;
+}
+
+/* Mejorar visibilidad en tooltips */
+.tooltip-inner {
+  background: var(--dark-color) !important;
+  color: white !important;
+}
+
+/* Mejorar visibilidad en popovers */
+.popover {
+  background: var(--card-bg) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+.popover-header {
+  background: var(--bg-secondary) !important;
+  border-bottom-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en breadcrumbs */
+.breadcrumb-item {
+  color: var(--text-secondary) !important;
+}
+
+.breadcrumb-item.active {
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en paginación */
+.page-link {
+  background: var(--card-bg) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+.page-link:hover {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.page-item.active .page-link {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+/* Mejorar visibilidad en progress bars */
+.progress {
+  background: var(--bg-secondary) !important;
+}
+
+/* Mejorar visibilidad en spinners */
+.spinner-border {
+  color: var(--primary-color) !important;
+}
+
+/* Mejorar visibilidad en placeholders */
+::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1 !important;
+}
+
+/* Mejorar visibilidad en selects */
+.form-select {
+  background: var(--input-bg) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en textareas */
+textarea {
+  background: var(--input-bg) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en inputs de búsqueda */
+.search-input {
+  background: var(--input-bg) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Mejorar visibilidad en enlaces */
+a {
+  color: var(--primary-color) !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: var(--primary-dark) !important;
+  text-decoration: underline !important;
+}
+
+/* Mejorar visibilidad en texto pequeño */
+small, .small {
+  color: var(--text-secondary) !important;
+}
+
+/* Mejorar visibilidad en texto muted */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Mejorar visibilidad en texto secundario */
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+/* Forzar contraste alto en modo oscuro */
+[data-theme="dark"] {
+  --text-primary: #ffffff !important;
+  --text-secondary: #e2e8f0 !important;
+  --text-muted: #94a3b8 !important;
+  --bg-primary: #0f172a !important;
+  --bg-secondary: #1e293b !important;
+  --card-bg: #1e293b !important;
+  --input-bg: #334155 !important;
+  --border-light: #475569 !important;
+}
+
+/* Forzar contraste alto en modo claro */
+[data-theme="light"] {
+  --text-primary: #1e293b !important;
+  --text-secondary: #475569 !important;
+  --text-muted: #64748b !important;
+  --bg-primary: #ffffff !important;
+  --bg-secondary: #f8fafc !important;
+  --card-bg: #ffffff !important;
+  --input-bg: #ffffff !important;
+  --border-light: #e2e8f0 !important;
+}
+
+/* Asegurar que el texto sea legible en todos los dispositivos */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+  
+  h1 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  h3 { font-size: 1.25rem !important; }
+  h4 { font-size: 1.125rem !important; }
+  h5 { font-size: 1rem !important; }
+  h6 { font-size: 0.875rem !important; }
+}
+
+/* Mejorar contraste para accesibilidad */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #000000 !important;
+    --text-secondary: #333333 !important;
+    --bg-primary: #ffffff !important;
+    --border-light: #000000 !important;
+  }
+  
+  [data-theme="dark"] {
+    --text-primary: #ffffff !important;
+    --text-secondary: #cccccc !important;
+    --bg-primary: #000000 !important;
+    --border-light: #ffffff !important;
+  }
+}

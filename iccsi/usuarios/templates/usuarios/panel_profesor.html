@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% block title %}Panel del Profesor{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header del Panel -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 class="mb-0">👨‍🏫 Panel del Profesor</h2>
+                            <p class="mb-0">Bienvenido, {{ usuario.get_full_name|default:usuario.username }}</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="{% url 'logout' %}" class="btn btn-light">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas Rápidas -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h3>{{ total_cursos }}</h3>
+                    <p class="mb-0">Cursos Creados</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <h3>0</h3>
+                    <p class="mb-0">Estudiantes Activos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body text-center">
+                    <h3>0</h3>
+                    <p class="mb-0">Certificados Emitidos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-danger text-white">
+                <div class="card-body text-center">
+                    <h3>0</h3>
+                    <p class="mb-0">Pendientes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones Principales -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>🚀 Acciones Rápidas</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'crear_curso' %}" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-plus"></i><br>
+                                Crear Nuevo Curso
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'lista_cursos' %}" class="btn btn-success btn-lg w-100">
+                                <i class="fas fa-users"></i><br>
+                                Ver Todos los Cursos
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-info btn-lg w-100">
+                                <i class="fas fa-certificate"></i><br>
+                                Emitir Certificados
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'dashboard' %}" class="btn btn-warning btn-lg w-100">
+                                <i class="fas fa-chart-bar"></i><br>
+                                Ver Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Cursos -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>📚 Mis Cursos</h4>
+                    <a href="{% url 'crear_curso' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Nuevo Curso
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if cursos %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Curso</th>
+                                        <th>Organización</th>
+                                        <th>Duración</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for curso in cursos %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ curso.nombre }}</strong><br>
+                                            <small class="text-muted">{{ curso.descripcion|truncatewords:10 }}</small>
+                                        </td>
+                                        <td>{{ curso.organizacion.nombre }}</td>
+                                        <td>{{ curso.duracion_horas }} horas</td>
+                                        <td>
+                                            <span class="badge bg-success">Activo</span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{% url 'editar_curso' curso.id %}" class="btn btn-sm btn-outline-primary" title="Editar curso">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-sm btn-outline-info" title="Ver curso">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{% url 'llenar_pdf_en_sistema' %}" class="btn btn-sm btn-outline-success" title="Gestionar certificados">
+                                                    <i class="fas fa-certificate"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-book fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No tienes cursos creados</h5>
+                            <p class="text-muted">Comienza creando tu primer curso para poder gestionar estudiantes y emitir certificados.</p>
+                            <a href="{% url 'crear_curso' %}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Crear Mi Primer Curso
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Información de Contacto -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5>📞 Información de Contacto</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Email:</strong> {{ usuario.email|default:"No especificado" }}</p>
+                            <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Fecha de Registro:</strong> {{ usuario.date_joined|date:"d/m/Y" }}</p>
+                            <p><strong>Último Acceso:</strong> {{ usuario.last_login|date:"d/m/Y H:i"|default:"Nunca" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.btn-group .btn {
+    margin-right: 2px;
+}
+
+.table th {
+    border-top: none;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+</style>
+{% endblock %}

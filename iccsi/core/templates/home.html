@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ICCSI - Instituto de Capacitación Profesional{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="hero-title display-4 fw-bold mb-4">
+                        Aprendizaje que se adapta a tu vida
+                    </h1>
+                    <p class="hero-subtitle lead mb-4">
+                        Desarrolla tus habilidades profesionales con cursos de calidad y obtén certificaciones DC-3 oficiales. Más de 100 cursos disponibles para impulsar tu carrera.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{% url 'lista_cursos' %}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-rocket me-2"></i>
+                            Explorar Cursos
+                        </a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>
+                            Iniciar Sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <div class="hero-card">
+                        <div class="hero-card-content">
+                            <div class="hero-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number">{{ total_estudiantes|default:"0" }}</div>
+                                    <div class="stat-label">Estudiantes</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">{{ total_cursos|default:"0" }}</div>
+                                    <div class="stat-label">Cursos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">{{ total_organizaciones|default:"0" }}</div>
+                                    <div class="stat-label">Organizaciones</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trusted By Section -->
+<section class="trusted-section py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h3 class="section-title">Confían en nosotros</h3>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-2 col-4 text-center mb-3">
+                <div class="trusted-logo">
+                    <i class="fas fa-building fa-3x text-muted"></i>
+                    <p class="mt-2 small text-muted">Empresas</p>
+                </div>
+            </div>
+            <div class="col-md-2 col-4 text-center mb-3">
+                <div class="trusted-logo">
+                    <i class="fas fa-graduation-cap fa-3x text-muted"></i>
+                    <p class="mt-2 small text-muted">Instituciones</p>
+                </div>
+            </div>
+            <div class="col-md-2 col-4 text-center mb-3">
+                <div class="trusted-logo">
+                    <i class="fas fa-users fa-3x text-muted"></i>
+                    <p class="mt-2 small text-muted">Profesionales</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="categories-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Categorías Destacadas</h2>
+            <p class="section-subtitle">Explora nuestras áreas de especialización</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Seguridad Industrial</h4>
+                    <p>Certificaciones en normas de seguridad y prevención de riesgos</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h4>Gestión de Calidad</h4>
+                    <p>Normas ISO y sistemas de gestión empresarial</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Medio Ambiente</h4>
+                    <p>Certificaciones ambientales y sostenibilidad</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Gestión Empresarial</h4>
+                    <p>Habilidades directivas y gestión organizacional</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses -->
+<section class="featured-courses py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Cursos Destacados</h2>
+            <p class="section-subtitle">Los más populares entre nuestros estudiantes</p>
+        </div>
+        <div class="row">
+            {% for curso in cursos_destacados %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="course-card">
+                    <div class="course-image">
+                        {% if curso.imagen %}
+                            <img src="{{ curso.imagen.url }}" alt="{{ curso.nombre }}" class="img-fluid">
+                        {% else %}
+                            <div class="placeholder-image">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="course-content">
+                        <h5 class="course-title">{{ curso.nombre }}</h5>
+                        <p class="course-description">{{ curso.descripcion|truncatewords:15 }}</p>
+                        <div class="course-meta">
+                            <span class="course-duration">
+                                <i class="fas fa-clock me-1"></i>{{ curso.duracion_horas }} horas
+                            </span>
+                            <span class="course-organization">
+                                {% if curso.organizacion %}
+                                    {{ curso.organizacion.nombre }}
+                                {% else %}
+                                    ICCSI
+                                {% endif %}
+                            </span>
+                        </div>
+                        <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-primary btn-sm">
+                            Ver Curso
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'lista_cursos' %}" class="btn btn-outline-primary btn-lg">
+                Ver Todos los Cursos
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-card text-center">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Estudiantes Certificados</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-card text-center">
+                    <div class="stat-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="stat-number">{{ total_cursos|default:"0" }}</div>
+                    <div class="stat-label">Cursos Disponibles</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-card text-center">
+                    <div class="stat-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Tasa de Aprobación</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-card text-center">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">Calificación Promedio</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">¿Listo para impulsar tu carrera?</h2>
+        <p class="lead mb-4">Únete a miles de profesionales que ya han transformado sus carreras con nuestros cursos certificados.</p>
+        <div class="cta-buttons">
+            <a href="{% url 'registro_alumno' %}" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-user-plus me-2"></i>
+                Registrarse Gratis
+            </a>
+            <a href="{% url 'lista_cursos' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-search me-2"></i>
+                Explorar Cursos
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

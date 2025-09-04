@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Procesar Pago - {{ curso.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">
+                        <i class="fas fa-credit-card me-2"></i>
+                        Procesar Pago
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- Información del pago -->
+                    <div class="alert alert-info">
+                        <h6 class="fw-bold mb-2">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Detalles del Pago
+                        </h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Curso:</strong> {{ curso.nombre }}<br>
+                                <strong>Método de Pago:</strong> {{ pago.get_metodo_pago_display }}<br>
+                                <strong>Estado:</strong> 
+                                <span class="badge bg-warning">{{ pago.get_estado_display }}</span>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <strong>Monto:</strong><br>
+                                <span class="h4 text-success">${{ pago.monto }} MXN</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulación de procesamiento de pago -->
+                    <div class="text-center mb-4">
+                        <div class="spinner-border text-primary mb-3" role="status">
+                            <span class="visually-hidden">Procesando...</span>
+                        </div>
+                        <h5>Procesando tu pago...</h5>
+                        <p class="text-muted">Por favor espera mientras procesamos tu transacción de forma segura.</p>
+                    </div>
+
+                    <!-- Formulario de confirmación -->
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="alert alert-warning">
+                            <h6 class="fw-bold mb-2">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Confirmación de Pago
+                            </h6>
+                            <p class="mb-0">
+                                Al hacer clic en "Confirmar Pago", estarás confirmando que deseas proceder con el pago de 
+                                <strong>${{ pago.monto }} MXN</strong> por el curso <strong>{{ curso.nombre }}</strong>.
+                            </p>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Confirmar Pago
+                            </button>
+                            <a href="{% url 'detalle_curso_con_precio' curso.id %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+
+                    <!-- Información de seguridad -->
+                    <div class="mt-4">
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <i class="fas fa-shield-alt fa-2x text-success mb-2"></i>
+                                <h6>Pago Seguro</h6>
+                                <small class="text-muted">Encriptación SSL de 256 bits</small>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fas fa-lock fa-2x text-primary mb-2"></i>
+                                <h6>Datos Protegidos</h6>
+                                <small class="text-muted">Tus datos están seguros</small>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fas fa-certificate fa-2x text-warning mb-2"></i>
+                                <h6>Certificado SSL</h6>
+                                <small class="text-muted">Conexión verificada</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información adicional -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3">
+                        <i class="fas fa-question-circle me-2"></i>
+                        ¿Necesitas ayuda?
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Contacto de Soporte</h6>
+                            <p class="mb-1"><i class="fas fa-envelope me-2"></i>soporte@iccsi.com</p>
+                            <p class="mb-1"><i class="fas fa-phone me-2"></i>+52 55 1234 5678</p>
+                            <p class="mb-0"><i class="fas fa-clock me-2"></i>Lun-Vie 9:00-18:00</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Métodos de Pago Aceptados</h6>
+                            <div class="d-flex gap-2 mb-2">
+                                <i class="fab fa-cc-visa fa-2x text-primary"></i>
+                                <i class="fab fa-cc-mastercard fa-2x text-primary"></i>
+                                <i class="fab fa-paypal fa-2x text-primary"></i>
+                            </div>
+                            <small class="text-muted">Todos los pagos son procesados de forma segura</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 500;
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Simular procesamiento
+    const spinner = document.querySelector('.spinner-border');
+    const processingText = document.querySelector('h5');
+    const processingDesc = document.querySelector('p');
+    
+    // Cambiar texto después de 2 segundos
+    setTimeout(() => {
+        processingText.textContent = 'Verificando información...';
+        processingDesc.textContent = 'Validando los datos de tu pago.';
+    }, 2000);
+    
+    // Cambiar texto después de 4 segundos
+    setTimeout(() => {
+        processingText.textContent = 'Conectando con el procesador...';
+        processingDesc.textContent = 'Estableciendo conexión segura con el procesador de pagos.';
+    }, 4000);
+});
+</script>
+{% endblock %}

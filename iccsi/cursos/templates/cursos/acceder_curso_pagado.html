@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ curso.nombre }} - Contenido del Curso{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Header del curso -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h1 class="mb-2">{{ curso.nombre }}</h1>
+                            <p class="mb-0">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Acceso completo al curso - Pago verificado
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="badge bg-success fs-6 p-2">
+                                <i class="fas fa-unlock me-1"></i>
+                                Acceso Completo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Contenido principal del curso -->
+        <div class="col-lg-8">
+            <!-- Información del curso -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Información del Curso
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Instructor:</strong> {{ curso.profesor.get_full_name|default:curso.profesor.username }}</p>
+                            <p><strong>Organización:</strong> {{ curso.organizacion.nombre|default:"No especificada" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Duración:</strong> 
+                                {% if curso.duracion_horas %}
+                                    {{ curso.duracion_horas }} horas
+                                {% else %}
+                                    Duración variable
+                                {% endif %}
+                            </p>
+                            <p><strong>Fecha de acceso:</strong> {{ pago.fecha_pago|date:"d/m/Y H:i" }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <h6 class="fw-bold">Descripción del Curso</h6>
+                    <p>{{ curso.descripcion|linebreaks }}</p>
+                </div>
+            </div>
+
+            <!-- Video del curso -->
+            {% if curso.video %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-play-circle me-2"></i>
+                        Video del Curso
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <video controls class="w-100" style="max-height: 500px;">
+                        <source src="{{ curso.video.url }}" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Material del curso -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-file-alt me-2"></i>
+                        Material del Curso
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if curso.recursos.all %}
+                        <div class="row">
+                            {% for recurso in curso.recursos.all %}
+                            <div class="col-md-6 mb-3">
+                                <div class="border rounded p-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-file fa-2x text-primary me-3"></i>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">{{ recurso.nombre }}</h6>
+                                            {% if recurso.archivo %}
+                                                <a href="{{ recurso.archivo.url }}" class="btn btn-sm btn-outline-primary" download>
+                                                    <i class="fas fa-download me-1"></i>Descargar
+                                                </a>
+                                            {% endif %}
+                                            {% if recurso.enlace %}
+                                                <a href="{{ recurso.enlace }}" class="btn btn-sm btn-outline-secondary" target="_blank">
+                                                    <i class="fas fa-external-link-alt me-1"></i>Ver
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                            <h6 class="text-muted">No hay material disponible aún</h6>
+                            <p class="text-muted">El instructor agregará material pronto.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Certificado -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-certificate me-2"></i>
+                        Certificado DC-3
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success">
+                        <h6 class="fw-bold">
+                            <i class="fas fa-check-circle me-2"></i>
+                            ¡Felicidades! Has completado el curso
+                        </h6>
+                        <p class="mb-3">Ahora puedes generar tu certificado DC-3 oficial.</p>
+                        <a href="{% url 'llenar_plantilla_dc3_sistema' %}" class="btn btn-success">
+                            <i class="fas fa-certificate me-2"></i>
+                            Generar Certificado DC-3
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel lateral -->
+        <div class="col-lg-4">
+            <!-- Información del pago -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Pago Completado
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-check-circle fa-3x text-success mb-2"></i>
+                        <h6 class="text-success">Acceso Verificado</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="text-muted">Monto pagado:</small><br>
+                            <strong class="text-success">${{ pago.monto }}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted">Método:</small><br>
+                            <strong>{{ pago.get_metodo_pago_display }}</strong>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <small class="text-muted">Referencia:</small><br>
+                            <strong>{{ pago.referencia_pago }}</strong>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <small class="text-muted">Fecha de pago:</small><br>
+                            <strong>{{ pago.fecha_pago|date:"d/m/Y H:i" }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progreso del curso -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Tu Progreso
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="progress mb-3" style="height: 20px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            100% Completado
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                        <h6 class="text-success">¡Curso Completado!</h6>
+                        <small class="text-muted">Has completado todos los módulos</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acciones rápidas -->
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-bolt me-2"></i>
+                        Acciones Rápidas
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'llenar_plantilla_dc3_sistema' %}" class="btn btn-success">
+                            <i class="fas fa-certificate me-2"></i>
+                            Generar Certificado
+                        </a>
+                        <a href="{% url 'verificar_certificado' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-search me-2"></i>
+                            Verificar Certificado
+                        </a>
+                        <a href="{% url 'mis_cursos_pagados' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-list me-2"></i>
+                            Mis Cursos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 500;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+</style>
+{% endblock %}

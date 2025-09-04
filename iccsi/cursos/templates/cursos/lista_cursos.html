@@ -1,314 +1,497 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Catálogo de Cursos - ICCSI{% endblock %}
-{% block content %}
 
+{% block title %}Cursos Disponibles - ICCSI{% endblock %}
+
+{% block content %}
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
         <div class="hero-content text-center">
-            <h1 class="hero-title animate-fade-in-up">Catálogo de Cursos</h1>
-            <p class="hero-subtitle animate-slide-in-left">Descubre nuestra amplia gama de cursos profesionales y certificaciones DC-3</p>
-            <div class="hero-stats d-flex justify-content-center gap-4 mt-4">
+            <h1 class="hero-title">Descubre tu Potencial</h1>
+            <p class="hero-subtitle">Explora nuestra amplia gama de cursos profesionales y certificaciones DC-3</p>
+            
+            <!-- Búsqueda en tiempo real -->
+            <div class="search-container mx-auto" style="max-width: 600px;">
+                <div class="position-relative">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="form-control search-input" id="searchInput" placeholder="Buscar cursos por nombre, organización o instructor...">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
+            
+            <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number">{{ total }}</div>
-                    <div class="stat-label">Cursos Disponibles</div>
+                    <span class="stat-number">{{ cursos.count }}</span>
+                    <span class="stat-label">Cursos Disponibles</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">{{ organizaciones.count }}</div>
-                    <div class="stat-label">Organizaciones</div>
+                    <span class="stat-number">{{ organizaciones.count }}</span>
+                    <span class="stat-label">Organizaciones</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Certificados</div>
+                    <span class="stat-number">{{ total_inscripciones }}</span>
+                    <span class="stat-label">Estudiantes</span>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Welcome Alert -->
-{% if not user.is_authenticated %}
-<div class="container mb-4">
-    <div class="alert alert-info alert-dismissible fade show animate-fade-in-up" role="alert">
-        <div class="d-flex align-items-center">
-            <div class="alert-icon me-3">
-                <i class="fas fa-graduation-cap fa-2x"></i>
+<!-- Filtros Mejorados -->
+<div class="filters-card">
+    <div class="filters-header">
+        <h2 class="filters-title">Encuentra tu Curso Ideal</h2>
+        <p class="filters-subtitle">Filtra por organización, duración o usa la búsqueda</p>
+    </div>
+    
+    <form method="get" class="filters-form">
+                                <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="organizacion" class="form-label">Organización</label>
+                                <select name="organizacion" id="organizacion" class="form-select">
+                                    <option value="">Todas las organizaciones</option>
+                                    {% for org in organizaciones %}
+                                        <option value="{{ org.id }}" {% if request.GET.organizacion == org.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ org.nombre }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="duracion" class="form-label">Duración</label>
+                                <select name="duracion" id="duracion" class="form-select">
+                                    <option value="">Cualquier duración</option>
+                                    <option value="1-10" {% if request.GET.duracion == "1-10" %}selected{% endif %}>1-10 horas</option>
+                                    <option value="11-20" {% if request.GET.duracion == "11-20" %}selected{% endif %}>11-20 horas</option>
+                                    <option value="21-40" {% if request.GET.duracion == "21-40" %}selected{% endif %}>21-40 horas</option>
+                                    <option value="40+" {% if request.GET.duracion == "40+" %}selected{% endif %}>Más de 40 horas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="orden" class="form-label">Ordenar por</label>
+                                <select name="orden" id="orden" class="form-select">
+                                    <option value="nombre" {% if request.GET.orden == "nombre" %}selected{% endif %}>Nombre A-Z</option>
+                                    <option value="-nombre" {% if request.GET.orden == "-nombre" %}selected{% endif %}>Nombre Z-A</option>
+                                    <option value="duracion_horas" {% if request.GET.orden == "duracion_horas" %}selected{% endif %}>Duración (menor)</option>
+                                    <option value="-duracion_horas" {% if request.GET.orden == "-duracion_horas" %}selected{% endif %}>Duración (mayor)</option>
+                                    <option value="fecha_creacion" {% if request.GET.orden == "fecha_creacion" %}selected{% endif %}>Más recientes</option>
+                                    <option value="-fecha_creacion" {% if request.GET.orden == "-fecha_creacion" %}selected{% endif %}>Más antiguos</option>
+                                </select>
+                            </div>
+                        </div>
+        
+        <div class="filters-actions">
+            <div class="results-count">
+                <i class="fas fa-filter me-2"></i>
+                <span id="resultsCount">{{ cursos.count }} cursos encontrados</span>
             </div>
-            <div class="flex-grow-1">
-                <h5 class="alert-heading mb-2">¡Bienvenido al catálogo de cursos ICCSI!</h5>
-                <p class="mb-2">Explora nuestra amplia gama de cursos profesionales y certificaciones DC-3. Para inscribirte y acceder a todos los beneficios, crea una cuenta o inicia sesión.</p>
-                <div class="d-flex gap-2">
-                    <a href="{% url 'registro_alumno' %}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus me-1"></i>Crear Cuenta
-                    </a>
-                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">
-                        <i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión
-                    </a>
-                </div>
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search me-2"></i>Filtrar
+                </button>
+                <a href="{% url 'lista_cursos' %}" class="btn btn-outline-primary ms-2">
+                    <i class="fas fa-times me-2"></i>Limpiar
+                </a>
             </div>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    </form>
 </div>
-{% endif %}
 
-<!-- Filtros Mejorados -->
-<div class="container mb-5">
-    <div class="filters-card">
-        <div class="filters-header">
-            <h3 class="filters-title">
-                <i class="fas fa-filter me-2"></i>Filtros y Búsqueda
-            </h3>
-            <p class="filters-subtitle">Encuentra el curso perfecto para ti</p>
+<!-- Estadísticas Detalladas -->
+<section class="stats-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-white mb-3">Nuestros Números Hablan</h2>
+            <p class="text-white-50">Descubre por qué somos líderes en capacitación profesional</p>
         </div>
         
-        <form method="get" class="filters-form">
-            <div class="row g-3">
-                <div class="col-12 col-md-3">
-                    <label class="form-label">
-                        <i class="fas fa-building me-1"></i>Organización
-                    </label>
-                    <select name="org" class="form-select">
-                        <option value="">Todas las organizaciones</option>
-                        {% for org in organizaciones %}
-                            <option value="{{ org.id }}" {% if selected_org|stringformat:'s' == org.id|stringformat:'s' %}selected{% endif %}>{{ org.nombre }}</option>
-                        {% endfor %}
-                    </select>
+        <div class="stats-grid">
+            <div class="stat-card scroll-animate">
+                <div class="stat-icon">
+                    <i class="fas fa-graduation-cap"></i>
                 </div>
-                
-                <div class="col-6 col-md-2">
-                    <label class="form-label">
-                        <i class="fas fa-clock me-1"></i>Horas mín.
-                    </label>
-                    <input type="number" name="hmin" value="{{ hmin }}" class="form-control" min="0" step="1" placeholder="0" />
-                </div>
-                
-                <div class="col-6 col-md-2">
-                    <label class="form-label">
-                        <i class="fas fa-clock me-1"></i>Horas máx.
-                    </label>
-                    <input type="number" name="hmax" value="{{ hmax }}" class="form-control" min="0" step="1" placeholder="200" />
-                </div>
-                
-                <div class="col-12 col-md-3">
-                    <label class="form-label">
-                        <i class="fas fa-search me-1"></i>Buscar
-                    </label>
-                    <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Nombre, descripción u organización" />
-                </div>
-                
-                <div class="col-12 col-md-2">
-                    <label class="form-label">
-                        <i class="fas fa-sort me-1"></i>Ordenar
-                    </label>
-                    <select name="sort" class="form-select">
-                        <option value="-fecha" {% if sort == '-fecha' %}selected{% endif %}>Más recientes</option>
-                        <option value="fecha" {% if sort == 'fecha' %}selected{% endif %}>Más antiguos</option>
-                        <option value="-horas" {% if sort == '-horas' %}selected{% endif %}>Más horas</option>
-                        <option value="horas" {% if sort == 'horas' %}selected{% endif %}>Menos horas</option>
-                        <option value="nombre" {% if sort == 'nombre' %}selected{% endif %}>A-Z</option>
-                        <option value="-nombre" {% if sort == '-nombre' %}selected{% endif %}>Z-A</option>
-                    </select>
-                </div>
+                <div class="stat-number">{{ total_cursos }}</div>
+                <div class="stat-label">Cursos Activos</div>
+                <div class="stat-description">Programas de capacitación certificados</div>
             </div>
             
-            <div class="filters-actions">
-                <div class="d-flex gap-2 align-items-center">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-search me-1"></i>Aplicar Filtros
-                    </button>
-                    <a href="?" class="btn btn-outline-secondary">
-                        <i class="fas fa-times me-1"></i>Limpiar
-                    </a>
-                    <a class="btn btn-outline-success" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}format=csv" title="Exportar a CSV">
-                        <i class="fas fa-download me-1"></i>Exportar
-                    </a>
+            <div class="stat-card scroll-animate">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
                 </div>
-                <div class="results-count">
-                    <span class="badge bg-primary">{{ total }} cursos encontrados</span>
-                </div>
+                <div class="stat-number">{{ total_estudiantes }}</div>
+                <div class="stat-label">Estudiantes</div>
+                <div class="stat-description">Profesionales capacitados</div>
             </div>
-        </form>
+            
+            <div class="stat-card scroll-animate">
+                <div class="stat-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <div class="stat-number">{{ total_certificados }}</div>
+                <div class="stat-label">Certificados Emitidos</div>
+                <div class="stat-description">DC-3 y certificaciones oficiales</div>
+            </div>
+            
+            <div class="stat-card scroll-animate">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-number">{{ total_horas }}</div>
+                <div class="stat-label">Horas de Capacitación</div>
+                <div class="stat-description">Contenido educativo de calidad</div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
 <!-- Lista de Cursos -->
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+<div class="row" id="cursosContainer">
+    {% if cursos %}
         {% for curso in cursos %}
-            <div class="col">
-                <div class="card h-100 curso-card animate-fade-in-up" style="animation-delay: {{ forloop.counter0|multiply:0.1 }}s;">
-                    <!-- Imagen del curso -->
+            <div class="col-lg-4 col-md-6 mb-4 curso-item" 
+                 data-nombre="{{ curso.nombre|lower }}" 
+                 data-organizacion="{{ curso.organizacion.nombre|lower }}"
+                 data-duracion="{{ curso.duracion_horas }}">
+                <div class="curso-card scroll-animate">
                     <div class="card-img-wrapper">
                         {% if curso.imagen %}
-                            <img src="{{ curso.imagen.url }}" class="card-img-top" alt="Imagen del curso {{ curso.nombre }}" loading="lazy">
+                            <img src="{{ curso.imagen.url }}" class="card-img-top" alt="{{ curso.nombre }}">
                         {% else %}
                             <div class="card-img-placeholder">
-                                <i class="fas fa-graduation-cap fa-3x"></i>
+                                <i class="fas fa-book fa-3x"></i>
                                 <p>Sin imagen</p>
                             </div>
                         {% endif %}
+                        
                         <div class="card-overlay">
                             <div class="overlay-content">
-                                {% if user.is_authenticated and user.rol == 'profesor' and curso.profesor == user %}
-                                    <a href="{% url 'editar_curso' curso.id %}" class="btn btn-light btn-sm">
-                                        <i class="fas fa-edit"></i> Editar
+                                <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-light btn-sm">
+                                    <i class="fas fa-eye me-1"></i>Ver Detalles
+                                </a>
+                                {% if user.is_authenticated and user.rol == "alumno" %}
+                                    <a href="{% url 'inscribirse_curso' curso.id %}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-plus me-1"></i>Inscribirse
                                     </a>
-                                    <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </a>
-                                {% elif user.is_authenticated and user.rol == 'alumno' %}
-                                    <form action="{% url 'inscribirse_curso' curso.id %}" method="post" class="d-inline">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fas fa-user-plus"></i> Inscribirse
-                                        </button>
-                                    </form>
-                                {% else %}
-                                    <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-eye"></i> Ver Detalles
+                                {% endif %}
+                                {% if user.is_authenticated and user == curso.profesor %}
+                                    <a href="{% url 'editar_curso' curso.id %}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit me-1"></i>Editar
                                     </a>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Contenido de la tarjeta -->
                     <div class="card-body">
                         <div class="card-header-info">
-                            <span class="badge bg-primary">{{ curso.duracion_horas }} horas</span>
-                            {% if curso.organizacion %}
-                                <span class="badge bg-secondary">{{ curso.organizacion.nombre|truncatechars:20 }}</span>
-                            {% endif %}
+                            <span class="badge bg-primary">{{ curso.organizacion.nombre }}</span>
+                            <span class="badge bg-secondary">{{ curso.duracion_horas }} horas</span>
                         </div>
                         
-                        <h5 class="card-title">{{ curso.nombre|truncatechars:80 }}</h5>
-                        <p class="card-text">{{ curso.descripcion|truncatechars:120 }}</p>
+                        <h5 class="card-title">{{ curso.nombre }}</h5>
+                        <p class="card-text">{{ curso.descripcion|truncatewords:20 }}</p>
                         
                         <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ curso.duracion_horas }} horas</span>
+                            </div>
                             <div class="meta-item">
                                 <i class="fas fa-user-tie"></i>
                                 <span>{{ curso.profesor.username }}</span>
                             </div>
-                            {% if curso.organizacion %}
-                                <div class="meta-item">
-                                    <i class="fas fa-building"></i>
-                                    <span>{{ curso.organizacion.nombre }}</span>
-                                </div>
-                            {% endif %}
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>{{ curso.fecha_creacion|date:"d/m/Y" }}</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Footer de la tarjeta -->
                     <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="course-stats">
-                                <span class="stat">
-                                    <i class="fas fa-clock"></i>
-                                    {{ curso.duracion_horas }}h
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-certificate"></i>
-                                    DC-3
-                                </span>
+                        <div class="course-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>{{ curso.inscripciones.count }} inscritos</span>
                             </div>
-                            
-                            <div class="card-actions">
-                                {% if user.is_authenticated and user.rol == 'profesor' and curso.profesor == user %}
-                                    <a href="{% url 'editar_curso' curso.id %}" class="btn btn-outline-primary btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-outline-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                {% elif user.is_authenticated and user.rol == 'alumno' %}
-                                    <form action="{% url 'inscribirse_curso' curso.id %}" method="post" class="d-inline">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fas fa-user-plus me-1"></i>Inscribirse
-                                        </button>
-                                    </form>
-                                {% else %}
-                                    <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-eye me-1"></i>Ver Detalles
-                                    </a>
-                                {% endif %}
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.8/5</span>
                             </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-info-circle me-1"></i>Detalles
+                            </a>
+                            {% if user.is_authenticated and user.rol == "alumno" %}
+                                <a href="{% url 'inscribirse_curso' curso.id %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus me-1"></i>Inscribirse
+                                </a>
+                            {% endif %}
+                            {% if user.is_authenticated and user == curso.profesor %}
+                                <a href="{% url 'editar_curso' curso.id %}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit me-1"></i>Editar
+                                </a>
+                                <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger btn-sm" 
+                                   onclick="return confirm('¿Estás seguro de que quieres eliminar este curso?')">
+                                    <i class="fas fa-trash me-1"></i>Eliminar
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-        {% empty %}
-            <div class="col-12">
-                <div class="empty-state">
-                    <div class="empty-icon">
-                        <i class="fas fa-search fa-3x"></i>
-                    </div>
-                    <h3>No se encontraron cursos</h3>
-                    <p>Intenta ajustar los filtros de búsqueda o contacta con nosotros para más información.</p>
-                    <a href="?" class="btn btn-primary">
-                        <i class="fas fa-refresh me-1"></i>Limpiar Filtros
-                    </a>
-                </div>
-            </div>
         {% endfor %}
-    </div>
+    {% else %}
+        <div class="col-12">
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-search fa-4x"></i>
+                </div>
+                <h3>No se encontraron cursos</h3>
+                <p>Intenta ajustar los filtros o contacta con nosotros para más información sobre nuestros cursos.</p>
+                <a href="{% url 'lista_cursos' %}" class="btn btn-primary">
+                    <i class="fas fa-refresh me-2"></i>Ver todos los cursos
+                </a>
+            </div>
+        </div>
+    {% endif %}
 </div>
 
-{% if is_paginated %}
-  <div class="container mt-5">
-    <nav aria-label="Paginación" class="pagination-wrapper">
-      <div class="pagination-info">
-        <span class="pagination-text">
-          Mostrando página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-        </span>
-        <span class="pagination-total">
-          ({{ page_obj.paginator.count }} cursos totales)
-        </span>
-      </div>
-      
-      <ul class="pagination justify-content-center">
-        {% if page_obj.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}page={{ page_obj.previous_page_number }}" title="Página anterior">
-              <i class="fas fa-chevron-left"></i>
-            </a>
-          </li>
-        {% else %}
-          <li class="page-item disabled">
-            <span class="page-link" title="Página anterior">
-              <i class="fas fa-chevron-left"></i>
-            </span>
-          </li>
-        {% endif %}
+<!-- Testimonios -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-gradient mb-3">Lo que dicen nuestros estudiantes</h2>
+            <p class="text-muted">Descubre las experiencias de quienes han transformado sus carreras con nosotros</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="testimonial-card scroll-animate">
+                    <div class="testimonial-text">
+                        "La calidad de los cursos superó mis expectativas. Los instructores son expertos en sus campos y el material es muy práctico. Definitivamente recomendaría ICCSI a cualquier profesional."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MC</div>
+                        <div class="author-info">
+                            <h5>María Cortés</h5>
+                            <p>Ingeniera Industrial</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="testimonial-card scroll-animate">
+                    <div class="testimonial-text">
+                        "Gracias a los certificados DC-3 que obtuve aquí, pude ascender en mi empresa. El proceso fue sencillo y el soporte técnico excelente. ¡Muy satisfecho con mi experiencia!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JL</div>
+                        <div class="author-info">
+                            <h5>Juan López</h5>
+                            <p>Supervisor de Seguridad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="testimonial-card scroll-animate">
+                    <div class="testimonial-text">
+                        "La plataforma es muy intuitiva y los cursos están bien estructurados. Pude completar mi capacitación a mi propio ritmo sin comprometer la calidad del aprendizaje."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AG</div>
+                        <div class="author-info">
+                            <h5>Ana García</h5>
+                            <p>Coordinadora de RH</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        {% for num in page_obj.paginator.page_range %}
-          {% if num == page_obj.number %}
-            <li class="page-item active">
-              <span class="page-link">{{ num }}</span>
-            </li>
-          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <li class="page-item">
-              <a class="page-link" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}page={{ num }}">{{ num }}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?{% if querystring_no_page %}{{ querystring_no_page }}&{% endif %}page={{ page_obj.next_page_number }}" title="Página siguiente">
-              <i class="fas fa-chevron-right"></i>
-            </a>
-          </li>
-        {% else %}
-          <li class="page-item disabled">
-            <span class="page-link" title="Página siguiente">
-              <i class="fas fa-chevron-right"></i>
-            </span>
-          </li>
-        {% endif %}
-      </ul>
-    </nav>
-  </div>
+<!-- Paginación -->
+{% if cursos.has_other_pages %}
+    <div class="pagination-wrapper">
+        <div class="pagination-info">
+            <p class="pagination-text">
+                Mostrando {{ cursos.start_index }} - {{ cursos.end_index }} de {{ cursos.paginator.count }} cursos
+            </p>
+            <p class="pagination-total">Página {{ cursos.number }} de {{ cursos.paginator.num_pages }}</p>
+        </div>
+        
+        <nav aria-label="Navegación de páginas">
+            <ul class="pagination justify-content-center">
+                {% if cursos.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if request.GET.organizacion %}&organizacion={{ request.GET.organizacion }}{% endif %}{% if request.GET.duracion %}&duracion={{ request.GET.duracion }}{% endif %}{% if request.GET.orden %}&orden={{ request.GET.orden }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ cursos.previous_page_number }}{% if request.GET.organizacion %}&organizacion={{ request.GET.organizacion }}{% endif %}{% if request.GET.duracion %}&duracion={{ request.GET.duracion }}{% endif %}{% if request.GET.orden %}&orden={{ request.GET.orden }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                
+                {% for num in cursos.paginator.page_range %}
+                    {% if cursos.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > cursos.number|add:'-3' and num < cursos.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}{% if request.GET.organizacion %}&organizacion={{ request.GET.organizacion }}{% endif %}{% if request.GET.duracion %}&duracion={{ request.GET.duracion }}{% endif %}{% if request.GET.orden %}&orden={{ request.GET.orden }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if cursos.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ cursos.next_page_number }}{% if request.GET.organizacion %}&organizacion={{ request.GET.organizacion }}{% endif %}{% if request.GET.duracion %}&duracion={{ request.GET.duracion }}{% endif %}{% if request.GET.orden %}&orden={{ request.GET.orden }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ cursos.paginator.num_pages }}{% if request.GET.organizacion %}&organizacion={{ request.GET.organizacion }}{% endif %}{% if request.GET.duracion %}&duracion={{ request.GET.duracion }}{% endif %}{% if request.GET.orden %}&orden={{ request.GET.orden }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Búsqueda en tiempo real
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const cursosContainer = document.getElementById('cursosContainer');
+const cursoItems = document.querySelectorAll('.curso-item');
+const resultsCount = document.getElementById('resultsCount');
+
+let searchTimeout;
+
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        if (searchTerm.length === 0) {
+            // Mostrar todos los cursos
+            cursoItems.forEach(item => {
+                item.style.display = 'block';
+                item.classList.add('fade-in');
+            });
+            searchResults.style.display = 'none';
+            updateResultsCount(cursoItems.length);
+            return;
+        }
+        
+        // Filtrar cursos
+        let visibleCount = 0;
+        cursoItems.forEach(item => {
+            const nombre = item.dataset.nombre;
+            const organizacion = item.dataset.organizacion;
+            const duracion = item.dataset.duracion;
+            
+            const matches = nombre.includes(searchTerm) || 
+                           organizacion.includes(searchTerm) ||
+                           duracion.includes(searchTerm);
+            
+            if (matches) {
+                item.style.display = 'block';
+                item.classList.add('fade-in');
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+                item.classList.remove('fade-in');
+            }
+        });
+        
+        updateResultsCount(visibleCount);
+        
+        // Mostrar resultados de búsqueda rápida
+        if (searchTerm.length >= 2) {
+            showQuickSearchResults(searchTerm);
+        } else {
+            searchResults.style.display = 'none';
+        }
+    }, 300);
+});
+
+function showQuickSearchResults(searchTerm) {
+    const matchingCursos = Array.from(cursoItems).filter(item => {
+        const nombre = item.dataset.nombre;
+        const organizacion = item.dataset.organizacion;
+        
+        return nombre.includes(searchTerm) || 
+               organizacion.includes(searchTerm);
+    }).slice(0, 5);
+    
+    if (matchingCursos.length > 0) {
+        searchResults.innerHTML = matchingCursos.map(item => {
+            const nombre = item.querySelector('.card-title').textContent;
+            const organizacion = item.querySelector('.badge.bg-primary').textContent;
+            return `
+                <div class="search-result-item" onclick="scrollToCourse('${item.dataset.nombre}')">
+                    <div class="fw-bold">${nombre}</div>
+                    <div class="text-muted small">${organizacion}</div>
+                </div>
+            `;
+        }).join('');
+        searchResults.style.display = 'block';
+    } else {
+        searchResults.style.display = 'none';
+    }
+}
+
+function scrollToCourse(nombre) {
+    const curso = document.querySelector(`[data-nombre="${nombre}"]`);
+    if (curso) {
+        curso.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        curso.classList.add('pulse');
+        setTimeout(() => curso.classList.remove('pulse'), 1000);
+    }
+    searchResults.style.display = 'none';
+    searchInput.value = '';
+}
+
+function updateResultsCount(count) {
+    resultsCount.textContent = `${count} curso${count !== 1 ? 's' : ''} encontrado${count !== 1 ? 's' : ''}`;
+}
+
+// Cerrar resultados de búsqueda al hacer clic fuera
+document.addEventListener('click', function(e) {
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+    }
+});
+
+// Animaciones de entrada escalonadas
+document.addEventListener('DOMContentLoaded', function() {
+    const cursoCards = document.querySelectorAll('.curso-card');
+    cursoCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+
+// Filtros automáticos
+document.querySelectorAll('#organizacion, #duracion, #orden').forEach(select => {
+    select.addEventListener('change', function() {
+        this.closest('form').submit();
+    });
+});
+</script>
 {% endblock %}

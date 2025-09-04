@@ -1,5 +1,16 @@
 from django.urls import path
 from . import views
+from .pago_views import (
+    lista_cursos_con_precio, detalle_curso_con_precio, inscribirse_y_pagar,
+    procesar_pago, mis_cursos_pagados, historial_pagos, acceder_curso_pagado,
+    webhook_pago, cancelar_pago
+)
+from .stripe_views import (
+    crear_pago_stripe, confirmar_pago_stripe, exito_pago_stripe,
+    cancelar_pago_stripe, webhook_stripe, dashboard_pagos_profesor
+)
+
+
 
 urlpatterns = [
     path('', views.lista_cursos, name='lista_cursos'),
@@ -45,4 +56,23 @@ urlpatterns = [
     
     # URL para verificar autenticidad de certificados
     path('verificar-certificado/', views.verificar_certificado, name='verificar_certificado'),
+
+    # URLs del sistema de pagos
+    path('cursos-con-precio/', lista_cursos_con_precio, name='lista_cursos_con_precio'),
+    path('curso-con-precio/<int:curso_id>/', detalle_curso_con_precio, name='detalle_curso_con_precio'),
+    path('inscribirse-y-pagar/<int:curso_id>/', inscribirse_y_pagar, name='inscribirse_y_pagar'),
+    path('procesar-pago/<int:pago_id>/', procesar_pago, name='procesar_pago'),
+    path('mis-cursos-pagados/', mis_cursos_pagados, name='mis_cursos_pagados'),
+    path('historial-pagos/', historial_pagos, name='historial_pagos'),
+    path('acceder-curso/<int:curso_id>/', acceder_curso_pagado, name='acceder_curso_pagado'),
+    path('webhook-pago/', webhook_pago, name='webhook_pago'),
+    path('cancelar-pago/<int:pago_id>/', cancelar_pago, name='cancelar_pago'),
+    
+    # URLs de Stripe
+    path('stripe/crear-pago/<int:curso_id>/', crear_pago_stripe, name='crear_pago_stripe'),
+    path('stripe/confirmar-pago/<int:pago_id>/', confirmar_pago_stripe, name='confirmar_pago_stripe'),
+    path('stripe/exito-pago/<int:pago_id>/', exito_pago_stripe, name='exito_pago_stripe'),
+    path('stripe/cancelar-pago/<int:pago_id>/', cancelar_pago_stripe, name='cancelar_pago_stripe'),
+    path('stripe/webhook/', webhook_stripe, name='webhook_stripe'),
+    path('dashboard-pagos/', dashboard_pagos_profesor, name='dashboard_pagos_profesor'),
 ]

@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard de Pagos - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="text-center mb-4">
+                <i class="fas fa-chart-line text-primary me-3"></i>
+                Dashboard de Pagos
+            </h1>
+            <p class="text-center text-muted lead">
+                Monitorea los ingresos y ventas de tus cursos
+            </p>
+        </div>
+    </div>
+
+    <!-- Estadísticas principales -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <i class="fas fa-dollar-sign fa-3x mb-3"></i>
+                    <h3 class="card-title">${{ total_ingresos|floatformat:2 }}</h3>
+                    <p class="card-text">Total de Ingresos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+                    <h3 class="card-title">{{ total_cursos_vendidos }}</h3>
+                    <p class="card-text">Cursos Vendidos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x mb-3"></i>
+                    <h3 class="card-title">{{ pagos.count }}</h3>
+                    <p class="card-text">Estudiantes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de ingresos por mes -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Ingresos por Mes
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for mes in meses %}
+                        <div class="col-md-2 mb-3">
+                            <div class="text-center">
+                                <div class="h5 text-primary">${{ mes.ingresos|floatformat:0 }}</div>
+                                <small class="text-muted">{{ mes.mes }}</small>
+                                <div class="progress mt-2" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" 
+                                         style="width: {% if total_ingresos > 0 %}{{ mes.ingresos|div:total_ingresos|mul:100 }}{% else %}0{% endif %}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de pagos recientes -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list me-2"></i>
+                        Pagos Recientes
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if pagos %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Estudiante</th>
+                                    <th>Curso</th>
+                                    <th>Monto</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Referencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pago in pagos|slice:":10" %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
+                                                {{ pago.inscripcion.usuario.first_name|first|upper }}
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold">{{ pago.inscripcion.usuario.get_full_name|default:pago.inscripcion.usuario.username }}</div>
+                                                <small class="text-muted">{{ pago.inscripcion.usuario.email }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold">{{ pago.inscripcion.curso.nombre }}</div>
+                                        <small class="text-muted">{{ pago.inscripcion.curso.duracion_horas }} horas</small>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold text-success">${{ pago.monto }}</span>
+                                    </td>
+                                    <td>
+                                        <div>{{ pago.fecha_pago|date:"d/m/Y" }}</div>
+                                        <small class="text-muted">{{ pago.fecha_pago|date:"H:i" }}</small>
+                                    </td>
+                                    <td>
+                                        {% if pago.estado == 'completado' %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check me-1"></i>Completado
+                                            </span>
+                                        {% elif pago.estado == 'pendiente' %}
+                                            <span class="badge bg-warning">
+                                                <i class="fas fa-clock me-1"></i>Pendiente
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-danger">
+                                                <i class="fas fa-times me-1"></i>Cancelado
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">{{ pago.stripe_payment_intent_id|truncatechars:15 }}</small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-chart-line fa-4x text-muted mb-4"></i>
+                        <h4 class="text-muted mb-3">Aún no hay pagos</h4>
+                        <p class="text-muted mb-4">
+                            Los pagos de tus cursos aparecerán aquí cuando los estudiantes compren.
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Información de Pagos
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Los pagos se procesan automáticamente con Stripe
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Comisión: 3.5% + $2.50 MXN por transacción
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Transferencias automáticas cada 2-3 días hábiles
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Recibos automáticos por email a los estudiantes
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Consejos para Aumentar Ventas
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Agrega contenido multimedia atractivo
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Mantén las descripciones actualizadas
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Ofrece certificados de calidad
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Responde preguntas de los estudiantes
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+}
+
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+}
+</style>
+{% endblock %}

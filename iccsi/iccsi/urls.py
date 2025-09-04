@@ -16,15 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from usuarios.views import home
 from django.conf import settings
 from django.conf.urls.static import static
+from iccsi.views import home, api_info
 
 urlpatterns = [
        path('', home, name='home'),
+       path('api/info/', api_info, name='api_info'),
        path('admin/', admin.site.urls),
-       path('usuarios/', include('usuarios.urls')),
-       path('cursos/', include('cursos.urls')), 
+       path('usuarios/', include('iccsi.usuarios.urls')),
+       path('cursos/', include('iccsi.cursos.urls')),
+       path('api/', include('iccsi.iccsi.api_urls')),  # API REST
+       # path('accounts/', include('allauth.urls')),
    ]
 
 if settings.DEBUG:

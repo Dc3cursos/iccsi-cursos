@@ -1,10 +1,36 @@
 from django import forms
-from .models import Curso, Empresa
+from .models import Curso, Empresa, Pago
 
 class CursoForm(forms.ModelForm):
     class Meta:
         model = Curso
         fields = ['nombre', 'descripcion', 'duracion_horas', 'organizacion', 'imagen', 'video']
+        widgets = {
+            'nombre': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nombre del curso'
+            }),
+            'descripcion': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Descripción detallada del curso'
+            }),
+            'duracion_horas': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Horas de duración'
+            }),
+            'organizacion': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'imagen': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/*'
+            }),
+            'video': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': 'video/*'
+            })
+        }
 
 class DC3GenerateForm(forms.Form):
     # Información del trabajador
@@ -180,3 +206,21 @@ class DC3GenerateForm(forms.Form):
             if isinstance(val, str):
                 cleaned_data[field_name] = val.upper().strip()
         return cleaned_data
+
+
+class PagoForm(forms.ModelForm):
+    """Formulario para procesar pagos"""
+    class Meta:
+        model = Pago
+        fields = ['metodo_pago']
+        widgets = {
+            'metodo_pago': forms.Select(attrs={
+                'class': 'form-select',
+                'id': 'metodo_pago'
+            })
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['metodo_pago'].label = 'Método de Pago'
+        self.fields['metodo_pago'].help_text = 'Selecciona tu método de pago preferido'

@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reportar Falsificación - ICCSI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-danger text-white text-center py-4">
+                    <h1 class="h2 mb-0">
+                        <i class="fas fa-exclamation-triangle me-3"></i>
+                        Reportar Falsificación de Certificado DC-3
+                    </h1>
+                    <p class="mb-0 mt-2 opacity-75">Ayúdanos a mantener la integridad de nuestros certificados</p>
+                </div>
+                
+                <div class="card-body p-5">
+                    <div class="alert alert-danger">
+                        <h5 class="alert-heading">
+                            <i class="fas fa-shield-alt me-2"></i>
+                            ADVERTENCIA LEGAL
+                        </h5>
+                        <p class="mb-0">La falsificación de certificados DC-3 es un delito federal grave. ICCSI colabora activamente con autoridades para perseguir legalmente a los falsificadores.</p>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-gavel me-2"></i>
+                                        Delitos Penales
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small">
+                                        <li><strong>Falsificación:</strong> 3-8 años de prisión</li>
+                                        <li><strong>Uso de falsos:</strong> 2-6 años de prisión</li>
+                                        <li><strong>Fraude:</strong> 5-12 años de prisión</li>
+                                        <li><strong>Multas:</strong> Hasta 500,000 UMA</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-gift me-2"></i>
+                                        Recompensa por Información
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small">
+                                        <li><strong>Información válida:</strong> Hasta $50,000 MXN</li>
+                                        <li><strong>Evidencia documentada:</strong> Hasta $25,000 MXN</li>
+                                        <li><strong>Denuncia anónima:</strong> Protección garantizada</li>
+                                        <li><strong>Confidencialidad:</strong> Total</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre_denunciante" class="form-label">Nombre del Denunciante *</label>
+                                <input type="text" class="form-control" id="nombre_denunciante" name="nombre_denunciante" required>
+                                <div class="invalid-feedback">
+                                    Por favor proporciona tu nombre.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email_denunciante" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email_denunciante" name="email_denunciante" required>
+                                <div class="invalid-feedback">
+                                    Por favor proporciona un email válido.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tipo_denuncia" class="form-label">Tipo de Denuncia *</label>
+                                <select class="form-select" id="tipo_denuncia" name="tipo_denuncia" required>
+                                    <option value="">Selecciona el tipo</option>
+                                    <option value="falsificacion">Certificado Falsificado</option>
+                                    <option value="alteracion">Certificado Alterado</option>
+                                    <option value="uso_fraudulento">Uso Fraudulento</option>
+                                    <option value="venta_ilegal">Venta Ilegal</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor selecciona el tipo de denuncia.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción Detallada *</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required 
+                                      placeholder="Describe detalladamente lo que observaste, incluyendo fechas, lugares, personas involucradas, etc."></textarea>
+                            <div class="invalid-feedback">
+                                Por favor proporciona una descripción detallada.
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="folio_certificado" class="form-label">Folio del Certificado (si conoces)</label>
+                                <input type="text" class="form-control" id="folio_certificado" name="folio_certificado" 
+                                       placeholder="Ej: DC3-2024-001234">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="codigo_verificacion" class="form-label">Código de Verificación (si conoces)</label>
+                                <input type="text" class="form-control" id="codigo_verificacion" name="codigo_verificacion" 
+                                       placeholder="Ej: ABC123456789">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="evidencia" class="form-label">Evidencia (Opcional)</label>
+                            <input type="file" class="form-control" id="evidencia" name="evidencia" 
+                                   accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                            <div class="form-text">
+                                Puedes subir fotos del certificado, documentos, o cualquier evidencia relevante. Formatos: PDF, JPG, PNG, DOC.
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="ubicacion" class="form-label">Ubicación del Incidente</label>
+                                <input type="text" class="form-control" id="ubicacion" name="ubicacion" 
+                                       placeholder="Ciudad, Estado, o lugar específico">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fecha_incidente" class="form-label">Fecha del Incidente</label>
+                                <input type="date" class="form-control" id="fecha_incidente" name="fecha_incidente">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="denuncia_anonima" name="denuncia_anonima">
+                                <label class="form-check-label" for="denuncia_anonima">
+                                    <strong>Denuncia Anónima</strong> - Mi información será confidencial
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="acepto_terminos" name="acepto_terminos" required>
+                                <label class="form-check-label" for="acepto_terminos">
+                                    Acepto que la información proporcionada es veraz y autorizo a ICCSI a usar esta información para fines legales *
+                                </label>
+                                <div class="invalid-feedback">
+                                    Debes aceptar los términos para continuar.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-info-circle me-2"></i>
+                                ¿Qué pasa después?
+                            </h6>
+                            <ul class="mb-0 small">
+                                <li>Recibirás confirmación por email en 24 horas</li>
+                                <li>Nuestro equipo legal evaluará la denuncia</li>
+                                <li>Si es válida, procederemos con acciones legales</li>
+                                <li>Mantendremos tu confidencialidad</li>
+                                <li>Te informaremos sobre el progreso del caso</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                Enviar Denuncia
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Validación del formulario
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Confirmación antes de enviar
+document.querySelector('form').addEventListener('submit', function(e) {
+    if (!confirm('¿Estás seguro de que quieres enviar esta denuncia? La información será revisada por nuestro equipo legal.')) {
+        e.preventDefault();
+    }
+});
+</script>
+{% endblock %}
